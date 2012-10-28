@@ -1,0 +1,13 @@
+.friend {
+	background-color:#E6F0E6; 
+	padding-right:100px; 	
+}
+
+.notFriend {
+	background-color:#FFFFE6;
+}
+
+body {
+	font-family:"Arial", Times, serif;
+}
+

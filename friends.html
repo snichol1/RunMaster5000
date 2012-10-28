@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>
+
+var words = ""; 
+var cars=new Array();
+cars[0]="Sadie";
+cars[1]="Jackie";
+cars[2]="Sally";
+
+for (var i = 0; i < cars.length; i++) {
+	console.log(cars[i]); 
+	words += "<div id=" + i + "> " + cars[i] + "</div> \n"; 
+}
+
+function displayDate()
+{
+	document.getElementById("friends").innerHTML=words; 
+}
+</script>
+</head>
+<body>
+
+<h1>Friends</h1>
+
+<form name="input" action="html_form_action.asp" method="get">
+Search: <input type="text" name="user">
+<p> <input type="submit" value="Add Friend"> <input type="submit" value="Requests"></p> 
+</form>
+
+<div class = "friend"> 
+<form name="input" action="html_form_action.asp" method="get">
+<input type="submit" value="x">
+Sarah &nbsp; &nbsp; Lag Loop <input type="hidden" name="user">
+</form>
+</div> 
+
+<div class = "notFriend"> 
+<form name="input" action="html_form_action.asp" method="get">
+Stephanie &nbsp; <input type="hidden" name="user">
+<input type="submit" value="Add Friend">
+</form>
+</div> 
+
+
+<p> &nbsp; </p> 
+
+
+<a href="home.html">Home</a>
+
+</body>
+</html> 
