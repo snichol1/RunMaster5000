@@ -1,0 +1,105 @@
+CONNECTION
+<?php
+$host = "mysql-user-master.stanford.edu";
+$user = "ccs147thesam";
+$pass = "biechaid";
+$mysql_database = "c_cs147_thesam";
+
+$link = mysql_connect($host, $user, $pass);
+if (!$link) {
+    die('Not connected : ' . mysql_error());
+}
+
+// Connect to the database
+$db_selected = mysql_select_db($mysql_database, $link);
+if (!$db_selected) {
+    die ('Can\'t use to connect to database : ' . mysql_error());
+}
+?>
+
+
+insert into Users(1, 'Alice', '1234');
+insert into Users(2, 'Bob', '23456');
+insert into Users(3, 'Chuck', '45');
+
+Password check:
+select * from Users where Name='Alice' and Password='asdf2345';
+
+Get UserID
+select UserID from Users where Name='' and Password=''
+
+Favorites:
+select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty
+from Favorites, Routes
+where Favorites.RouteID = Routes.RouteID and Favorites.UserID='';
+
+SEARCH
+select *
+from Routes
+where Distance > minimumDistance and Distance < maximumDistance and Difficulty > minimumDiff and Difficulty > maxDiff and Popularity=populartiy;
+//do something about name and location...maybe client-side
+
+ROUTES
+select * from Routes where RouteID='';
+//get general route information
+
+
+Add to favorites:
+insert into Favorites(user ID, route ID);
+
+Leaderboard:
+select UserID, min(Time), Date
+from Records 
+where RouteID='' 
+group by UserID
+orderby Time;
+//selects each user's best time for a given route
+
+GOALS
+select * from Goals
+where UserID = and Met = 0
+//remove the Met = 0 if you want goals that have been met, too
+
+FRIENDS
+select * from Friends where ID1 = 
+//There are two tuples for every friend Pair. ie, (AliceID, BobID) and
+(BobID, AliceID) BOTH need to be in the table.
+
+FRIEND REQUESTS
+select * from FriendRequests where ToID=
+//or substitute FromID= for ToID= if you want to get pending
+friend requests that a user has sent.
+
+POPULARITY
+select AVG(Rating) from Popularity where RouteID=
+//get the average rating for a route
+
+CHALLENGES
+select * from Challenge where UserID=
+//add AntagonistID= to the where clause to filter by who sent the challenge;
+//similarly, toggle met=0/met=1 for whether or not the challenge has been met
+
+BREADCRUMBS
+select * from BreadCrumbs where RouteID=
+//out latlng objects for drawing on the map
+
+RECORDS
+select * from Records where RouteID= UserID=
+//get all of a user's records for a given route
+
+select max(Time), Date
+from Records
+where RouteID= and UserID=
+//get a user's best time for a given route
+
+Lag Loop (1)
+Alice: 7:11
+Bob: 7:45
+Chuck 4:03
+
+Campus Dr (2)
+Chuck: 20:32
+
+Palm Dr Loop (3)
+Chuck: 5:00
+Bob: 6:11
