@@ -1,29 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="style.css">
-<link rel="stylesheet" type="text/css" href="searchstyle.css">
+	<title>Search</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/	jquery.mobile-1.2.0.min.css" />
+	
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script type="text/javascript" src="js/rangeslider.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="searchstyle.css">
+	
 </head>
 <body>
 
-<h1>Search</h1>
+<div data-role="header">
+	<h1>Route Search</h1>
+	<a href="home.php" data-icon="back">Home</a>
+</div><!-- /header -->
+	
+<div data-role="content">	
 
-<div id="location" class="searchlabel">Location:</div>
-<input type="locationfield" size="25" value="Enter city or zip">
+<form action="searchresults.php" id="searchform" method="post">
+	
+	<div data-role="fieldcontain">
+	    <label for="name">Location:</label> <br>
+	    <input type="text" name="location" id="location" value=""  />
+	</div>	
+	
+	<div data-role="fieldcontain">
+	    <label for="name">Route Name:</label> <br>
+	    <input type="text" name="name" id="location" value="optional"  />
+	</div>	
+	
+	
+	<!---- Slider distance selectors, commented out!
+	<div data-role="fieldcontain">
+		<label for="slider">Minimum Distance (mi):</label> <br>
+	 	<input type="range" name="slider" id="slider" value="0" min="0" max="30"  />
+	</div> 
+	
+	<div data-role="fieldcontain">
+		<label for="slider">Maximum Distance (mi):</label> <br>
+	 	<input type="range" name="slider" id="slider" value="30" min="0" max="30"  />
+	</div> ---->
+	
 
-<div id="routename" class="searchlabel">Route Name:</div>
-<input type="locationfield" size="25" value="(optional)">
+	
+	<!--- Distance Selector ---->
+	<div data-role="content">
+	    <div id="distanceselector" data-role="fieldcontain">
+	        <fieldset data-role="controlgroup" data-type="horizontal">
+	            <legend>
+	                Specify Route Distance:
+	            </legend>
+	            <input id="checkbox1" value="shortdist" name="shortdist" type="checkbox" checked="yes"/>
+	            <label for="checkbox1">
+	                Short
+	                <div class="distspecify"> 0 - 2 mi</div>
+	            </label>
+	            <input id="checkbox2" value="mediumdist" name="mediumdist" type="checkbox" checked="yes"/>
+	            <label for="checkbox2">
+	                Medium
+	                <div class="distspecify">2 - 5 mi</div>
+	            </label>
+	            <input id="checkbox3" value="longdist" name="longdist" type="checkbox" checked="yes"/>
+	            <label for="checkbox3">
+	                Long
+	                <div class="distspecify">5+ mi</div>
+	            </label>
+	        </fieldset>
+	    </div>
+	</div>
+	
+	
+	<!---- Difficulty Selector ----->
+	<div data-role="content">
+	    <div id="difficultyselector" data-role="fieldcontain">
+	        <fieldset data-role="controlgroup" data-type="horizontal">
+	            <legend>
+	                Difficulty:
+	            </legend>
+	            <input id="easydiff" name="easydiff" type="checkbox" checked="yes"/>
+	            <label for="easydiff">
+	                Easy
+	            </label>
+	            <input id="mediumdiff" name="mediumdiff" type="checkbox" checked="yes"/>
+	            <label for="mediumdiff">
+	                Medium
+	            </label>
+	            <input id="harddiff" name="harddiff" type="checkbox" checked="yes"/>
+	            <label for="harddiff">
+	                Hard
+	            </label>
+	        </fieldset>
+	    </div>
+	</div>
+	
+	
+	
+	<br>
+	<input type="submit" name="mysubmit" value="Search!" />
+	<br><br>
+	
+</form>
 
-<div id="distmin" class="searchlabel">Distance Minimum (mi):</div>
-<input type="distminfield" size="5" value="No min">
+	
+</div>
 
 
-<div id="distmax" class="searchlabel">Distance Maximum (mi):</div>
-<input type="distmaxfield" size="5" value="No max">
 
-<br>
-<input type="submit" name="mysubmit" value="Submit!" />
-<br><br>
+
+
+
+
 
 <a href="home.html">Home</a>
 
