@@ -35,7 +35,7 @@
 
 			?>
 			</h1>
-			<a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Home</a>
+			<a href="home.php" data-icon="back" data-rel="back">Home</a>
 
 			</div><!-- /header -->
 	
