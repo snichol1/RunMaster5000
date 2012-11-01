@@ -22,7 +22,7 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>My Title</h1>
+		<h1>Add Challenge</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
 
 	</div><!-- /header -->
@@ -30,21 +30,34 @@
 	<div data-role="content">	
 		
 		<?php
-		$userID = $_POST['userID']; 
-		$routeID = $_POST['routeID']; 
-		// This is a hack. You should connect to a database here.
-		echo $userID; 
-		echo $routeID;
 		
-		include("config.php"); 
-		$sql = sprintf("INSERT INTO `c_cs147_thesam`.`Favorites` (`UserID`, `RouteID`) VALUES ('%s', '%s');", $userID, $routeID); 
-		echo $sql; 
-		mysql_query($sql); 
+		$friendID = $_POST['friendList'];
+		$routeID = $_POST['runList'];
+		$time = 0; 
+		$date = 0; 
+		echo $friendID; 
+		echo $routeID; 
+		
+		include("config.php"); 		
+		$query = sprintf("select * from Records where Records.RouteID = '%s' and Records.UserID = '%s'", $routeID, "2"); 
+		$result = mysql_query($query); 
+		while($row = mysql_fetch_array($result)) {
+			$time = $row['Time']; 
+			$date = $row['Date']; 
+		}
+
+		echo $time; 
+		echo $date; 
+		$insertIntoChallenges = sprintf("INSERT INTO `c_cs147_thesam`.`Challenge` (`FromID`, `ToID`, `RouteID`, `Time`, `Date`, `Met`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", "2", $friendID, $routeID, $time, $date, "0"); 
+		echo $insertIntoChallenges; 
+		mysql_query($insertIntoChallenges); 
 		?>
+		
 		<script> 
-				document.location.href = "favorites.php"; 
+			document.location.href = "home.php";
 		</script> 
-				
+		
+
 	</div><!-- /content -->
 
 		

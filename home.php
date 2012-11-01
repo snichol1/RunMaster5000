@@ -27,6 +27,7 @@
 			<li><a href="search.html">Search</a></li>
 			<li><a href="goals.php">Goals</a></li>
 			<li><a href="friends.php">Friends</a></li>
+			<li><a href="newChallenge.php">Challenge a Friend!</a></li>
 		</ul>
 	</div><!-- /content -->
 

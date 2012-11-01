@@ -32,19 +32,21 @@
 		<?php
 		$userID = $_POST['userID']; 
 		$routeID = $_POST['routeID']; 
-		// This is a hack. You should connect to a database here.
+
 		echo $userID; 
 		echo $routeID;
-		
 		include("config.php"); 
-		$sql = sprintf("INSERT INTO `c_cs147_thesam`.`Favorites` (`UserID`, `RouteID`) VALUES ('%s', '%s');", $userID, $routeID); 
-		echo $sql; 
-		mysql_query($sql); 
+		$sql = sprintf("DELETE FROM `c_cs147_thesam`.`Favorites` WHERE `Favorites`.`UserID` = '%s' AND `Favorites`.`RouteID` = '%s' LIMIT 1", $userID, $routeID);  
+		mysql_query($sql);
+		echo $sql;  
+
 		?>
+		
 		<script> 
-				document.location.href = "favorites.php"; 
+				document.location.href = "favorites.php";
 		</script> 
-				
+		
+
 	</div><!-- /content -->
 
 		

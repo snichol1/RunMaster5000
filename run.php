@@ -82,10 +82,33 @@
 				echo "<a href=\"newGoal.php?routeid=".$runNumber."\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
 				
 			?>
-			
-			
             
             </h3> 
+            <?php
+				$runNumber = $_GET['id'];
+				include("config.php");
+
+				$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $runNumber, 2);
+				$result = mysql_query($query);
+				$isFavorite = 0; 
+				
+				while($row = mysql_fetch_array($result))
+		  		{
+		  			$isFavorite = 1; 
+		  		}
+		  		$message = "AddToFavorites"; 
+		  		$action = "addToFavorites.php"; 
+		  		if ($isFavorite == 1) {
+		  			$message = "RemovefromFavorites"; 
+		  			$action = "removeFromFavorites.php"; 
+		  		}
+		  		 echo "<form name=\"input\" action= " . $action . " method=\"post\">"; 
+				 echo "<input type=\"hidden\" name=\"userID\" value = " . "2" .">"; 
+				 echo "<input type=\"hidden\" name=\"routeID\" value = " . $runNumber .">"; 
+				 echo "<input type=\"submit\" value=" . $message .">"; 
+				 echo "</form>"; 
+            ?> 
+
                                     
 			<a class = "run" href="index.html" data-role="button" data-icon="none"  data-iconpos="right">Run!</a>
 
