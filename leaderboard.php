@@ -18,7 +18,7 @@
 
 <div data-role="header">
 	<h1>Leaderboard</h1>
-	<a href="home.php" data-icon="back">Back</a>
+	<a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Home</a>
 </div>
 	
 <div data-role="content">	

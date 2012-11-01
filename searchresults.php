@@ -31,9 +31,9 @@
 	$minDiff = 0;
 	$maxDiff = 100;
 	
-	$short = $_POST['shortdist'];
-	$med = $_POST['mediumdist'];
-	$long = $_POST['longdist'];
+	$short = $_GET['shortdist'];
+	$med = $_GET['mediumdist'];
+	$long = $_GET['longdist'];
 	
 	//Checks to see what elements are selected.
 	if(!(empty($med) && empty($short) && empty($long))){
@@ -55,9 +55,9 @@
 		    $maxDist = 5;
 		}
 		
-		$easy = $_POST['easydiff'];
-		$med2 = $_POST['mediumdiff'];
-		$hard = $_POST['harddiff'];
+		$easy = $_GET['easydiff'];
+		$med2 = $_GET['mediumdiff'];
+		$hard = $_GET['harddiff'];
 		
 		if(empty($easy) && empty($med2)){
 		    $minDiff = 2;
@@ -83,14 +83,14 @@
 	
 	$result = mysql_query($query);
 	
-	$routeName = $_POST['name'];
+	$routeName = $_GET['name'];
 	
 	if($routeName === "optional"){
 		$routeName = "";	
 	}
 	
 	while($row = mysql_fetch_assoc($result)){
-		if($routeName === "" || (stristr($row["Name"], $_POST['name']) !== FALSE)){
+		if($routeName === "" || (stristr($row["Name"], $_GET['name']) !== FALSE)){
 			echo "<div class='routeresult'><span class='nameresult'><a href=\"run.php?id=".$row["RouteID"]."\">".$row["Name"]."</a></span>";
 			echo "<span class='distanceresult'> Dist: ".$row["Distance"]."</span>";
 			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>";
