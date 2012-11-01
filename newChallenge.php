@@ -13,7 +13,8 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Challenge a Friend!</h1>
+		<h1>Challenge</h1>
+		<a href="goals.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
