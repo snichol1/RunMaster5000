@@ -28,28 +28,33 @@
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		
-		<?php
-		// This is a hack. You should connect to a database here.
-		if ($_POST["username"] == "Alice" && $_POST["password"] == "test") {
-			?>
-			<script type="text/javascript">
-				// Save the username in local storage. That way you
-				// can access it later even if the user closes the app.
-				localStorage.setItem('username', '<?=$_POST["username"]?>');
-				localStorage.setItem('userID', '1');
-				document.location.href = "home.php";
-			</script>
-			<?php
-//			echo "<p>Thank you, <strong>".$_POST["username"]."</strong>. You are now logged in.</p>";
-			
-			
-		} else {
-			echo "<p>There seems to have been an error.</p>";
-		}
-			
+	<?php
+	session_start();
+	include("config.php");
 
-		?>
+	$username = mysql_real_escape_string($_POST['Name']);
+	$password = md5(mysql_real_escape_string($_POST['Password']));
+	echo "<p>$password"</p>;
+	if (!isset($username) || !isset($password)) {
+		header("<p>There seems to have been an error.</p>");    
+	}
+
+	elseif (empty($username) || empty($password)) {
+		header("<p>There seems to have been an error.</p>");
+	} else {
+		$result   = mysql_query("select * from Users where Name='$username' AND Password='$password'");
+		$rowCheck = mysql_num_rows($result);
+		if ($rowCheck > 0) {
+			while ($row = mysql_fetch_array($result)) {
+				$_SESSION['id'] = $row['UserID'];  
+			}
+			header("<p>Thank you, <strong>".$_POST["username"]."</strong>. You are now logged in.</p>");     
+		} else {
+			header("<p>Thank you, <strong>".$_POST["username"]."</strong>. You are now logged in.</p>");
+		}
+	}
+	?> 
+
 	</div><!-- /content -->
 
 		

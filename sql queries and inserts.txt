@@ -78,6 +78,9 @@ CHALLENGES
 select * from Challenge where ToID=
 //add AntagonistID= to the where clause to filter by who sent the challenge;
 //similarly, toggle met=0/met=1 for whether or not the challenge has been met
+More verbose:
+select *
+from
 
 BREADCRUMBS
 select * from BreadCrumbs where RouteID=
