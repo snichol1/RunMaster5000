@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>VoteCaster | Submit</title> 
+	<title>Home</title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -28,28 +28,43 @@
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		
-		<?php
-		// This is a hack. You should connect to a database here.
-		if ($_POST["username"] == "Alice" && $_POST["password"] == "test") {
-			?>
-			<script type="text/javascript">
-				// Save the username in local storage. That way you
-				// can access it later even if the user closes the app.
-				localStorage.setItem('username', '<?=$_POST["username"]?>');
-				localStorage.setItem('userID', '1');
-				document.location.href = "home.php";
-			</script>
-			<?php
-//			echo "<p>Thank you, <strong>".$_POST["username"]."</strong>. You are now logged in.</p>";
-			
-			
-		} else {
-			echo "<p>There seems to have been an error.</p>";
-		}
-			
+	<?php
+	//session_start();
+	include("config.php");
 
-		?>
+	$name = mysql_real_escape_string($_POST['name']);
+	$password = mysql_real_escape_string($_POST['password']);
+	echo "<p>".$password."</p>";
+	if (!isset($name) || !isset($password)) {
+		echo "<p>There seems to have been an error.</p>";    
+	}
+
+	elseif (empty($name) || empty($password)) {
+		echo "<p>There seems to have been an error.</p>";
+	} else {
+		$result   = mysql_query("select * from Users where Name='$name' AND Password='$password'");
+		$rowCheck = mysql_num_rows($result);
+		if ($rowCheck > 0) {
+			while ($row = mysql_fetch_array($result)) {
+				$id = $row['UserID'];
+				$name = $row['Name'];
+				
+			}
+			$url = "home.php?id=" . $id . "&name=" . $name;
+			echo "<p>URL:".$url."</p>";
+			//echo"<p>Thank you, <strong>".$_POST["name"]."</strong>. You are now logged in.</p>";
+			//echo "<p>UserID: ".$_SESSION['id']."</p>";
+				echo("<script>
+				<!--
+				location.replace(\"$url\");
+				-->
+				</script>");
+		} else {
+			echo "<p>Hmm. Something's not right; try again?</p>";
+		}
+	}
+	?> 
+
 	</div><!-- /content -->
 
 		

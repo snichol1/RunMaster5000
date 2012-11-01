@@ -7,17 +7,17 @@
 	
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-	<script type="text/javascript" src="js/rangeslider.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="searchstyle.css">
+	
 </head>
 <body>
 
 <!-- /header -->
 <div data-role="header">
 	<h1>Results</h1>
-	<a href="search.html" data-icon="back">Search</a>
+	<a href="search.html" data-icon="back" data-rel="back" data-add-back-btn="true">Search</a>
 </div>
 	
 <!--- Where all the main content goes! --->
@@ -25,34 +25,20 @@
 	
 <?php
 	include("config.php");
-	
-	
-	function IsChecked($chkname,$value) {
-        if(!empty($_POST[$chkname])) {
-            foreach($_POST[$chkname] as $chkval){
-                if($chkval == $value)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
-	
 	$minDist = 0;
 	$maxDist = 100;
 	$minDiff = 0;
 	$maxDiff = 100;
 	
-	$short = $_POST['shortdist'];
-	$med = $_POST['mediumdist'];
-	$long = $_POST['longdist'];
+	$short = $_GET['shortdist'];
+	$med = $_GET['mediumdist'];
+	$long = $_GET['longdist'];
 	
-	
+	//Checks to see what elements are selected.
 	if(!(empty($med) && empty($short) && empty($long))){
 		if(empty($med) && empty($short)){
-		    echo("no med, short.");
+		    //echo("no med, short.");
 		    $minDist = 5;
 		}
 		else if(empty($short)){
@@ -69,56 +55,46 @@
 		    $maxDist = 5;
 		}
 		
-		$easy = $_POST['easydiff'];
-		$med2 = $_POST['mediumdiff'];
-		$hard = $_POST['longdiff'];
+		$easy = $_GET['easydiff'];
+		$med2 = $_GET['mediumdiff'];
+		$hard = $_GET['harddiff'];
 		
 		if(empty($easy) && empty($med2)){
-			echo("1!");
 		    $minDiff = 2;
 		}
 		else if(empty($easy)){
-			echo("2!");
 		    $minDiff = 1;
 		}
 	
 		if(empty($med2) && empty($hard)){
-			echo("3!");
 		    $maxDiff = 2;
 		}
 		else if(empty($hard)){
-			echo("4!");
 		    $maxDiff = 3;
 		}
-	else{
-		//Throw Error
+		else{
+			//Handle situation where none are chosen. Now just defaults to
+			//acting the same if everything was chosen.
+		}
 	}
-	}
 
-	
-
-	
-	if($_POST['shortdist'] == 'Yes'){
-   		$minDist = 2;
-   		
-   		//echo "<p>min: ".$minimumDistance."</p>";
-
-   	}
-
-	echo "<p>minDiff: ".$minDiff."</p>";
-	echo "<p>maxDiff: ".$maxDiff."</p>";
-
-
-	//$minimumDisatnce = $_POST[""]
 	
 	$query = "SELECT * FROM Routes WHERE Distance > ".$minDist." and Distance < ".$maxDist." and Difficulty > ".$minDiff." and Difficulty < ".$maxDiff;
 	
 	$result = mysql_query($query);
 	
+	$routeName = $_GET['name'];
+	
+	if($routeName === "optional"){
+		$routeName = "";	
+	}
+	
 	while($row = mysql_fetch_assoc($result)){
-		echo "<div class='routeresult'><span id='name'> ".$row["Name"]."</span>";
-		echo "<span id='distance'> ".$row["Distance"]."</span>";
-		echo "<span id='difficulty'> ".$row["Difficulty"]."</span></div>";
+		if($routeName === "" || (stristr($row["Name"], $_GET['name']) !== FALSE)){
+			echo "<div class='routeresult'><span class='nameresult'><a href=\"run.php?id=".$row["RouteID"]."\">".$row["Name"]."</a></span>";
+			echo "<span class='distanceresult'> Dist: ".$row["Distance"]."</span>";
+			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>";
+		}
 	}
 	
 ?>

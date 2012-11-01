@@ -36,7 +36,7 @@ where Favorites.RouteID = Routes.RouteID and Favorites.UserID='';
 SEARCH
 select *
 from Routes
-where Distance > minimumDistance and Distance < maximumDistance and Difficulty > minimumDiff and Difficulty > maxDiff and Popularity=populartiy;
+where Distance > minimumDistance and Distance < maximumDistance and Difficulty > minimumDiff and Difficulty > maxDiff and Popularity=popularity;
 //do something about name and location...maybe client-side
 
 ROUTES
@@ -52,7 +52,7 @@ select UserID, min(Time), Date
 from Records 
 where RouteID='' 
 group by UserID
-orderby Time;
+order by Time;
 //selects each user's best time for a given route
 
 GOALS
@@ -78,9 +78,12 @@ select AVG(Rating) from Popularity where RouteID=
 //get the average rating for a route
 
 CHALLENGES
-select * from Challenge where UserID=
+select * from Challenge where ToID=
 //add AntagonistID= to the where clause to filter by who sent the challenge;
 //similarly, toggle met=0/met=1 for whether or not the challenge has been met
+More verbose:
+select *
+from
 
 BREADCRUMBS
 select * from BreadCrumbs where RouteID=
@@ -94,6 +97,9 @@ select max(Time), Date
 from Records
 where RouteID= and UserID=
 //get a user's best time for a given route
+
+
+
 
 Lag Loop (1)
 Alice: 7:11
