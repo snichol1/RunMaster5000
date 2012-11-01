@@ -17,7 +17,7 @@
         <script src="my.js">
         </script>
     </head>
-    <body>
+    <body onload="initialize()">
         <!-- Home -->
         <div data-role="page" id="page1">
             <div data-role="header">
@@ -40,7 +40,20 @@
 			</div><!-- /header -->
 	
             <div data-role="content">
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Madison, WI&amp;zoom=14&amp;size=288x200&amp;markers=Madison, WI&amp;sensor=false" width="288" height="200" />
+                
+				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
+				<div id="mapcanvas" style="height:288px;width:300px"></div>
+				<script type="text/javascript">
+					function initialize() {
+						var mapOptions = {
+							center: new google.maps.LatLng(-34.397, 150.644),
+							zoom: 8,
+							mapTypeId: google.maps.MapTypeId.ROADMAP
+						};
+						var map = new google.maps.Map(document.getElementById("mapcanvas"),
+							mapOptions);
+					}
+				</script>
             </div>
             
             <h3 id = "distance">
