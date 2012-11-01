@@ -17,7 +17,9 @@
 
 	<div data-role="content">	
 		<?php
-			echo"<p>Welcome, ".$_SESSION['id']."</p>";
+			$userID = $_GET['id'];
+			$name = $_GET['name'];
+			echo"<p>Welcome, ".$name."</p>";
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
 			<li><a href="nearby.html">Nearby Runs</a></li>

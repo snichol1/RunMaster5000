@@ -46,13 +46,17 @@
 		$rowCheck = mysql_num_rows($result);
 		if ($rowCheck > 0) {
 			while ($row = mysql_fetch_array($result)) {
-				$_SESSION['id'] = $row['UserID'];  
+				$id = $row['UserID'];
+				$name = $row['Name'];
+				
 			}
+			$url = "home.php?id=" . $id . "&name=" . $name;
+			echo "<p>URL:".$url."</p>";
 			//echo"<p>Thank you, <strong>".$_POST["name"]."</strong>. You are now logged in.</p>";
 			//echo "<p>UserID: ".$_SESSION['id']."</p>";
-			echo("<script>
+				echo("<script>
 				<!--
-				location.replace(\"home.php\");
+				location.replace(\"$url\");
 				-->
 				</script>");
 		} else {
