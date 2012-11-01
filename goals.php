@@ -9,7 +9,7 @@
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 	
 	
-	</style> 
+	
 
 </head> 
 <body> 
@@ -148,7 +148,7 @@
 
 		</form>
 
-		
+		<a href="newChallenge.php">Challenge a Friend!</a>
 	</div><!-- /content -->
 
 </div><!-- /page -->
