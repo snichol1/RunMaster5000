@@ -2,12 +2,12 @@
 <html>
 <head>
 	<title>Search</title> 
+	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/	jquery.mobile-1.2.0.min.css" />
 	
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-	<script type="text/javascript" src="js/rangeslider.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="searchstyle.css">
@@ -23,15 +23,15 @@
 <div data-role="content">	
 
 <form action="searchresults.php" id="searchform" method="post">
-	
+	<!--- Location Entry
 	<div data-role="fieldcontain">
-	    <label for="name">Location:</label> <br>
+	    <label for="name">Location:</label>
 	    <input type="text" name="location" id="location" value=""  />
-	</div>	
+	</div>	---->
 	
 	<div data-role="fieldcontain">
-	    <label for="name">Route Name:</label> <br>
-	    <input type="text" name="name" id="location" value="optional"  />
+	    <label for="name">Route Name:</label>
+	    <input type="text" name="name" id="name" value="optional"  />
 	</div>	
 	
 	
@@ -49,7 +49,6 @@
 
 	
 	<!--- Distance Selector ---->
-	<div data-role="content">
 	    <div id="distanceselector" data-role="fieldcontain">
 	        <fieldset data-role="controlgroup" data-type="horizontal">
 	            <legend>
@@ -71,12 +70,10 @@
 	                <div class="distspecify">5+ mi</div>
 	            </label>
 	        </fieldset>
-	    </div>
-	</div>
+		</div>
 	
 	
 	<!---- Difficulty Selector ----->
-	<div data-role="content">
 	    <div id="difficultyselector" data-role="fieldcontain">
 	        <fieldset data-role="controlgroup" data-type="horizontal">
 	            <legend>
@@ -95,28 +92,11 @@
 	                Hard
 	            </label>
 	        </fieldset>
-	    </div>
-	</div>
-	
-	
-	
 	<br>
 	<input type="submit" name="mysubmit" value="Search!" />
-	<br><br>
 	
 </form>
-
-	
 </div>
-
-
-
-
-
-
-
-
-<a href="home.html">Home</a>
 
 </body>
 </html> 
