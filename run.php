@@ -17,7 +17,7 @@
         <script src="my.js">
         </script>
     </head>
-    <body onload="initialize()">
+    <body>
         <!-- Home -->
         <div data-role="page" id="page1">
             <div data-role="header">
@@ -46,7 +46,11 @@
 				<script type="text/javascript">
 					function initialize() {
 						var mapOptions = {
-							center: new google.maps.LatLng(-34.397, 150.644),
+							var lat = google.loader.ClientLocation.latitude;
+							console.log(lat);
+							var long = google.loader.ClientLocation.longitude;
+							console.log(long);
+							center: new google.maps.LatLng(lat, long),
 							zoom: 8,
 							mapTypeId: google.maps.MapTypeId.ROADMAP
 						};
