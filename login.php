@@ -19,7 +19,7 @@
 		
 		<form action="enter.php" method="post">
 		<label for="foo">Username:</label>
-		<input type="text" name="username" id="foo">
+		<input type="text" name="name" id="foo">
 		<label for="bar">Password:</label>
 		<input type="password" name="password" id="bar">
 	    <input type="submit" value="Login">
