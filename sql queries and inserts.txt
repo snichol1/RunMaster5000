@@ -42,7 +42,7 @@ where Distance > minimumDistance and Distance < maximumDistance and Difficulty >
 ROUTES
 select * from Routes where RouteID='';
 //get general route information
-
+"select Routes.RouteID, Routes.Name from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.RouteID = '2' and Friends.isConnected = 'false'"
 
 Add to favorites:
 insert into Favorites(user ID, route ID);
@@ -64,6 +64,9 @@ FRIENDS
 select * from Friends where ID1 = 
 //There are two tuples for every friend Pair. ie, (AliceID, BobID) and
 (BobID, AliceID) BOTH need to be in the table.
+
+"select Users.UserID, Users.Name from Users, Friends where Friends.ID2 = Users.UserID and Friends.ID1 = '2' and Friends.isConnected = 'false'"
+
 
 FRIEND REQUESTS
 select * from FriendRequests where ToID=

@@ -20,8 +20,8 @@
 			<li><a href="nearby.html">Nearby Runs</a></li>
 			<li><a href="favorites.php">Favorite Runs</a></li>
 			<li><a href="search.html">Search</a></li>
-			<li><a href="goals.html">Goals</a></li>
-			<li><a href="friends.html">Friends</a></li>
+			<li><a href="goals.php">Goals</a></li>
+			<li><a href="friends.php">Friends</a></li>
 		</ul>
 	</div><!-- /content -->
 

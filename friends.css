@@ -1,8 +1,6 @@
-.a {
-	background-color:green;	
+td
+{
+padding:10px; 
+color:black;
+text-align:left;
 }
-
-.ui-btn.connected  {
-}​
-
-
