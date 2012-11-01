@@ -39,7 +39,7 @@
 		
 				<?php
 				include("config.php");
-				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '2' and Goals.Met = '0'");
+				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '2' and Goals.Met = '0'");
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
@@ -60,6 +60,21 @@
 			 	 	echo "RUN!"; 
 			  		echo "</a>";
 		  		echo "</td>"; 
+		  		
+		  		echo "<td>"; 
+		  		
+				echo "<a href = \"removeGoal.php?routeID="; 
+			  	echo $row['RouteID'];
+			  	echo "&UserID=";
+			  	echo $row['UserID'];
+			  	echo "&AntagonistID=";
+			  	echo $row['AntagonistID'];
+		  		echo "\"> Remove"; 
+		  		echo "</a>"; 		  		
+		  		
+		  		
+		  		echo "</td>"; 
+		  		
 		  		echo "</tr>"; 
 		  		}
 			?>
