@@ -35,7 +35,7 @@
 
 			?>
 			</h1>
-			<a href="home.php" data-icon="back">Home</a>
+			<a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Home</a>
 
 			</div><!-- /header -->
 	
@@ -60,13 +60,16 @@
 		  			echo $row['Difficulty']; 
 		  			echo " out of 5 </h3>"; 
 		  		}
-
+		  		echo "<a href=\"leaderboard.php?routeid=".$runNumber."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
+		  		
+				echo "<a href=\"newGoal.php?routeid=".$runNumber."\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
+				
 			?>
+			
+			
             
             </h3> 
-            
-            <a href="index.html" data-role="button" data-icon="plus"  data-iconpos="right">Add to Favorites</a>
-            
+                                    
 			<a class = "run" href="index.html" data-role="button" data-icon="none"  data-iconpos="right">Run!</a>
 
         </div>
