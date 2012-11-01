@@ -17,7 +17,7 @@
 <!-- /header -->
 <div data-role="header">
 	<h1>Results</h1>
-	<a href="search.html" data-icon="back">Search</a>
+	<a href="search.html" data-icon="back" data-rel="back" data-add-back-btn="true">Search</a>
 </div>
 	
 <!--- Where all the main content goes! --->
