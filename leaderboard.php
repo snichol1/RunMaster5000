@@ -8,10 +8,8 @@
 	
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-	<script type="text/javascript" src="js/.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="leaderboard.css">
 	
 </head>
 
@@ -31,29 +29,32 @@
 		include("config.php");
 		
 		$userid = 1;
-		$routeid = 1;
+		$routeid = $_GET['routeid'];
 		
-		$query = "select UserID, min(Time), Date from Records where RouteID=".$routeid." group by UserID ordered by Time";
-		
+		$query = "select UserID, min(Time), Date from Records where RouteID=".$routeid." GROUP BY UserID ORDER BY Time";
 		
 		$result = mysql_query($query);
-	
-	$routeName = $_POST['name'];
-	
-	if($routeName === "optional"){
-		$routeName = "";	
-	}
-	
-	while($row = mysql_fetch_assoc($result)){
-		echo "<div class='routeresult'><span class='userID'> ".$row["UserID"]."</span>";
-		echo "<span class='distanceresult'> Dist: ".$row["min(Time)"]."</span>";
-		echo "<span class='difficultyresult'> Diff: ".$row["Date"]."</span></div>";
+			
+		$count = 1;
 		
-		$query2 = "select * from Users where UserID=".$row["UserID"];
-	}
+		
+
+		
+		while($row = mysql_fetch_assoc($result)){
+						//echo "<div class='routeresult'><span class='userID'> ".$row["UserID"]."</span>";
+			$userquery = "SELECT * from Users where UserID=".$row["UserID"];
+			$result2 = mysql_query($userquery);
+			while($row2 = mysql_fetch_assoc($result2)){
+				$userName = $row2["Name"];
+				echo "<div class='routeresult'>".$count.". <span class='userName'> ".$userName."</span>";	
+			}
+			echo "<span class='distanceresult'> Time: ".$row["min(Time)"]."</span>";
+			echo "<span class='difficultyresult'> Date Ran: ".$row["Date"]."</span></div>";
+
+			$count++;
+		}
 	?>
 	</div>
-	
 	
 
 </div>
