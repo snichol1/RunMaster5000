@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>VoteCaster | Submit</title> 
+	<title>Home</title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -29,28 +29,34 @@
 
 	<div data-role="content">	
 	<?php
-	session_start();
+	//session_start();
 	include("config.php");
 
-	$username = mysql_real_escape_string($_POST['Name']);
-	$password = md5(mysql_real_escape_string($_POST['Password']));
-	echo "<p>$password"</p>;
-	if (!isset($username) || !isset($password)) {
-		header("<p>There seems to have been an error.</p>");    
+	$name = mysql_real_escape_string($_POST['name']);
+	$password = mysql_real_escape_string($_POST['password']);
+	echo "<p>".$password."</p>";
+	if (!isset($name) || !isset($password)) {
+		echo "<p>There seems to have been an error.</p>";    
 	}
 
-	elseif (empty($username) || empty($password)) {
-		header("<p>There seems to have been an error.</p>");
+	elseif (empty($name) || empty($password)) {
+		echo "<p>There seems to have been an error.</p>";
 	} else {
-		$result   = mysql_query("select * from Users where Name='$username' AND Password='$password'");
+		$result   = mysql_query("select * from Users where Name='$name' AND Password='$password'");
 		$rowCheck = mysql_num_rows($result);
 		if ($rowCheck > 0) {
 			while ($row = mysql_fetch_array($result)) {
 				$_SESSION['id'] = $row['UserID'];  
 			}
-			header("<p>Thank you, <strong>".$_POST["username"]."</strong>. You are now logged in.</p>");     
+			//echo"<p>Thank you, <strong>".$_POST["name"]."</strong>. You are now logged in.</p>";
+			//echo "<p>UserID: ".$_SESSION['id']."</p>";
+			echo("<script>
+				<!--
+				location.replace(\"home.php\");
+				-->
+				</script>");
 		} else {
-			header("<p>Thank you, <strong>".$_POST["username"]."</strong>. You are now logged in.</p>");
+			echo "<p>Hmm. Something's not right; try again?</p>";
 		}
 	}
 	?> 
