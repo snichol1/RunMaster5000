@@ -22,7 +22,7 @@
 			echo"<p>Welcome, ".$name."</p>";
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
-			<li><a href="nearby.html">Nearby Runs</a></li>
+			<li><a href="nearby.php">Stanford Runs</a></li>
 			<li><a href="favorites.php">Favorite Runs</a></li>
 			<li><a href="search.html">Search</a></li>
 			<li><a href="goals.php">Goals</a></li>
