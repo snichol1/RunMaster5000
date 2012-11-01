@@ -36,7 +36,7 @@ where Favorites.RouteID = Routes.RouteID and Favorites.UserID='';
 SEARCH
 select *
 from Routes
-where Distance > minimumDistance and Distance < maximumDistance and Difficulty > minimumDiff and Difficulty > maxDiff and Popularity=populartiy;
+where Distance > minimumDistance and Distance < maximumDistance and Difficulty > minimumDiff and Difficulty > maxDiff and Popularity=popularity;
 //do something about name and location...maybe client-side
 
 ROUTES
@@ -52,7 +52,7 @@ select UserID, min(Time), Date
 from Records 
 where RouteID='' 
 group by UserID
-orderby Time;
+order by Time;
 //selects each user's best time for a given route
 
 GOALS
