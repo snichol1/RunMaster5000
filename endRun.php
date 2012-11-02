@@ -16,8 +16,9 @@
 		<h1>Run Finished</h1>
 		<a href="home.php" data-icon="home">Back</a>
 	</div><!-- /header -->
-	
-	<a href=\"newChallenge.php" data-role="button" data-icon="" data-iconpos="right">Challenge Friend</a>
+	<h2>Congrats on your run! Keep up the good work.</h2>
+	<a href="newChallenge.php" data-role="button" data-icon="" data-iconpos="right">Challenge a Friend</a>
+	<a href="home.php" data-role="button" data-icon="home" data-iconpos="right">Home</a>
 	
 </div>
 <body>
