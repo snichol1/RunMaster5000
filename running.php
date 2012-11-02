@@ -33,7 +33,7 @@
 	</div><!-- /header -->
 
 	<div data-role="content">	
-
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 	<?php
 		$runNumber = $_GET['routeid'];
@@ -44,31 +44,36 @@
 		$finLng;
 		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $runNumber);
 		$bcresult = mysql_query($bcquery);
-		
+		echo ("
+			<script type=\"text/javascript\">
+			var runCoordinates = [
+		");
 		while($bcrow = mysql_fetch_array($bcresult)) {
 			if($bcrow['isStart'] == 1) {
 				$startLat = $bcrow['lat'];
 				$startLng = $bcrow['lng'];
-				echo("
-					<script type=\"text/javascript\">
-					var startLat=".$startLat.";
-					var startLng=".$startLng.";
-					</script>");
 			}
 			if($bcrow['isFinish'] == 1) {
 				$finLat = $bcrow['lat'];
 				$finLng = $bcrow['lng'];
-				echo("
-					<script type=\"text/javascript\">
-					var finLat=".$finLat.";
-					var finLng=".$finLng.";
-					</script>");
+				echo "new google.maps.LatLng(".$finLat.", ".$finLng.")\n";
+			} else {
+			$currLat = $bcrow['lat'];
+			$currLng = $bcrow['lng'];
+			echo "new google.maps.LatLng(".$currLat.", ".$currLng."),\n";
 			}
 		}
+		echo("
+			];
+			var startLat=".$startLat.";
+			var startLng=".$startLng.";
+			var finLat=".$finLat.";
+			var finLng=".$finLng.";
+			</script>");
 		
 	?>
 	
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
+		
 				
 	<div id="mapcanvas" style="height:288px;width:300px"></div>
 	<script type="text/javascript">
@@ -76,14 +81,7 @@
 			//Build LatLng objects
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
 			var finLatLng = new google.maps.LatLng(finLat, finLng);
-			var runCoordinates = [
-				new google.maps.LatLng(37.424264, -122.176215),
-				new google.maps.LatLng(37.424477,-122.177266),
-				new google.maps.LatLng(37.421844,-122.178157),
-				new google.maps.LatLng(37.420507,-122.176488),
-				new google.maps.LatLng(37.42155,-122.17379),
-				new google.maps.LatLng(37.423148,-122.173999)
-			];
+
 			//Set our map options.
 			var mapOptions = {
 				center: startLatLng,
