@@ -24,7 +24,7 @@
 	<div data-role="header">
 		<h1>My Title</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
-
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -33,17 +33,13 @@
 		$userID = $_POST['userID']; 
 		$routeID = $_POST['routeID']; 
 		// This is a hack. You should connect to a database here.
-		echo $userID; 
-		echo $routeID;
 		
 		include("config.php"); 
 		$sql = sprintf("INSERT INTO `c_cs147_thesam`.`Favorites` (`UserID`, `RouteID`) VALUES ('%s', '%s');", $userID, $routeID); 
 		echo $sql; 
 		mysql_query($sql); 
 		?>
-		<script> 
-				document.location.href = "favorites.php"; 
-		</script> 
+Added to Favorites! 
 				
 	</div><!-- /content -->
 

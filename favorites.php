@@ -16,7 +16,7 @@
 
 	<div data-role="header">
 		<h1>RunMaster 5000</h1>
-		<a href="home.php" data-icon="back">Home</a>
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 
 	</div><!-- /header -->
 

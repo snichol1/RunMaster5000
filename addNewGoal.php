@@ -24,7 +24,7 @@
 	<div data-role="header">
 		<h1>Add To Goals</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
-
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -39,14 +39,11 @@
 	
 		include("config.php"); 
 		$addToGoals = sprintf("INSERT INTO `c_cs147_thesam`.`Goals` (`RouteID`, `UserID`, `AntagonistID`, `Time`, `DateSet`, `Met`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", $routeID, $userID, $userID, $time, $date, $met);
-		echo $addToGoals; 
 		mysql_query($addToGoals); 
 		
-		?>
 		
-		<script> 
-				document.location.href = "goals.php";
-		</script> 
+		?>
+Goal added! 
 
 	</div><!-- /content -->
 

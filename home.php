@@ -20,10 +20,16 @@
 			$userID = $_GET['id'];
 			$name = $_GET['name'];
 
-			echo"<p>Welcome, ".$name."</p>";
+			include("config.php");
+			$query = sprintf("select * from Users where UserID = '%s'", $_GET['id']); 
+				$result = mysql_query($query);
+				while($row = mysql_fetch_array($result))
+		  		{
+					echo "Welcome, " . $row['Name']; 
+		  		}
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
-			<li><a href="nearby.php">Stanford Runs</a></li>
+			<?php echo "<li><a href=\"nearby.php?id=" . $_GET['id'] . "\">Stanford Runs</a></li>" ?>
 			<?php echo "<li><a href=\"favorites.php?id=" . $_GET['id'] . "\">Favorite Runs</a></li>" ?>
 			<li><a href="search.html">Search</a></li>
 			<?php echo "<li><a href=\"goals.php?userID=" . $_GET['id'] . "\">Goals</a></li>" ?>

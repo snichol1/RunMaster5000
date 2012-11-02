@@ -24,7 +24,7 @@
 	<div data-role="header">
 		<h1>Add Challenge</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
-
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -53,10 +53,7 @@
 		mysql_query($insertIntoChallenges); 
 		?>
 		
-		<script> 
-			document.location.href = "home.php";
-		</script> 
-		
+Challenge Sent!		
 
 	</div><!-- /content -->
 

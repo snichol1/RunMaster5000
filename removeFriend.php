@@ -24,6 +24,7 @@
 	<div data-role="header">
 		<h1>Remove Friend</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 
 	</div><!-- /header -->
 
@@ -33,12 +34,11 @@
 		$name = $_POST["username"]; 
 		$id = $_GET["userID"];
 		$friendID = $_POST['friendID']; 
-		echo $id; 
-		echo $friendID; 
+
 		include("config.php"); 
 		$query = sprintf("update Friends set isConnected = 'false' where ID1 = '%s' and ID2 = '%s'", $id, $friendID); 
 		mysql_query($query); 
-		echo "<a href=\"friends.php\" data-icon=\"back\" data-rel=\"back\" data-add-back-btn=\"true\">Back to Friends</a>"; 
+		echo "Friend Removed!"; 
 		?>
 		
 		<script> 

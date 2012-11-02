@@ -24,7 +24,7 @@
 	<div data-role="header">
 		<h1>My Title</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
-
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -33,8 +33,6 @@
 		$userID = $_POST['userID']; 
 		$routeID = $_POST['routeID']; 
 
-		echo $userID; 
-		echo $routeID;
 		include("config.php"); 
 		$sql = sprintf("DELETE FROM `c_cs147_thesam`.`Favorites` WHERE `Favorites`.`UserID` = '%s' AND `Favorites`.`RouteID` = '%s' LIMIT 1", $userID, $routeID);  
 		mysql_query($sql);
@@ -43,7 +41,7 @@
 		?>
 		
 		<script> 
-				document.location.href = "favorites.php";
+		Removed from Favorites! 
 		</script> 
 		
 

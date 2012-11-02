@@ -15,6 +15,7 @@
 
 	<div data-role="header">
 		<h1>Add New Goal</h1>
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	

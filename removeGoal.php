@@ -24,7 +24,7 @@
 	<div data-role="header">
 		<h1>Add To Goals</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
-
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -39,12 +39,7 @@
 		$userID = $_GET['UserID'];
 		$antagonistID = $_GET['AntagonistID'];
 		
-		echo $routeID;
-		echo $userID; 
-		echo $time; 
-		echo $date; 
-		echo $antagonistID; 
-		echo $met; 
+
 		include("config.php"); 
 		$addToGoals = sprintf("DELETE FROM `c_cs147_thesam`.`Goals` WHERE `Goals`.`RouteID` = '%s' AND `Goals`.`UserID` = '%s' AND `Goals`.`AntagonistID` = '%s'", $routeID, "2", $antagonistID);
 
@@ -54,10 +49,7 @@
 		
 		?>
 		
-		<script> 
-				document.location.href = "goals.php";
-		</script> 
-
+	Goal removed! 
 	</div><!-- /content -->
 
 		

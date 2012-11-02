@@ -30,7 +30,7 @@
 	$result = mysql_query($query);
 	
 	while($row = mysql_fetch_assoc($result)){
-			echo "<div class='routeresult'><span class='nameresult'><a href=\"run.php?id=".$row["RouteID"]."\">".$row["Name"]."</a></span>";
+			echo "<div class='routeresult'><span class='nameresult'><a href=\"run.php?id=".$row["RouteID"]."&userID=" . $_GET['id'] . "\">".$row["Name"]."</a></span>";
 			echo "<span class='distanceresult'> Dist: ".$row["Distance"]."</span>";
 			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>";
 	}

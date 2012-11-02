@@ -18,7 +18,7 @@
 
 	<div data-role="header">
 		<h1>Goals</h1>
-		<a href="home.php" data-icon="back">Home</a>
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 
 	</div><!-- /header -->
 
@@ -39,7 +39,7 @@
 		
 				<?php
 				include("config.php");
-				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '2' and Goals.Met = '0'");
+				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '%s' and Goals.Met = '0'", $_GET['userID']);
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
@@ -86,7 +86,7 @@
 			<table> 
 				<?php
 				include("config.php");
-				$query = "select * from Challenge where Challenge.ToID = '2'"; 
+				$query = sprintf("select * from Challenge where Challenge.ToID = '%s'", $_GET['userID']); 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
@@ -102,7 +102,7 @@
 		  		echo "<td>"; 
 		  		echo $nameRow['Name']; 
 		  		echo "  beat your best time on " . $routeRow['Name']; 
-				echo "</td>"; 
+				echo "<br></td>"; 
 		  		echo "<td>"; 
 		  		$name = $row['Name']; 
 		  		
