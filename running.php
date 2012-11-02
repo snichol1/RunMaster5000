@@ -78,6 +78,32 @@
 				
 	<div id="mapcanvas" style="height:288px;width:300px"></div>
 	<script type="text/javascript">
+			//And our timer code:
+			var start = new Date().getTime();
+			var elapsed = '0.0';
+			var is_on = 1;
+			var t;
+			
+			function runTimer() {
+			var currTime = new Date().getTime() - start;
+			elapsed = Math.floor(currTime / 100) / 10; 
+			if(Math.round(elapsed) == elapsed) { elapsed += '.0'; } 
+			document.getElementById('yourTime').value=elapsed;
+			t=setTimeout("runTimer()",50);
+			};
+			
+			function pauseTimer() {
+				clearTimeout(t);
+				is_on = 0;
+			}
+			
+			function resumeTimer() {
+				if(!is_on) {
+					is_on = 1;
+					runTimer();
+				}
+			}
+	
 		$(document).ready(function() {
 			//Build LatLng objects
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
@@ -111,24 +137,31 @@
 			finMarker.setMap(map);
 			runPath.setMap(map);
 			
+
+			
+			runTimer();
 		});
+		
+
 		
 		$(function() {
 			$("#pause").click(function() {
 				$(this).hide();
 				$("#resume").show();
 				$("#end").show();
+				pauseTimer();
 			});
 			$("#resume").click(function() {
 				$("#pause").show();
 				$("#resume").hide();
 				$("#end").hide();
+				resumeTimer();
 			});
 		});
 	</script>
 	
 	<?php
-		echo "<p>Your Time: </p>";
+		echo "<p>Your Time: <input type=\"text\" id=\"yourTime\" /></p>";
 		echo "<p>Goal Time: </p>";
 	?>
 	<div class="running" id="runningBlock">
