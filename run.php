@@ -40,47 +40,85 @@
 			</div><!-- /header -->
 	
             <div data-role="content">
-                <?php
-					$runNumber = $_GET['id'];
-					include("config.php");
-					$startLat;
-					$startLng;
-					$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s'", $runNumber);
-					$bcresult = mysql_query($bcquery);
-					while($bcrow = mysql_fetch_array($bcresult)) {
-						$startLat = $bcrow['lat'];
-						$startLng = $bcrow['lng'];
-				}
-				?>
-				
-				<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
-				
-				<div id="mapcanvas" style="height:288px;width:300px"></div>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
-				<?php echo("
-					<script type=\"text/javascript\">
-					var startLat=".$startLat.";
-					var startLng=".$startLng.";
-					</script>");
-				?>
-				<script type="text/javascript">
-					$(document).ready(function() {
-						var myLatLng = new google.maps.LatLng(startLat, startLng);
+	<?php
+		$runNumber = $_GET['id'];
+		include("config.php");
+		$startLat;
+		$startLng;
+		$finLat;
+		$finLng;
+		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $runNumber);
+		$bcresult = mysql_query($bcquery);
+		echo ("
+			<script type=\"text/javascript\">
+			var runCoordinates = [
+		");
+		while($bcrow = mysql_fetch_array($bcresult)) {
+			if($bcrow['isStart'] == 1) {
+				$startLat = $bcrow['lat'];
+				$startLng = $bcrow['lng'];
+			}
+			if($bcrow['isFinish'] == 1) {
+				$finLat = $bcrow['lat'];
+				$finLng = $bcrow['lng'];
+				echo "new google.maps.LatLng(".$finLat.", ".$finLng.")\n";
+			} else {
+			$currLat = $bcrow['lat'];
+			$currLng = $bcrow['lng'];
+			echo "new google.maps.LatLng(".$currLat.", ".$currLng."),\n";
+			}
+		}
+		echo("
+			];
+			var startLat=".$startLat.";
+			var startLng=".$startLng.";
+			var finLat=".$finLat.";
+			var finLng=".$finLng.";
+			</script>");
+		
+	?>
+	
+		
+				
+	<div id="mapcanvas" style="height:288px;width:300px"></div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//Build LatLng objects
+			var startLatLng = new google.maps.LatLng(startLat, startLng);
+			var finLatLng = new google.maps.LatLng(finLat, finLng);
+
+			//Set our map options.
+			var mapOptions = {
+				center: startLatLng,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			//Create Markers and Path for the start end ending points.
+			var map = new google.maps.Map(document.getElementById("mapcanvas"),
+				mapOptions);
+			var startMarker = new google.maps.Marker({
+				position: startLatLng,
+				title: "Start"
+			});
+			var finMarker = new google.maps.Marker({
+				position: finLatLng,
+				title: "Finish"
+			});
+			var runPath = new google.maps.Polyline({
+				path: runCoordinates,
+				strokeColor: "#FF0000",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			});
+			//And add them to the map.
+			startMarker.setMap(map);
+			finMarker.setMap(map);
+			runPath.setMap(map);
 			
-						var mapOptions = {
-							center: myLatLng,
-							zoom: 8,
-							mapTypeId: google.maps.MapTypeId.ROADMAP
-						};
-						var map = new google.maps.Map(document.getElementById("mapcanvas"),
-							mapOptions);
-						var startMarker = new google.maps.Marker({
-							position: myLatLng,
-							title: "Start"
-						});
-						startMarker.setMap(map);
-					});
-				</script>
+		});
+	</script>
             </div>
             
             <h3 id = "distance">
