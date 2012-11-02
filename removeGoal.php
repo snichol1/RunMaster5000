@@ -22,7 +22,7 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Add To Goals</h1>
+		<h1>Remove Goal</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
                 <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
@@ -41,7 +41,7 @@
 		
 
 		include("config.php"); 
-		$addToGoals = sprintf("DELETE FROM `c_cs147_thesam`.`Goals` WHERE `Goals`.`RouteID` = '%s' AND `Goals`.`UserID` = '%s' AND `Goals`.`AntagonistID` = '%s'", $routeID, "2", $antagonistID);
+		$addToGoals = sprintf("DELETE FROM `c_cs147_thesam`.`Goals` WHERE `Goals`.`RouteID` = '%s' AND `Goals`.`UserID` = '%s' AND `Goals`.`AntagonistID` = '%s'", $routeID, $userID, $antagonistID);
 
 
 

@@ -22,7 +22,7 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>My Title</h1>
+		<h1>Add To Favorites</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
                 <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->

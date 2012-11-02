@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>VoteCaster | Submit</title> 
+	<title>Challenge Added</title> 
 	<meta charset="utf-8">
 	<meta name="apple-mobile-web-app-capable" content="yes">
  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -10,9 +10,7 @@
 
 	<link rel="stylesheet" href="jquery.mobile-1.2.0.css" />
 	<link rel="stylesheet" href="style.css" />
-	<link rel="apple-touch-icon" href="appicon.png" />
-	<link rel="apple-touch-startup-image" href="startup.png">
-	
+		
 	<script src="jquery-1.8.2.min.js"></script>
 	<script src="jquery.mobile-1.2.0.js"></script>
 
@@ -22,48 +20,42 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Add Challenge</h1>
+
+		<h1>Challenge sent</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
                 <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
+
 	</div><!-- /header -->
 
 	<div data-role="content">	
 		
 		<?php
-		
+		$userID = $_POST['userID']; 
 		$friendID = $_POST['friendList'];
 		$routeID = $_POST['runList'];
 		$time = 0; 
 		$date = 0; 
-		echo $friendID; 
-		echo $routeID; 
 		
 		include("config.php"); 		
-		$query = sprintf("select * from Records where Records.RouteID = '%s' and Records.UserID = '%s'", $routeID, "2"); 
+		$query = sprintf("select * from Records where Records.RouteID = '%s' and Records.UserID = '%s'", $routeID, $userID); 
 		$result = mysql_query($query); 
 		while($row = mysql_fetch_array($result)) {
 			$time = $row['Time']; 
 			$date = $row['Date']; 
 		}
 
-		echo $time; 
-		echo $date; 
-		$insertIntoChallenges = sprintf("INSERT INTO `c_cs147_thesam`.`Challenge` (`FromID`, `ToID`, `RouteID`, `Time`, `Date`, `Met`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", "2", $friendID, $routeID, $time, $date, "0"); 
-		echo $insertIntoChallenges; 
+		$insertIntoChallenges = sprintf("INSERT INTO `c_cs147_thesam`.`Challenge` (`FromID`, `ToID`, `RouteID`, `Time`, `Date`, `Met`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", $userID, $friendID, $routeID, $time, $date, "0"); 
 		mysql_query($insertIntoChallenges); 
 		?>
 		
-Challenge Sent!		
+
+		<h1>Challenge Sent! </h1>
+				
 
 	</div><!-- /content -->
 
 		
-	<script type="text/javascript">
-		$("#logout").click(function() {
-			localStorage.removeItem('username');
-			$("#form").show();
-			$("#logout").hide();
-		});
+	
 	</script>
 </div><!-- /page -->
 
