@@ -48,7 +48,6 @@
 			while ($row = mysql_fetch_array($result)) {
 				$id = $row['UserID'];
 				$name = $row['Name'];
-				
 			}
 			$url = "home.php?id=" . $id . "&name=" . $name;
 			echo "<p>URL:".$url."</p>";
@@ -65,6 +64,11 @@
 	}
 	?> 
 
+<?php
+session_start();
+// store session data
+$_SESSION['userID']=1;
+?>
 	</div><!-- /content -->
 
 		

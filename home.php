@@ -19,14 +19,15 @@
 		<?php
 			$userID = $_GET['id'];
 			$name = $_GET['name'];
+
 			echo"<p>Welcome, ".$name."</p>";
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
 			<li><a href="nearby.php">Stanford Runs</a></li>
-			<li><a href="favorites.php">Favorite Runs</a></li>
+			<?php echo "<li><a href=\"favorites.php?id=" . $_GET['id'] . "\">Favorite Runs</a></li>" ?>
 			<li><a href="search.html">Search</a></li>
-			<li><a href="goals.php">Goals</a></li>
-			<li><a href="friends.php">Friends</a></li>
+			<?php echo "<li><a href=\"goals.php?userID=" . $_GET['id'] . "\">Goals</a></li>" ?>
+			<?php echo "<li><a href=\"friends.php?userID=" . $_GET['id'] . "\">Friends</a></li>" ?>
 		</ul>
 	</div><!-- /content -->
 

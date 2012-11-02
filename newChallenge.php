@@ -21,10 +21,11 @@
 	
 <form action="addNewChallenge.php" method = "post">
 Select a friend: 
+	<?php echo "<input type=\"hidden\" name=\"userID\" value = \"" . $_GET['userID'] . "\">"; ?> 
 	<select name="friendList">
 	<?php
 		include("config.php");
-		$query = sprintf("select * from Friends, Users where Users.UserID = Friends.ID2 and Friends.ID1='%s'", "2");
+		$query = sprintf("select * from Friends, Users where Users.UserID = Friends.ID2 and Friends.ID1='%s'", $_GET['userID']);
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
   		{
@@ -40,7 +41,7 @@ Select a personal best:
 	<select name="runList">
 	<?php
 		include("config.php");
-		$query = sprintf("select * from Routes, Records where Records.UserID = '%s' and Records.RouteID = Routes.RouteID", "2");
+		$query = sprintf("select * from Routes, Records where Records.UserID = '%s' and Records.RouteID = Routes.RouteID", $_GET['userID']);
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
   		{

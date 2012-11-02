@@ -54,8 +54,7 @@
 		  		echo $time; 
 		  		echo "</td>";
 		  		echo "<td>"; 
-				echo "<a href = \"run.php?id="; 
-			  		echo $row['RouteID'];
+				echo "<a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_GET['userID'];
 			  		echo "\">"; 
 			 	 	echo "RUN!"; 
 			  		echo "</a>";
@@ -148,7 +147,10 @@
 
 		</form>
 
-		<a href="newChallenge.php">Challenge a Friend!</a>
+		<?php 
+		$userID = $_GET['userID']; 
+		echo "<a href=\"newChallenge.php?userID=" . $_GET['userID'] . "\">Challenge a Friend!</a>";
+		 ?>
 	</div><!-- /content -->
 
 </div><!-- /page -->

@@ -20,19 +20,17 @@
 
 	</div><!-- /header -->
 
-
 	<div data-role="content">	
-	
+
 		<ul data-role="listview" data-inset="true" data-filter="false">
 				<?php
 				include("config.php");
-				$query = sprintf("select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty from Favorites, Routes where Favorites.RouteID = Routes.RouteID and Favorites.UserID='%s'", "2");
+				$query = sprintf("select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty from Favorites, Routes where Favorites.RouteID = Routes.RouteID and Favorites.UserID='%s'", $_GET['id']);
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
-			  		echo "<li><a href = \"run.php?id="; 
-			  		echo $row['RouteID'];
+			  		echo "<li><a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_GET['id']; 
 			  		echo "\">"; 
 			 	 	echo $row['Name']; 
 			  		echo "</a> </li>";

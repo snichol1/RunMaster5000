@@ -24,6 +24,7 @@
 			<h1>
 			<?php
 			$runNumber = $_GET['id'];
+			$userID = $_GET['userID']; 
 				include("config.php");
 
 				$query = sprintf("select * from Routes where RouteID='%s'", $runNumber);
@@ -139,7 +140,7 @@
 				
 		  		echo "<a href=\"leaderboard.php?routeid=".$runNumber."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
 		  		
-				echo "<a href=\"newGoal.php?routeid=".$runNumber."\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
+				echo "<a href=\"newGoal.php?routeid=". $runNumber . "&userID=" . $_GET['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
 				
 				
 			?>

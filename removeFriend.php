@@ -30,17 +30,18 @@
 	<div data-role="content">	
 		
 		<?php
-		// This is a hack. You should connect to a database here.
 		$name = $_POST["username"]; 
-		$id = $_POST["userID"];
-
+		$id = $_GET["userID"];
+		$friendID = $_POST['friendID']; 
+		echo $id; 
+		echo $friendID; 
 		include("config.php"); 
-		$query = sprintf("update Friends set isConnected = 'false' where ID1 = '2' and ID2 = '%s'", $id); 
+		$query = sprintf("update Friends set isConnected = 'false' where ID1 = '%s' and ID2 = '%s'", $id, $friendID); 
 		mysql_query($query); 
+		echo "<a href=\"friends.php\" data-icon=\"back\" data-rel=\"back\" data-add-back-btn=\"true\">Back to Friends</a>"; 
 		?>
 		
 		<script> 
-				document.location.href = "friends.php";
 		</script> 
 
 	</div><!-- /content -->

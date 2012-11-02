@@ -58,7 +58,7 @@ Seconds:
 <option value="02">02</option>
 <option value="03">03</option>
 
-<input type="hidden" name="userID" value = <?php echo "2"?>>
+<input type="hidden" name="userID" value = <?php echo $_GET['userID']?>>
 <input type="hidden" name="routeID" value = <?php echo $_GET['routeid']?>>
 
 </select>

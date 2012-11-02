@@ -14,7 +14,7 @@
 
 	<div data-role="header">
 		<h1>RunMaster 5000</h1>
-		<a href="home.php" data-icon="back">Home</a>
+                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 
 	</div><!-- /header -->
 
@@ -24,7 +24,7 @@
 	<table> 
 				<?php
 				include("config.php");
-				$query = sprintf("select Users.UserID, Users.Name from Users, Friends where Friends.ID2 = Users.UserID and Friends.ID1 = '2' and Friends.isConnected = 'true'");
+				$query = sprintf("select Users.UserID, Users.Name from Users, Friends where Friends.ID2 = Users.UserID and Friends.ID1 = '%s' and Friends.isConnected = 'true'", $_GET['userID']);
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
@@ -34,10 +34,10 @@
 		  		echo $row['Name']; 
 		  		echo "</td>"; 
 		  		echo "<td>"; 
-		  		echo "<form action=\"removeFriend.php\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
+		  		echo "<form action=\"removeFriend.php?userID=" . $_GET['userID'] ."\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
 		  		echo $row['Name']; 
 		  		echo "> "; 
-		  		echo "<input type=\"hidden\" name=\"userID\" id=\"foo\" value = "; 
+		  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
 		  		echo $row['UserID']; 
 		  		echo ">"; 
 		  		echo "<input type=\"submit\" value="; 
@@ -53,7 +53,7 @@
 	<table> 
 				<?php
 				include("config.php");
-				$query = sprintf("select Users.UserID, Users.Name from Users, Friends where Friends.ID2 = Users.UserID and Friends.ID1 = '2' and Friends.isConnected = 'false'");
+				$query = sprintf("select Users.UserID, Users.Name from Users, Friends where Friends.ID2 = Users.UserID and Friends.ID1 = '%s' and Friends.isConnected = 'false'", $_GET['userID']);
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
@@ -63,10 +63,10 @@
 		  		echo $row['Name']; 
 		  		echo "</td>"; 
 		  		echo "<td>"; 
-		  		echo "<form action=\"addFriend.php\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
+		  		echo "<form action=\"addFriend.php?userID=" . $_GET['userID']. "\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
 		  		echo $row['Name']; 
 		  		echo "> "; 
-		  		echo "<input type=\"hidden\" name=\"userID\" id=\"foo\" value = "; 
+		  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
 		  		echo $row['UserID']; 
 		  		echo ">"; 
 
