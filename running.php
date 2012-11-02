@@ -8,6 +8,7 @@
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" /> 
     
+
 </head> 
 <body> 
 
@@ -111,12 +112,32 @@
 			runPath.setMap(map);
 			
 		});
+		
+		$(function() {
+			$("#pause").click(function() {
+				$(this).hide();
+				$("#resume").show();
+				$("#end").show();
+			});
+			$("#resume").click(function() {
+				$("#pause").show();
+				$("#resume").hide();
+				$("#end").hide();
+			});
+		});
 	</script>
 	
 	<?php
 		echo "<p>Your Time: </p>";
 		echo "<p>Goal Time: </p>";
 	?>
+	<div class="running" id="runningBlock">
+	<a href="#" id="pause" data-role="button">Pause</a>
+	</div>
+	<div class="paused" id="pausedBlock">
+	<a href="#" id="resume" data-role="button">Resume</a>
+	<a href="home.php" id="end" data-role="button">End</a>
+	</div>
  </div><!-- /content -->
 
 </div><!-- /page -->
