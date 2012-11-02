@@ -48,14 +48,8 @@
 					$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s'", $runNumber);
 					$bcresult = mysql_query($bcquery);
 					while($bcrow = mysql_fetch_array($bcresult)) {
-						echo "<h3>Lat: ";
 						$startLat = $bcrow['lat'];
-						echo $startLat;
-						echo "</h3>";
-						echo "<p>Lng: ";
 						$startLng = $bcrow['lng'];
-						echo $startLng;
-						echo "</h3>";
 				}
 				?>
 				
@@ -71,13 +65,20 @@
 				?>
 				<script type="text/javascript">
 					$(document).ready(function() {
+						var myLatLng = new google.maps.LatLng(startLat, startLng);
+			
 						var mapOptions = {
-							center: new google.maps.LatLng(startLat, startLng),
+							center: myLatLng,
 							zoom: 8,
 							mapTypeId: google.maps.MapTypeId.ROADMAP
 						};
 						var map = new google.maps.Map(document.getElementById("mapcanvas"),
 							mapOptions);
+						var startMarker = new google.maps.Marker({
+							position: myLatLng,
+							title: "Start"
+						});
+						startMarker.setMap(map);
 					});
 				</script>
             </div>
