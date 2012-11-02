@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-  <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" /> 
     
 
 </head> 
@@ -78,6 +77,36 @@
 				
 	<div id="mapcanvas" style="height:288px;width:300px"></div>
 	<script type="text/javascript">
+			//And our timer code:
+			var startTime = new Date().getTime();
+			var elapsed = '0.0';
+			var is_on = 1;
+			var t;
+			
+			function runTimer() {
+			var currTime = new Date().getTime();
+			var currMin = Math.floor((currTime - startTime)/60000);
+			var currSec = Math.floor((currTime - startTime) / 1000) - (currMin * 60);
+			currSec = ("0" + currSec).slice(-2);
+			var currMilli = currTime - startTime - (currMin * 60000) - (currSec * 1000);
+			currMilli = ("000" + currMilli).slice(-4);
+			var elapsed = currMin + ":" + currSec + ":" + currMilli;
+			document.getElementById('yourTime').value=elapsed;
+			t=setTimeout("runTimer()",50);
+			};
+			
+			function pauseTimer() {
+				clearTimeout(t);
+				is_on = 0;
+			}
+			
+			function resumeTimer() {
+				if(!is_on) {
+					is_on = 1;
+					runTimer();
+				}
+			}
+	
 		$(document).ready(function() {
 			//Build LatLng objects
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
@@ -111,24 +140,31 @@
 			finMarker.setMap(map);
 			runPath.setMap(map);
 			
+
+			
+			runTimer();
 		});
+		
+
 		
 		$(function() {
 			$("#pause").click(function() {
 				$(this).hide();
 				$("#resume").show();
 				$("#end").show();
+				pauseTimer();
 			});
 			$("#resume").click(function() {
 				$("#pause").show();
 				$("#resume").hide();
 				$("#end").hide();
+				resumeTimer();
 			});
 		});
 	</script>
 	
 	<?php
-		echo "<p>Your Time: </p>";
+		echo "<p>Your Time: <input type=\"text\" id=\"yourTime\" /></p>";
 		echo "<p>Goal Time: </p>";
 	?>
 	<div class="running" id="runningBlock">
