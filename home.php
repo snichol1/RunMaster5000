@@ -13,6 +13,7 @@
 
 	<div data-role="header">
 		<h1>RunMaster 5000</h1>
+				<a href="login.php" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	

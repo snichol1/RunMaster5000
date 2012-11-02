@@ -41,7 +41,7 @@
 		  		echo $row['UserID']; 
 		  		echo ">"; 
 		  		echo "<input type=\"submit\" value="; 
-		  		echo "Remove"; 
+		  		echo "Unfollow"; 
 		  		echo "> </form>";
 		  		echo "</td>"; 
 		  		echo "<tr>"; 

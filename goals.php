@@ -101,8 +101,8 @@
 		  		echo "<tr>"; 
 		  		echo "<td>"; 
 		  		echo $nameRow['Name']; 
-		  		echo "  beat your best time on " . $routeRow['Name']; 
-				echo "<br></td>"; 
+		  		echo "  challenged you to " . $routeRow['Name']; 
+				echo "!<br></td>"; 
 		  		echo "<td>"; 
 		  		$name = $row['Name']; 
 		  		
