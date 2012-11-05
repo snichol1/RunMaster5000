@@ -35,7 +35,7 @@ session_start();
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
-			  		echo "<li><a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_SESSION['userID']; 
+			  		echo "<li><a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID']; 
 			  		echo "\">"; 
 			 	 	echo $row['Name']; 
 			  		echo "</a> </li>";

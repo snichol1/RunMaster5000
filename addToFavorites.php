@@ -36,30 +36,22 @@ session_start();
 		
 		<?php
 		$userID = $_SESSION['userID']; 
-		$routeID = $_POST['routeID']; 
+		$routeID = $_GET['routeID']; 
 		// This is a hack. You should connect to a database here.
 		
 		include("config.php"); 
 		$sql = sprintf("INSERT INTO `c_cs147_thesam`.`Favorites` (`UserID`, `RouteID`) VALUES ('%s', '%s');", $userID, $routeID); 
-		echo $sql; 
 		mysql_query($sql); 
 		?>
 		
 		<script> 
-			window.location.href = "run.php?userID=" + <?php echo $_SESSION['userID'] ?> + "&routeID=" + <?php echo $_POST['routeID'] ?>; 
+			window.location.href = "route.php?userID=" + <?php echo $_SESSION['userID'] ?> + "&routeID=" + <?php echo $_GET['routeID'] ?>; 
 		</script> 
 				
 	</div><!-- /content -->
 
 		
-	<script type="text/javascript">
-		$("#logout").click(function() {
-			localStorage.removeItem('username');
-			$("#form").show();
-			$("#logout").hide();
-		});
-	</script>
-</div><!-- /page -->
+	</div><!-- /page -->
 
 </body>
 </html>

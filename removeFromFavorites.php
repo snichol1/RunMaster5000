@@ -35,7 +35,7 @@ session_start();
 		
 		<?php
 		$userID = $_SESSION['userID']; 
-		$routeID = $_POST['routeID']; 
+		$routeID = $_GET['routeID']; 
 
 		include("config.php"); 
 		$sql = sprintf("DELETE FROM `c_cs147_thesam`.`Favorites` WHERE `Favorites`.`UserID` = '%s' AND `Favorites`.`RouteID` = '%s' LIMIT 1", $userID, $routeID);  
@@ -44,21 +44,13 @@ session_start();
 		?>
 		
 		<script> 
-		window.location.href = "favorites.php"; 
-		
+		window.location.href = "route.php?routeID=" + <?php echo $routeID ?>; 
 		</script> 
-		
 
 	</div><!-- /content -->
 
 		
-	<script type="text/javascript">
-		$("#logout").click(function() {
-			localStorage.removeItem('username');
-			$("#form").show();
-			$("#logout").hide();
-		});
-	</script>
+
 </div><!-- /page -->
 
 </body>
