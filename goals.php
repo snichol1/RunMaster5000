@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+
+
+
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -7,10 +13,6 @@
 	<link rel="stylesheet" href="friends.css"/>
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-	
-	
-	
-
 </head> 
 <body> 
 
@@ -33,60 +35,12 @@
             });
     });
     </script>
-	
-		<h3> Goals </h3> 
-		<table> 
-		
-				<?php
-				include("config.php");
-				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '%s' and Goals.Met = '0'", $_GET['userID']);
-
-				$result = mysql_query($query);
-				while($row = mysql_fetch_array($result))
-		  		{
-		  		echo "<tr>"; 
-		  		echo "<td>"; 
-		  		$name = $row['Name']; 
-		  		echo $name; 
-		  		echo "</td>"; 
-		  		echo "<td>"; 
-		  		$time = $row['Time']; 
-		  		echo $time; 
-		  		echo "</td>";
-		  		echo "<td>"; 
-				echo "<a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_GET['userID'];
-			  		echo "\">"; 
-			 	 	echo "RUN!"; 
-			  		echo "</a>";
-		  		echo "</td>"; 
-		  		
-		  		echo "<td>"; 
-		  		
-				echo "<a href = \"removeGoal.php?routeID="; 
-			  	echo $row['RouteID'];
-			  	echo "&UserID=";
-			  	echo $row['UserID'];
-			  	echo "&AntagonistID=";
-			  	echo $row['AntagonistID'];
-		  		echo "\"> Remove"; 
-		  		echo "</a>"; 		  		
-		  		
-		  		
-		  		echo "</td>"; 
-		  		
-		  		echo "</tr>"; 
-		  		}
-			?>
-				
-		</table> 
-		
-
-		<h3> Challenges </h3> 
+<h3> New Goals </h3> 
 				
 			<table> 
 				<?php
 				include("config.php");
-				$query = sprintf("select * from Challenge where Challenge.ToID = '%s'", $_GET['userID']); 
+				$query = sprintf("select * from Challenge where Challenge.ToID = '%s'", $_SESSION['userID']); 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
@@ -147,10 +101,93 @@
 
 		</form>
 
-		<?php 
-		$userID = $_GET['userID']; 
-		echo "<a href=\"newChallenge.php?userID=" . $_GET['userID'] . "\">Challenge a Friend!</a>";
+				<?php 
+		$userID = $_SESSION['userID']; 
+		echo "<a href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a>";
 		 ?>
+		 
+		<h3> Goals </h3> 	
+		<table> 
+		
+				<?php
+				include("config.php");
+				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '%s' and Goals.Met = '0'", $_SESSION['userID']);
+
+				$result = mysql_query($query);
+				while($row = mysql_fetch_array($result))
+		  		{
+		  		echo "<tr>"; 
+		  		echo "<td>"; 
+		  		$name = $row['Name']; 
+		  		echo $name; 
+		  		echo "</td>"; 
+		  		echo "<td>"; 
+		  		$time = $row['Time']; 
+		  		echo $time; 
+		  		echo "</td>";
+				
+				if ($row['AntagonistIDID'] !=  $_SESSION['userID']) echo "<td>" . "from " . $row['AntagonistID'] . "</td>";
+				else echo "<td> &nbsp; </td>"; 
+		  		echo "<td>"; 
+				echo "<a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
+			  		echo "\">"; 
+			 	 	echo "RUN!"; 
+			  		echo "</a>";
+		  		echo "</td>"; 
+		  		
+		  		echo "<td>"; 
+		  		
+				echo "<a href = \"removeGoal.php?routeID="; 
+			  	echo $row['RouteID'];
+			  	echo "&UserID=";
+			  	echo $row['UserID'];
+			  	echo "&AntagonistID=";
+			  	echo $row['AntagonistID'];
+		  		echo "\"> Remove"; 
+		  		echo "</a>"; 		  		
+		  		
+		  		
+		  		echo "</td>"; 
+		  		
+		  		echo "</tr>"; 
+		  		}
+			?>
+				
+		</table> 
+		
+
+
+		 <h3> Goals you've met: </h3> 
+		 <table> 
+		
+				<?php
+				include("config.php");
+				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '%s' and Goals.Met = '1'", $_SESSION['userID']);
+
+				$result = mysql_query($query);
+				while($row = mysql_fetch_array($result))
+		  		{
+		  		echo "<tr>"; 
+		  		echo "<td>"; 
+		  		$name = $row['Name']; 
+		  		echo $name; 
+		  		echo "</td>"; 
+		  		echo "<td>"; 
+		  		$time = $row['Time']; 
+		  		echo $time; 
+		  		echo "</td>";
+		  		echo "<td>"; 
+				echo "<a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
+			  		echo "\">"; 
+			 	 	echo "RUN!"; 
+			  		echo "</a>";
+		  		echo "</td>";		  		
+		  		echo "</tr>"; 
+		  		}
+			?>
+				
+		</table> 
+
 	</div><!-- /content -->
 
 </div><!-- /page -->

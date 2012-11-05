@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html> 
 <html>
 
@@ -31,7 +36,7 @@
 		
 		<?php
 		$routeID = $_GET['routeID'];
-		$userID = $_GET['UserID'];
+		$userID = $_SESSION['userID'];
 		$antagonistID = $_GET['AntagonistID'];
 		$time = $_GET['Time'];
 		$date = $_GET['DateSet'];

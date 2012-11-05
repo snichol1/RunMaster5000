@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html> 
 <html>
 
@@ -30,7 +35,7 @@
 	<div data-role="content">	
 		
 		<?php
-		$userID = $_POST['userID']; 
+		$userID = $_SESSION['userID']; 
 		$friendID = $_POST['friendList'];
 		$routeID = $_POST['runList'];
 		$time = 0; 

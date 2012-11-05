@@ -48,9 +48,14 @@
 			while ($row = mysql_fetch_array($result)) {
 				$id = $row['UserID'];
 				$name = $row['Name'];
+				session_start();
+			// store session data
+				$_SESSION['userID']=$row['UserID'];
 			}
 			$url = "home.php?id=" . $id . "&name=" . $name;
 			echo "<p>URL:".$url."</p>";
+			
+			
 			//echo"<p>Thank you, <strong>".$_POST["name"]."</strong>. You are now logged in.</p>";
 			//echo "<p>UserID: ".$_SESSION['id']."</p>";
 				echo("<script>

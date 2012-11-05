@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html> 
 <html>
 
@@ -30,18 +34,18 @@
 	<div data-role="content">	
 		
 		<?php
-		$userID = $_POST['userID']; 
+		$userID = $_SESSION['userID']; 
 		$routeID = $_POST['routeID']; 
 
 		include("config.php"); 
 		$sql = sprintf("DELETE FROM `c_cs147_thesam`.`Favorites` WHERE `Favorites`.`UserID` = '%s' AND `Favorites`.`RouteID` = '%s' LIMIT 1", $userID, $routeID);  
 		mysql_query($sql);
-		echo $sql;  
 
 		?>
 		
 		<script> 
-		Removed from Favorites! 
+		window.location.href = "favorites.php"; 
+		
 		</script> 
 		
 

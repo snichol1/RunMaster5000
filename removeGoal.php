@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html> 
 <html>
 
@@ -31,12 +35,12 @@
 		
 		<?php
 		$routeID = $_GET['routeID'];
-		$userID = $_GET['UserID'];
+		$userID = $_SESSION['userID'];
 		$antagonistID = $_GET['AntagonistID'];
 		$met = 0; 
 		
 		$routeID = $_GET['routeID'];
-		$userID = $_GET['UserID'];
+		$userID = $_SESSION['userID'];
 		$antagonistID = $_GET['AntagonistID'];
 		
 
@@ -51,7 +55,9 @@
 		
 	Goal removed! 
 	</div><!-- /content -->
-
+	<script> 
+	window.location.href = "goals.php"; 
+	</script> 
 		
 	<script type="text/javascript">
 		$("#logout").click(function() {

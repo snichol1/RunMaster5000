@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html> 
 <html>
 
@@ -32,7 +36,7 @@
 		
 		<?php
 		$name = $_POST["username"]; 
-		$id = $_GET["userID"];
+		$id = $_SESSION["userID"];
 		$friendID = $_POST['friendID']; 
 
 		include("config.php"); 
@@ -42,6 +46,7 @@
 		?>
 		
 		<script> 
+		window.location.href = "friends.php"; 
 		</script> 
 
 	</div><!-- /content -->

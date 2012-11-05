@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html> 
 <html>
 
@@ -30,7 +35,7 @@
 	<div data-role="content">	
 		
 		<?php
-		$userID = $_POST['userID']; 
+		$userID = $_SESSION['userID']; 
 		$routeID = $_POST['routeID']; 
 		// This is a hack. You should connect to a database here.
 		
@@ -39,7 +44,10 @@
 		echo $sql; 
 		mysql_query($sql); 
 		?>
-Added to Favorites! 
+		
+		<script> 
+			window.location.href = "run.php?userID=" + <?php echo $_SESSION['userID'] ?> + "&routeID=" + <?php echo $_POST['routeID'] ?>; 
+		</script> 
 				
 	</div><!-- /content -->
 

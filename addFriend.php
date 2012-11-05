@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html> 
 <html>
 
@@ -32,16 +37,15 @@
 		<?php
 
 		$name = $_POST["username"]; 
-		$id = $_GET["userID"];
+		$id = $_SESSION["userID"];
 		$friendID = $_POST['friendID'];
 		include("config.php"); 
 		$query = sprintf("update Friends set isConnected = 'true' where ID1 = '%s' and ID2 = '%s'", $id, $friendID); 
 		mysql_query($query);
-		echo "Friend Added!"; 
 		?>
 		
 		<script> 
-
+			window.location.href = "friends.php";
 		</script> 
 
 	</div><!-- /content -->

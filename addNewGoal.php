@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html> 
 <html>
 
@@ -31,7 +36,7 @@
 		
 		<?php
 		$routeID = $_GET['routeID'];
-		$userID = $_GET['userID'];
+		$userID = $_SESSION['userID'];
 		$time =  $_GET['hours'] . ":" . $_GET['minutes'] . ":" . $_GET['seconds']; 
 		$date = "2011-10-28"; 
 		$met = 0; 

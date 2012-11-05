@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -16,7 +21,7 @@
 
 	<div data-role="header">
 		<h1>RunMaster 5000</h1>
-                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
+         <a href="home.php" data-icon="back">Back</a>
 
 	</div><!-- /header -->
 
@@ -25,12 +30,12 @@
 		<ul data-role="listview" data-inset="true" data-filter="false">
 				<?php
 				include("config.php");
-				$query = sprintf("select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty from Favorites, Routes where Favorites.RouteID = Routes.RouteID and Favorites.UserID='%s'", $_GET['id']);
+				$query = sprintf("select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty from Favorites, Routes where Favorites.RouteID = Routes.RouteID and Favorites.UserID='%s'", $_SESSION['userID']);
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
-			  		echo "<li><a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_GET['id']; 
+			  		echo "<li><a href = \"run.php?id=" . $row['RouteID'] . "&userID=" . $_SESSION['userID']; 
 			  		echo "\">"; 
 			 	 	echo $row['Name']; 
 			  		echo "</a> </li>";

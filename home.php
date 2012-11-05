@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -18,7 +23,7 @@
 
 	<div data-role="content">	
 		<?php
-			$userID = $_GET['id'];
+			$userID = $_SESSION['userID'];
 			$name = $_GET['name'];
 
 			include("config.php");
@@ -30,11 +35,11 @@
 		  		}
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
-			<?php echo "<li><a href=\"nearby.php?id=" . $_GET['id'] . "\">Stanford Runs</a></li>" ?>
-			<?php echo "<li><a href=\"favorites.php?id=" . $_GET['id'] . "\">Favorite Runs</a></li>" ?>
+			<?php echo "<li><a href=\"nearby.php?id=" . $_SESSION['userID'] . "\">Stanford Runs</a></li>" ?>
+			<?php echo "<li><a href=\"favorites.php?id=" . $_SESSION['userID'] . "\">Favorite Runs</a></li>" ?>
 			<li><a href="search.html">Search</a></li>
-			<?php echo "<li><a href=\"goals.php?userID=" . $_GET['id'] . "\">Goals</a></li>" ?>
-			<?php echo "<li><a href=\"friends.php?userID=" . $_GET['id'] . "\">Friends</a></li>" ?>
+			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals</a></li>" ?>
+			<?php echo "<li><a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
 		</ul>
 	</div><!-- /content -->
 
