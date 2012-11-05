@@ -39,28 +39,24 @@ session_start();
 		$userID = $_SESSION['userID'];
 		$time =  $_GET['hours'] . ":" . $_GET['minutes'] . ":" . $_GET['seconds']; 
 		$date = "2011-10-28"; 
-		$met = 0; 
+		$met = 0; 		echo $routeID; 
 		
 	
 		include("config.php"); 
 		$addToGoals = sprintf("INSERT INTO `c_cs147_thesam`.`Goals` (`RouteID`, `UserID`, `AntagonistID`, `Time`, `DateSet`, `Met`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", $routeID, $userID, $userID, $time, $date, $met);
 		mysql_query($addToGoals); 
+echo $addToGoals; 
 		
 		
 		?>
 Goal added! 
 
-	</div><!-- /content -->
 
-		
-	<script type="text/javascript">
-		$("#logout").click(function() {
-			localStorage.removeItem('username');
-			$("#form").show();
-			$("#logout").hide();
-		});
-	</script>
-</div><!-- /page -->
+	</div><!-- /content -->
+<script> 
+window.location.href = "route.php?routeID=" + <?php echo $_GET['routeID'] ?>; 
+</script> 
+	</div><!-- /page -->
 
 </body>
 </html>
