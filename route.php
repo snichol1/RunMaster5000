@@ -27,11 +27,11 @@ session_start();
 			<div data-role="header">
 			<h1>
 			<?php
-			$runNumber = $_GET['routeID'];
+			$routeID = $_GET['routeID'];
 			$userID = $_SESSION['userID']; 
 				include("config.php");
 
-				$query = sprintf("select * from Routes where RouteID='%s'", $runNumber);
+				$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
@@ -48,13 +48,13 @@ session_start();
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 	<?php
-		$runNumber = $_GET['routeID'];
+		$routeID = $_GET['routeID'];
 		include("config.php");
 		$startLat;
 		$startLng;
 		$finLat;
 		$finLng;
-		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $runNumber);
+		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $routeID);
 		$bcresult = mysql_query($bcquery);
 		echo ("
 			<script type=\"text/javascript\">
@@ -129,7 +129,7 @@ session_start();
             <h3 id = "distance">
             	<?php
 
-				$query = sprintf("select * from Routes where RouteID='%s'", $runNumber);
+				$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
@@ -142,19 +142,19 @@ session_start();
 		  			echo " out of 5 </h3>"; 
 		  		}
 				
-		  		echo "<a href=\"leaderboard.php?routeid=".$runNumber."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
+		  		echo "<a href=\"leaderboard.php?routeid=".$routeID."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
 		  		
-				echo "<a href=\"newGoal.php?routeid=". $runNumber . "&userID=" . $_SESSION['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
+				echo "<a href=\"newGoal.php?routeid=". $routeID . "&userID=" . $_SESSION['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
 				
 				
 			?>
             
             </h3> 
             <?php
-				$runNumber = $_GET['routeID'];
+				$routeID = $_GET['routeID'];
 				include("config.php");
 
-				$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $runNumber, $_SESSION['userID']);
+				$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);
 				$result = mysql_query($query);
 				$isFavorite = 0; 
 				while($row = mysql_fetch_array($result))
@@ -167,10 +167,10 @@ session_start();
 		  			$message = "Remove from Favorites"; 
 		  			$action = "removeFromFavorites.php"; 
 		  		}
-				 echo "<a href=\"" .$action . "?routeID=" . $runNumber . "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
+				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 
 				 
-				 echo "<a class = \"run\" href=\"running.php?routeid=".$runNumber. "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">Run!</a>";
+				 echo "<a class = \"run\" href=\"run.php?routeid=".$routeID. "&userID=".$userID."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">Run!</a>";
             ?> 
 
                                     
