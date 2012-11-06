@@ -112,33 +112,6 @@
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
 			var finLatLng = new google.maps.LatLng(finLat, finLng);
 
-			//Get the user's current location
-			var currLatLng;
-			navigator.geolocation.getCurrentPosition(handle_location, handle_error);
-
-			function handle_location(position) {
-				currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-				var currMarker = new google.maps.Marker({
-					position: currLatLng,
-					title: "Current Location"
-				});
-				currMarker.setMap(map);
-				console.log("Lat:" + currLatLng.lat());
-				console.log("Lng:" + currLatLng.lng());
-			}
-			function handle_error(error) {
-				switch(error.code)  {  
-                case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
-                break;  
-                case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
-                break;  
-                case error.TIMEOUT: alert("retrieving position timed out");  
-                break;  
-                default: alert("unknown error");  
-                break;  
-            	}  
-			}
-
 			//Set our map options.
 			var mapOptions = {
 				center: startLatLng,
