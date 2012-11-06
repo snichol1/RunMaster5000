@@ -13,19 +13,20 @@
 
 	<div data-role="header">
 		<h1>RunMaster 5000 | Login</h1>
+		<a href="home.php" data-icon="back" id="back" class="ui-btn-left">Back</a>
+
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		
-		<form action="enter.php" method="post">
+		<h3> Create New Account </h3> 
+		<form action="addUser.php" method="post">
 		<label for="foo">Username:</label>
-		<input type="text" name="name" id="foo">
+		<input type="text" name="username" id="foo">
 		<label for="bar">Password:</label>
 		<input type="password" name="password" id="bar">
-	    <input type="submit" value="Login">
+	    <input type="submit" value="Create User">
 		</form>
 
-        <a href="newUser.php" data-icon="plus">Add New Account</a>
 
 
 	</div><!-- /content -->
