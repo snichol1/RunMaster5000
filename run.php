@@ -77,22 +77,29 @@
 				
 	<div id="mapcanvas" style="height:288px;width:300px"></div>
 	<script type="text/javascript">
-			//And our timer code:
+			//Variables for our map and current location
+			var map;
+			var currMarker;
+			var lt;
+			var ticker = 0;
+			var locations = new Array();
+
+			//Variables for our timer code:
 			var startTime = new Date().getTime();
 			var elapsed = '0.0';
 			var is_on = 1;
 			var t;
 			
 			function runTimer() {
-			var currTime = new Date().getTime();
-			var currMin = Math.floor((currTime - startTime)/60000);
-			var currSec = Math.floor((currTime - startTime) / 1000) - (currMin * 60);
-			currSec = ("0" + currSec).slice(-2);
-			var currMilli = currTime - startTime - (currMin * 60000) - (currSec * 1000);
-			currMilli = ("000" + currMilli).slice(-4);
-			var elapsed = currMin + ":" + currSec + ":" + currMilli;
-			document.getElementById('yourTime').value=elapsed;
-			t=setTimeout("runTimer()",50);
+				var currTime = new Date().getTime();
+				var currMin = Math.floor((currTime - startTime)/60000);
+				var currSec = Math.floor((currTime - startTime) / 1000) - (currMin * 60);
+				currSec = ("0" + currSec).slice(-2);
+				var currMilli = currTime - startTime - (currMin * 60000) - (currSec * 1000);
+				currMilli = ("000" + currMilli).slice(-4);
+				var elapsed = currMin + ":" + currSec + ":" + currMilli;
+				document.getElementById('yourTime').value=elapsed;
+				t=setTimeout("runTimer()",50);
 			};
 			
 			function pauseTimer() {
@@ -106,27 +113,39 @@
 					runTimer();
 				}
 			}
-	
-		$(document).ready(function() {
-			//Build LatLng objects
-			var startLatLng = new google.maps.LatLng(startLat, startLng);
-			var finLatLng = new google.maps.LatLng(finLat, finLng);
 
-			//Get the user's current location
-			var currLatLng;
-			navigator.geolocation.getCurrentPosition(handle_location, handle_error);
+			//initialize the currMarker
+			function initializeCurrLocation() {
+				navigator.geolocation.getCurrentPosition(handleLocationInitialization, handleError);
+			}
 
-			function handle_location(position) {
-				currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-				var currMarker = new google.maps.Marker({
+			//Continuously keep track of the user's current location
+			function trackLocation() {
+				navigator.geolocation.getCurrentPosition(handleLocationUpdate, handleError)
+				lt=setTimeout("trackLocation()", 10000);
+			}
+			//Set the initial location of the current location marker
+			function handleLocationInitialization(position) {
+				var currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				locations[ticker] = currLatLng;
+				currMarker = new google.maps.Marker({
 					position: currLatLng,
+					animation: google.maps.Animation.BOUNCE,
 					title: "Current Location"
 				});
 				currMarker.setMap(map);
+			}
+			//Update the position of the current location marker
+			function handleLocationUpdate(position) {
+				var currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				currMarker.setPosition(currLatLng);
 				console.log("Lat:" + currLatLng.lat());
 				console.log("Lng:" + currLatLng.lng());
+				console.log(ticker);
+				ticker++;
+				locations[ticker] = currLatLng;
 			}
-			function handle_error(error) {
+			function handleError(error) {
 				switch(error.code)  {  
                 case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
                 break;  
@@ -138,6 +157,15 @@
                 break;  
             	}  
 			}
+	
+		$(document).ready(function() {
+			initializeCurrLocation();
+			//Build LatLng objects
+			var startLatLng = new google.maps.LatLng(startLat, startLng);
+			var finLatLng = new google.maps.LatLng(finLat, finLng);
+
+
+
 
 			//Set our map options.
 			var mapOptions = {
@@ -146,7 +174,7 @@
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			//Create Markers and Path for the start end ending points.
-			var map = new google.maps.Map(document.getElementById("mapcanvas"),
+			map = new google.maps.Map(document.getElementById("mapcanvas"),
 				mapOptions);
 			var startMarker = new google.maps.Marker({
 				position: startLatLng,
@@ -170,6 +198,7 @@
 
 			
 			runTimer();
+			trackLocation();
 		});
 		
 
