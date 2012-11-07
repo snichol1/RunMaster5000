@@ -8,6 +8,7 @@
 	
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script src="js/search.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="searchstyle.css">
@@ -22,6 +23,7 @@
 	
 <div data-role="content">	
 
+
 <form action="searchresults.php" id="searchform" method="get">
 	<!--- Location Entry
 	<div data-role="fieldcontain">
@@ -34,43 +36,31 @@
 	    <input type="text" name="name" id="name" value="optional"  />
 	</div>	
 	
-	
-	<!---- Slider distance selectors, commented out!
-	<div data-role="fieldcontain">
-		<label for="slider">Minimum Distance (mi):</label> <br>
-	 	<input type="range" name="slider" id="slider" value="0" min="0" max="30"  />
-	</div> 
-	
-	<div data-role="fieldcontain">
-		<label for="slider">Maximum Distance (mi):</label> <br>
-	 	<input type="range" name="slider" id="slider" value="30" min="0" max="30"  />
-	</div> ---->
-	
-
-	
 	<!--- Distance Selector ---->
 	    <div id="distanceselector" data-role="fieldcontain">
 	        <fieldset data-role="controlgroup" data-type="horizontal">
 	            <legend>
 	                Specify Route Distance:
 	            </legend>
-	            <input id="checkbox1" value="shortdist" name="shortdist" type="checkbox" checked="yes"/>
-	            <label for="checkbox1">
+	            <input id="shortdist" name="shortdist" type="checkbox" checked="yes" onlick="displayDistance()"/>
+	            <label for="shortdist">
 	                Short
 	                <div class="distspecify"> 0 - 2 mi</div>
 	            </label>
-	            <input id="checkbox2" value="mediumdist" name="mediumdist" type="checkbox" checked="yes"/>
-	            <label for="checkbox2">
+	            <input id="mediumdist" value="mediumdist" name="mediumdist" type="checkbox" checked="yes"/>
+	            <label for="mediumdist" onlick="displayDistance()">
 	                Medium
 	                <div class="distspecify">2 - 5 mi</div>
 	            </label>
-	            <input id="checkbox3" value="longdist" name="longdist" type="checkbox" checked="yes"/>
-	            <label for="checkbox3">
+	            <input id="longdist" value="longdist" name="longdist" type="checkbox" checked="yes"/>
+	            <label for="longdist" onlick="displayDistance()">
 	                Long
 	                <div class="distspecify">5+ mi</div>
 	            </label>
 	        </fieldset>
 		</div>
+		
+		<div id="selectedDist">All distances currently selected.</div>
 	
 	
 	<!---- Difficulty Selector ----->
