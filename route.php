@@ -7,8 +7,7 @@ session_start();
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>
-        </title>
+
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
         <link rel="stylesheet" href="run.css" />
         <style>
@@ -27,11 +26,11 @@ session_start();
 			<div data-role="header">
 			<h1>
 			<?php
-			$runNumber = $_GET['routeID'];
+			$routeID = $_GET['routeID'];
 			$userID = $_SESSION['userID']; 
 				include("config.php");
 
-				$query = sprintf("select * from Routes where RouteID='%s'", $runNumber);
+				$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
@@ -48,13 +47,13 @@ session_start();
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 	<?php
-		$runNumber = $_GET['routeID'];
+		$routeID = $_GET['routeID'];
 		include("config.php");
 		$startLat;
 		$startLng;
 		$finLat;
 		$finLng;
-		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $runNumber);
+		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $routeID);
 		$bcresult = mysql_query($bcquery);
 		echo ("
 			<script type=\"text/javascript\">
@@ -94,6 +93,33 @@ session_start();
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
 			var finLatLng = new google.maps.LatLng(finLat, finLng);
 
+			//Get the user's current location
+			var currLatLng;
+			navigator.geolocation.getCurrentPosition(handle_location, handle_error);
+
+			function handle_location(position) {
+				currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				var currMarker = new google.maps.Marker({
+					position: currLatLng,
+					title: "Current Location"
+				});
+				currMarker.setMap(map);
+				console.log("Lat:" + currLatLng.lat());
+				console.log("Lng:" + currLatLng.lng());
+			}
+			function handle_error(error) {
+				switch(error.code)  {  
+                case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
+                break;  
+                case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
+                break;  
+                case error.TIMEOUT: alert("retrieving position timed out");  
+                break;  
+                default: alert("unknown error");  
+                break;  
+            	}  
+			}
+
 			//Set our map options.
 			var mapOptions = {
 				center: startLatLng,
@@ -111,6 +137,7 @@ session_start();
 				position: finLatLng,
 				title: "Finish"
 			});
+
 			var runPath = new google.maps.Polyline({
 				path: runCoordinates,
 				strokeColor: "#FF0000",
@@ -129,7 +156,7 @@ session_start();
             <h3 id = "distance">
             	<?php
 
-				$query = sprintf("select * from Routes where RouteID='%s'", $runNumber);
+				$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
@@ -142,19 +169,19 @@ session_start();
 		  			echo " out of 5 </h3>"; 
 		  		}
 				
-		  		echo "<a href=\"leaderboard.php?routeid=".$runNumber."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
+		  		echo "<a href=\"leaderboard.php?routeid=".$routeID."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
 		  		
-				echo "<a href=\"newGoal.php?routeid=". $runNumber . "&userID=" . $_SESSION['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
+				echo "<a href=\"newGoal.php?routeid=". $routeID . "&userID=" . $_SESSION['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
 				
 				
 			?>
             
             </h3> 
             <?php
-				$runNumber = $_GET['routeID'];
+				$routeID = $_GET['routeID'];
 				include("config.php");
 
-				$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $runNumber, $_SESSION['userID']);
+				$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);
 				$result = mysql_query($query);
 				$isFavorite = 0; 
 				while($row = mysql_fetch_array($result))
@@ -167,10 +194,10 @@ session_start();
 		  			$message = "Remove from Favorites"; 
 		  			$action = "removeFromFavorites.php"; 
 		  		}
-				 echo "<a href=\"" .$action . "?routeID=" . $runNumber . "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
+				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 
 				 
-				 echo "<a class = \"run\" href=\"running.php?routeid=".$runNumber. "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">Run!</a>";
+				 echo "<a class = \"run\" href=\"run.php?routeid=".$routeID. "&userID=".$userID."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">Run!</a>";
             ?> 
 
                                     

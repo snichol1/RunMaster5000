@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html> 
 <html>
 
@@ -69,11 +72,7 @@
 	}
 	?> 
 
-<?php
-session_start();
-// store session data
-$_SESSION['userID']=1;
-?>
+
 	</div><!-- /content -->
 
 		

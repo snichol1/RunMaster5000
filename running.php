@@ -16,10 +16,10 @@
 	<div data-role="header">
 		<h1>
 		<?php
-		$runNumber = $_GET['routeid'];
+		$routeID = $_GET['routeID'];
 			include("config.php");
 
-			$query = sprintf("select * from Routes where RouteID='%s'", $runNumber);
+			$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
 			$result = mysql_query($query);
 			while($row = mysql_fetch_array($result))
 	  		{
@@ -36,13 +36,13 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 	<?php
-		$runNumber = $_GET['routeid'];
+		$routeID = $_GET['routeID'];
 		include("config.php");
 		$startLat;
 		$startLng;
 		$finLat;
 		$finLng;
-		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $runNumber);
+		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $routeID);
 		$bcresult = mysql_query($bcquery);
 		echo ("
 			<script type=\"text/javascript\">
