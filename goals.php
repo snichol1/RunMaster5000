@@ -116,6 +116,12 @@ session_start();
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
+		  			
+		  		$query = sprintf("select * from Users where UserID = '%s' LIMIT 0, 30 ", $row['AntagonistID']); 
+				$userArray = mysql_query($query); 
+				$nameRow = mysql_fetch_array($userArray); 
+				$challengerName = $nameRow['Name']; 
+				
 		  		echo "<tr>"; 
 		  		echo "<td>"; 
 		  		$name = $row['Name']; 
@@ -126,7 +132,7 @@ session_start();
 		  		echo $time; 
 		  		echo "</td>";
 				
-				if ($row['AntagonistIDID'] !=  $_SESSION['userID']) echo "<td>" . "from " . $row['AntagonistID'] . "</td>";
+				if ($row['AntagonistID'] !=  $_SESSION['userID']) echo "<td>" . "from " . $challengerName . "</td>";
 				else echo "<td> &nbsp; </td>"; 
 		  		echo "<td>"; 
 				echo "<a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];

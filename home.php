@@ -40,6 +40,8 @@ session_start();
 			<li><a href="search.html">Search</a></li>
 			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals</a></li>" ?>
 			<?php echo "<li><a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
+			<?php echo "<li><a href=\"settings.php?userID=" . $_SESSION['userID'] . "\">Settings</a></li>" ?>
+
 		</ul>
 	</div><!-- /content -->
 

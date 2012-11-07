@@ -45,7 +45,7 @@ session_start();
 		include("config.php"); 
 		$addToGoals = sprintf("INSERT INTO `c_cs147_thesam`.`Goals` (`RouteID`, `UserID`, `AntagonistID`, `Time`, `DateSet`, `Met`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", $routeID, $userID, $userID, $time, $date, $met);
 		mysql_query($addToGoals); 
-echo $addToGoals; 
+		echo $addToGoals; 
 		
 		
 		?>

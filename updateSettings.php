@@ -27,7 +27,7 @@ session_start();
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Add Friend</h1>
+		<h1>Change Password</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
                 <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
@@ -36,16 +36,18 @@ session_start();
 		
 		<?php
 
-		$name = $_POST["username"]; 
-		$id = $_SESSION["userID"];
-		$friendID = $_POST['friendID'];
+		$password = $_POST["password"]; 
+		$userID = $_SESSION["userID"];
+
+		echo $password; 
+		echo $userID; 
 		include("config.php"); 
-		$query = sprintf("update Friends set isConnected = 'true' where ID1 = '%s' and ID2 = '%s'", $id, $friendID); 
+		$query = sprintf("UPDATE `c_cs147_thesam`.`Users` SET `Password` = '%s' WHERE `Users`.`UserID` = '%s';", $password, $userID); 
 		mysql_query($query);
 		?>
 		
 		<script> 
-			window.location.href = "friends.php";
+			window.location.href = "home.php";
 		</script> 
 
 	</div><!-- /content -->

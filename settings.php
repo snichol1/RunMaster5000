@@ -28,10 +28,8 @@ function showPassword() {
 		<form action="updateSettings" method="post">
 		<label for="foo">Change password:</label>
 		<input type="password" name="password" id="bar">
-	    <input type="submit" value="Login">
+	    <input type="submit" value="Change Password">
 		</form>
-
-        <div id = "showPassword"> <button onclick="showPassword()">Show Password</button> </div> 
 
 
 
