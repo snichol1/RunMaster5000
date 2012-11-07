@@ -157,6 +157,23 @@
                 break;  
             	}  
 			}
+
+
+			//Take an array of latlng objects and calculate the distance in miles from the first
+			//object in the array to the last
+			function calculateDistance(positions) {
+				var totalDistance = 0;
+				for(var i = 1; i < positions.length; i++) {
+					var lat1 = positions[i - 1].lat();
+					var lat2 = positions[i].lat();
+					var lng1 = positions[i - 1].lng();
+					var lng2 = positions[i].lng();
+					var x = (lng2 - lng1) * Math.cos((lat1 + lat2)/2);
+					var y = (lat2 - lat1);
+					totalDistance += Math.sqrt(x*x + y*y);
+				}
+				return totalDistance;
+			}
 	
 		$(document).ready(function() {
 			initializeCurrLocation();
@@ -195,6 +212,9 @@
 			finMarker.setMap(map);
 			runPath.setMap(map);
 			
+			console.log("num coords:" + runCoordinates.length);
+			console.log("Lat" + runCoordinates[0].lat());
+			console.log("Miles:" + calculateDistance(runCoordinates));
 
 			
 			runTimer();
