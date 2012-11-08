@@ -58,13 +58,14 @@
 			    //echo("You didn't select long routes.");
 			    $maxDist = 5;
 			}
-				$query = "SELECT * FROM Routes WHERE Distance > ".$minDist." and Distance < ".$maxDist." and Difficulty > ".$minDiff." and Difficulty < ".$maxDiff;
+	}
 			
 		
-		$easy = $_GET['easydiff'];
-		$med2 = $_GET['mediumdiff'];
-		$hard = $_GET['harddiff'];
-		
+	$easy = $_GET['easydiff'];
+	$med2 = $_GET['mediumdiff'];
+	$hard = $_GET['harddiff'];
+	
+	if(!(empty($med2) && empty($easy) && empty($hard))){
 		if(empty($easy) && empty($med2)){
 		    $minDiff = 2;
 		}
@@ -78,11 +79,9 @@
 		else if(empty($hard)){
 		    $maxDiff = 3;
 		}
-		else{
-			//Handle situation where none are chosen. Now just defaults to
-			//acting the same if everything was chosen.
-		}
 	}
+	
+	$query = "SELECT * FROM Routes WHERE Distance > ".$minDist." and Distance < ".$maxDist." and Difficulty > ".$minDiff." and Difficulty < ".$maxDiff;
 
 
 if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($easy) && !empty($hard))){
