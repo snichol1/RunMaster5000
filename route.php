@@ -14,7 +14,7 @@ session_start();
 	</head>
     <body>
         <!-- Home -->
-        <div data-role="page" id="page1">
+        <div data-role="page" id="routePage">
 			<div data-role="header">
 			<h1>
 			<?php
