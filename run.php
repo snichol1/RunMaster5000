@@ -78,6 +78,9 @@
 				
 	<div id="mapcanvas" style="height:288px;width:300px"></div>
 	<script type="text/javascript">
+			//total length of the run in miles
+			var runDistance = calculateDistance(runCoordinates);
+
 			//Variables for our map and current location
 			var map;
 			var currMarker;
@@ -99,7 +102,7 @@
 				var currMilli = currTime - startTime - (currMin * 60000) - (currSec * 1000);
 				currMilli = ("000" + currMilli).slice(-4);
 				var elapsed = currMin + ":" + currSec + ":" + currMilli;
-				document.getElementById('yourTime').value=elapsed;
+				document.getElementById('yourTime').textContent="Your Time: " + elapsed;
 				t=setTimeout("runTimer()",50);
 			};
 			
@@ -138,6 +141,7 @@
 			}
 			//Update the position of the current location marker
 			function handleLocationUpdate(position) {
+				//Calculate user's current position and add it to their locations
 				var currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 				currMarker.setPosition(currLatLng);
 				console.log("Lat:" + currLatLng.lat());
@@ -145,6 +149,15 @@
 				console.log(ticker);
 				ticker++;
 				locations[ticker] = currLatLng;
+
+				//Calculate their milage and update the page accordingly
+				var currDistance = calculateDistance(locations);
+				document.getElementById("mileage").textContent = currDistance + " miles run.";
+
+				//Calculate how far on or off pace the runner is and display
+				var distToGo = runDistance - currDistance;
+				//how distance covered in the last 10s leg
+				var lastLeg;
 			}
 			function handleError(error) {
 				switch(error.code)  {  
@@ -176,7 +189,7 @@
 					totalDistance += Math.sqrt(x*x + y*y)*earthRadius;
 					console.log("Leg#" + i + ": " + Math.sqrt(x*x + y*y)*earthRadius);
 				}
-				return totalDistance;
+				return totalDistance.toFixed();
 			}
 
 			function calculateDistanceFancy(positions) {
@@ -193,7 +206,7 @@
                   	console.log("FancyLeg#" + i + ": " + nextD);					
 					totalDistance += nextD;
 				}
-				return totalDistance;
+				return totalDistance.toFixed(2);
 			}
 	
 		$(function() {
@@ -233,10 +246,9 @@
 			finMarker.setMap(map);
 			runPath.setMap(map);
 			
-			console.log("num coords:" + runCoordinates.length);
-			console.log("Lat" + runCoordinates[0].lat());
-			console.log("Miles:" + calculateDistance(runCoordinates));
-			console.log("Fancy miles:" + calculateDistanceFancy(runCoordinates));
+			//console.log("num coords:" + runCoordinates.length);
+			//console.log("Lat" + runCoordinates[0].lat());
+			//console.log("Miles:" + calculateDistance(runCoordinates));
 
 			
 			runTimer();
@@ -246,6 +258,9 @@
 
 		
 		$(function() {
+			$("#end").hide();
+			$("#resume").hide();
+
 			$("#pause").click(function() {
 				$(this).hide();
 				$("#resume").show();
@@ -262,8 +277,9 @@
 	</script>
 	
 	<?php
-		echo "<p>Your Time: <input type=\"text\" id=\"yourTime\" /></p>";
+		echo "<div id=\"yourTime\">Your Time: </div>";
 		echo "<p>Goal Time: </p>";
+		echo "<div id=\"mileage\">0 miles run.</div>"
 	?>
 	<div class="running" id="runningBlock">
 	<a href="#" id="pause" data-role="button">Pause</a>
