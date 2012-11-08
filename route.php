@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+
 
 <!DOCTYPE html>
 <html>
@@ -10,11 +8,10 @@ session_start();
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-		<link rel="stylesheet" href="run.css" />
 	</head>
     <body>
         <!-- Home -->
-        <div data-role="page" id="routePage">
+        <div data-role="page">
 			<div data-role="header">
 			<h1>
 			<?php
@@ -78,9 +75,10 @@ session_start();
 	
 		
 				
-	<div id="mapcanvas" style="height:288px;width:300px"></div>
+	<div id="mapcanvas1" style="height:288px;width:300px"></div>
 	<script type="text/javascript">
-		$(document).ready(function() {
+		var map;
+		$(function() {
 			//Build LatLng objects
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
 			var finLatLng = new google.maps.LatLng(finLat, finLng);
@@ -119,7 +117,7 @@ session_start();
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			//Create Markers and Path for the start end ending points.
-			var map = new google.maps.Map(document.getElementById("mapcanvas"),
+			map = new google.maps.Map(document.getElementById("mapcanvas1"),
 				mapOptions);
 			var startMarker = new google.maps.Marker({
 				position: startLatLng,

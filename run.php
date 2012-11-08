@@ -163,20 +163,40 @@
 			//Take an array of latlng objects and calculate the distance in miles from the first
 			//object in the array to the last
 			function calculateDistance(positions) {
+				var earthRadius = 3963.1676;
 				var totalDistance = 0;
+				var piOverOneEighty = 3.14159265 / 180;
+				for(var i = 1; i < positions.length; i++) {
+					var lat1 = positions[i - 1].lat() * piOverOneEighty;
+					var lat2 = positions[i].lat() * piOverOneEighty;
+					var lng1 = positions[i - 1].lng() * piOverOneEighty;
+					var lng2 = positions[i].lng() * piOverOneEighty;
+					var x = (lng2 - lng1) * Math.cos((lat1 + lat2)/2);
+					var y = (lat2 - lat1);
+					totalDistance += Math.sqrt(x*x + y*y)*earthRadius;
+					console.log("Leg#" + i + ": " + Math.sqrt(x*x + y*y)*earthRadius);
+				}
+				return totalDistance;
+			}
+
+			function calculateDistanceFancy(positions) {
+				var totalDistance = 0;
+				var earthRadius = 3963.1676;
 				for(var i = 1; i < positions.length; i++) {
 					var lat1 = positions[i - 1].lat();
 					var lat2 = positions[i].lat();
 					var lng1 = positions[i - 1].lng();
 					var lng2 = positions[i].lng();
-					var x = (lng2 - lng1) * Math.cos((lat1 + lat2)/2);
-					var y = (lat2 - lat1);
-					totalDistance += Math.sqrt(x*x + y*y);
+					var nextD = Math.acos(Math.sin(lat1)*Math.sin(lat2) + 
+                  			Math.cos(lat1)*Math.cos(lat2) *
+                  			Math.cos(lng2-lng1)) * earthRadius;
+                  	console.log("FancyLeg#" + i + ": " + nextD);					
+					totalDistance += nextD;
 				}
 				return totalDistance;
 			}
 	
-		$(document).ready(function() {
+		$(function() {
 			initializeCurrLocation();
 			//Build LatLng objects
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
@@ -216,6 +236,7 @@
 			console.log("num coords:" + runCoordinates.length);
 			console.log("Lat" + runCoordinates[0].lat());
 			console.log("Miles:" + calculateDistance(runCoordinates));
+			console.log("Fancy miles:" + calculateDistanceFancy(runCoordinates));
 
 			
 			runTimer();
