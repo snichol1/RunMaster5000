@@ -18,7 +18,7 @@
                 <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 </div>
 	
-<!--- Where all the main content goes! --->
+<!--- Where all the main content goes! -->
 <div data-role="content">
 	
 <?php
@@ -37,7 +37,7 @@
 	
 ?>
 
-<div>
+</div>
 
 </body>
 </html>

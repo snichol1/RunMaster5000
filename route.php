@@ -5,20 +5,12 @@ session_start();
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
-        <link rel="stylesheet" href="run.css" />
-        <style>
-
-        </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.js">
-        </script>
-		
-
+		<title>RunMaster 5000</title> 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		<link rel="stylesheet" href="run.css" />
 	</head>
     <body>
         <!-- Home -->
@@ -27,7 +19,7 @@ session_start();
 			<h1>
 			<?php
 			$routeID = $_GET['routeID'];
-			$userID = $_SESSION['userID']; 
+			$userID = $_GET['userID']; 
 				include("config.php");
 
 				$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
@@ -41,9 +33,9 @@ session_start();
 			</h1>
 			<a href="home.php" data-icon="back" data-rel="back">Home</a>
 
-			</div><!-- /header -->
+	</div><!-- /header -->
 	
-            <div data-role="content">
+    <div data-role="content">
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 	<?php
@@ -151,7 +143,7 @@ session_start();
 			
 		});
 	</script>
-            </div>
+
             
             <h3 id = "distance">
             	<?php
@@ -201,11 +193,8 @@ session_start();
             ?> 
 
                                     
-			
+			</div> <!-- /content -->
 
-        </div>
-        <script>
-            //App custom javascript
-        </script>
+        </div> <!--- /page -->
     </body>
 </html>

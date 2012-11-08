@@ -37,6 +37,7 @@
 
 	<?php
 		$routeID = $_GET['routeID'];
+		$userID = $_GET['userID'];
 		include("config.php");
 		$startLat;
 		$startLng;
