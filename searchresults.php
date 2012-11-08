@@ -84,15 +84,14 @@
 		}
 	}
 
-<!-- Had to hardcode the random cases.. oops, but I really tried not to! (2 hours w/ nothing to show. Hardcoding took me 10 mins :P -->	
 
 if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($easy) && !empty($hard))){
 			$query = "SELECT * FROM Routes WHERE (Distance < 2 or Distance > 5) and Difficulty != 2";
-			$feedback = "Results for easy and hard routes that are <2 or >5 miles"
+			$feedback = "Results for easy and hard routes that are <2 or >5 miles";
 		}
 		else if(empty($med) && !empty($short) && !empty($long)){
 			$query = "SELECT * FROM Routes WHERE (Distance < 2 or Distance > 5) and Difficulty > ".$minDiff." and Difficulty < ".$maxDiff;
-			$feedback .= " that are less than 2 miles or great than 5 miles"
+			$feedback .= " that are less than 2 miles or great than 5 miles";
 		} 
 		else if((empty($med2) && !empty($easy) && !empty($hard))){
 			$query = "SELECT * FROM Routes WHERE Distance > ".$minDist." and Distance < ".$maxDist." and Difficulty != 2";
@@ -109,7 +108,7 @@ if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($
 	
 	while($row = mysql_fetch_assoc($result)){
 		if($routeName === "" || (stristr($row["Name"], $_GET['name']) !== FALSE)){
-			echo "<div class='routeresult'><span class='nameresult'><a href=\"run.php?id=".$row["RouteID"]."\">".$row["Name"]."</a></span>";
+			echo "<div class='routeresult'><span class='nameresult'><a href=\"run.php?routeID=".$row["RouteID"]."\">".$row["Name"]."</a></span>";
 			echo "<span class='distanceresult'> Dist: ".$row["Distance"]."</span>";
 			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>";
 		}

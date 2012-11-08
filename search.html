@@ -42,17 +42,17 @@
 	            <legend>
 	                Specify Route Distance:
 	            </legend>
-	            <input id="shortdist" name="shortdist" type="checkbox" checked="yes" onlick="displayDistance()"/>
+	            <input id="shortdist" name="shortdist" type="checkbox" checked="no" onlick="displayDistance()"/>
 	            <label for="shortdist">
 	                Short
 	                <div class="distspecify"> 0 - 2 mi</div>
 	            </label>
-	            <input id="mediumdist" value="mediumdist" name="mediumdist" type="checkbox" checked="yes"/>
+	            <input id="mediumdist" value="mediumdist" name="mediumdist" type="checkbox" checked="no"/>
 	            <label for="mediumdist" onlick="displayDistance()">
 	                Medium
 	                <div class="distspecify">2 - 5 mi</div>
 	            </label>
-	            <input id="longdist" value="longdist" name="longdist" type="checkbox" checked="yes"/>
+	            <input id="longdist" value="longdist" name="longdist" type="checkbox" checked="no"/>
 	            <label for="longdist" onlick="displayDistance()">
 	                Long
 	                <div class="distspecify">5+ mi</div>
@@ -60,7 +60,7 @@
 	        </fieldset>
 		</div>
 		
-		<div id="selectedDist">All distances currently selected.</div>
+		<div id="selectedDist"></div>
 	
 	
 	<!---- Difficulty Selector ----->
@@ -69,15 +69,15 @@
 	            <legend>
 	                Difficulty:
 	            </legend>
-	            <input id="easydiff" name="easydiff" type="checkbox" checked="yes"/>
+	            <input id="easydiff" name="easydiff" type="checkbox" checked="no"/>
 	            <label for="easydiff">
 	                Easy
 	            </label>
-	            <input id="mediumdiff" name="mediumdiff" type="checkbox" checked="yes"/>
+	            <input id="mediumdiff" name="mediumdiff" type="checkbox" checked="no"/>
 	            <label for="mediumdiff">
 	                Medium
 	            </label>
-	            <input id="harddiff" name="harddiff" type="checkbox" checked="yes"/>
+	            <input id="harddiff" name="harddiff" type="checkbox" checked="no"/>
 	            <label for="harddiff">
 	                Hard
 	            </label>
