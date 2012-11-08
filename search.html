@@ -108,14 +108,15 @@
 				var outputStr = "Currently Selected: <b>";
 
 				if($('input[name=shortdist]').is(':checked')){
-					outputStr += "Short "	
+					outputStr += "Short, "	
 				}
 				if($('input[name=mediumdist]').is(':checked')){
-					outputStr += "Medium "	
+					outputStr += "Medium, "	
 				}
 				if($('input[name=longdist]').is(':checked')){
-					outputStr += "Long "	
+					outputStr += "Long, "	
 				}
+				outputStr = outputStr.substring(0, outputStr.length-2);
 				$(".selectedDist").html(outputStr + "</b>");
 			}
 			
@@ -134,14 +135,15 @@
 				var outputStr = "Currently Selected: <b>";
 
 				if($('input[name=easydiff]').is(':checked')){
-					outputStr += "Easy "	
+					outputStr += "Easy, "	
 				}
 				if($('input[name=mediumdiff]').is(':checked')){
-					outputStr += "Medium "	
+					outputStr += "Medium, "	
 				}
 				if($('input[name=harddiff]').is(':checked')){
-					outputStr += "Hard "	
+					outputStr += "Hard, "	
 				}
+				outputStr = outputStr.substring(0, outputStr.length-2);
 				$(".selectedDiff").html(outputStr + "</b>");
 			}
 			
