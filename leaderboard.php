@@ -55,11 +55,11 @@
 						echo "<div class='yourResult'>Your Place in the Leaderboard:";
 						echo " <div class='routeresult'>".$count.". <span class='userName'>".$userName."</span> ";	
 						echo " <span class='distanceresult'> Time: ".$row["min(Time)"]."</span> ";
-						echo " <span class='difficultyresult'> Date Ran: ".$row["Date"]."</span></div> <br>";
+						echo " <span class='difficultyresult'> Date: ".$row["Date"]."</span></div> <br>";
 					}	
 				}
 				$output = $output." <span class='distanceresult'> Time: ".$row["min(Time)"]."</span> ";
-				$output = $output." <span class='difficultyresult'> Date Ran: ".$row["Date"]."</span></div> ";
+				$output = $output." <span class='difficultyresult'> Date: ".$row["Date"]."</span></div> ";
 	
 				$count++;
 			}

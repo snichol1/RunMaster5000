@@ -161,9 +161,9 @@ session_start();
 		  			echo " out of 5 </h3>"; 
 		  		}
 				
-		  		echo "<a href=\"leaderboard.php?routeid=".$routeID."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
+		  		echo "<a href=\"leaderboard.php?routeID=".$routeID. "&userID=" . $_SESSION['userID'] ."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
 		  		
-				echo "<a href=\"newGoal.php?routeid=". $routeID . "&userID=" . $_SESSION['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
+				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_SESSION['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
 				
 				
 			?>
@@ -189,7 +189,7 @@ session_start();
 				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 
 				 
-				 echo "<a class = \"run\" href=\"run.php?routeid=".$routeID. "&userID=".$userID."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">Run!</a>";
+				 echo "<a class = \"run\" href=\"run.php?routeID=".$routeID. "&userID=".$userID."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">Run!</a>";
             ?> 
 
                                     
