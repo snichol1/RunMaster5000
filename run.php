@@ -116,6 +116,7 @@
 			function pauseTimer() {
 				clearTimeout(t);
 				is_on = 0;
+				sessionStorage.time = formatTime(elapsed);
 			}
 			
 			function resumeTimer() {
@@ -325,7 +326,7 @@
 	</div>
 	<div class="paused" id="pausedBlock">
 	<a href="#" id="resume" data-role="button">Resume</a>
-	<a href="home.php" id="end" data-role="button">End</a>
+	<a href="endRun.php" id="end" data-role="button">End</a>
 	</div>
  </div><!-- /content -->
 

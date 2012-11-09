@@ -17,9 +17,13 @@
 		<a href="home.php" data-icon="home">Back</a>
 	</div><!-- /header -->
 	<h2>Congrats on your run! Keep up the good work.</h2>
+	<div id="time"></div>
 	<a href="newChallenge.php" data-role="button" data-icon="" data-iconpos="right">Challenge a Friend</a>
 	<a href="home.php" data-role="button" data-icon="home" data-iconpos="right">Home</a>
 	
+	<script type="text/javascript">
+		document.getElementById("time").textContent = "Your time was: " sessionStorage.time;
+	</script>
 </div>
 <body>
 </html>
