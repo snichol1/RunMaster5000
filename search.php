@@ -74,7 +74,7 @@ session_start();
 	    <div id="difficultyselector" data-role="fieldcontain">
 	        <fieldset data-role="controlgroup" data-type="horizontal">
 	            <legend>
-	                <b>Difficulty:</b>
+	                <b>Specify Route Difficulty:</b>
 	            </legend>
 	            <input id="easydiff" class="diff" name="easydiff" type="checkbox"/>
 	            <label for="easydiff">
@@ -105,13 +105,13 @@ session_start();
 		$(".dist").click(function() {
 			
 			if($('input[name=shortdist]').is(':checked') && $('input[name=mediumdist]').is(':checked') && $('input[name=longdist]').is(':checked') ){
-				$(".selectedDist").html("Currently Selected: <b>All Distances</b>");
+				$(".selectedDist").html("Search: <b>All Distances</b>");
 			}
 			else if( (!$('input[name=shortdist]').is(':checked') && !$('input[name=mediumdist]').is(':checked') && !$('input[name=longdist]').is(':checked'))){
 				$(".selectedDist").html("No distances specified. <br> All distances will be searched.");
 			}
 			else{
-				var outputStr = "Currently Selected: <b>";
+				var outputStr = "Search: <b>";
 
 				if($('input[name=shortdist]').is(':checked')){
 					outputStr += "Short, "	
@@ -132,13 +132,13 @@ session_start();
 		$(".diff").click(function() {
 			
 			if($('input[name=easydiff]').is(':checked') && $('input[name=mediumdiff]').is(':checked') && $('input[name=harddiff]').is(':checked') ){
-				$(".selectedDiff").html("Currently Selected: <b>All Difficulties</b>");
+				$(".selectedDiff").html("Search: <b>All Difficulties</b>");
 			}
 			else if( (!$('input[name=easydiff]').is(':checked') && !$('input[name=mediumdiff]').is(':checked') && !$('input[name=harddiff]').is(':checked'))){
 				$(".selectedDiff").html("No difficulties specified. <br> All difficulties will be searched.");
 			}
 			else{
-				var outputStr = "Currently Selected: <b>";
+				var outputStr = "Search: <b>";
 
 				if($('input[name=easydiff]').is(':checked')){
 					outputStr += "Easy, "	

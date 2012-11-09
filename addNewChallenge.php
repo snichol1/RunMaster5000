@@ -28,7 +28,7 @@ session_start();
 
 		<h1>Challenge sent</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
-                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
+        <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true" class="ui-btn-left">Back</a>
 
 	</div><!-- /header -->
 

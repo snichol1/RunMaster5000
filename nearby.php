@@ -14,7 +14,7 @@
 
 <!-- /header -->
 <div data-role="header">
-	<h1>Stanford Runs</h1>
+	<h1>Stanford Routes</h1>
                 <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 </div>
 	

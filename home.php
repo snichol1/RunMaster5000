@@ -37,9 +37,9 @@ session_start();
 		  		}
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
-			<?php echo "<li><a href=\"nearby.php?userID=" . $_SESSION['userID'] . "\">Stanford Runs</a></li>" ?>
-			<?php echo "<li><a href=\"favorites.php?userID=" . $_SESSION['userID'] . "\">Favorite Runs</a></li>" ?>
-			<?php echo "<li><a href=\"search.php?userID=" . $_SESSION['userID'] . "\">Search Runs</a></li>" ?>
+			<?php echo "<li><a href=\"nearby.php?userID=" . $_SESSION['userID'] . "\">Stanford Routes</a></li>" ?>
+			<?php echo "<li><a href=\"favorites.php?userID=" . $_SESSION['userID'] . "\">Favorite Routes</a></li>" ?>
+			<?php echo "<li><a href=\"search.php?userID=" . $_SESSION['userID'] . "\">Search Routes</a></li>" ?>
 			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals</a></li>" ?>
 			<?php echo "<li><a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
 			<?php echo "<li><a href=\"settings.php?userID=" . $_SESSION['userID'] . "\">Settings</a></li>" ?>

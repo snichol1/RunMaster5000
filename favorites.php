@@ -21,7 +21,7 @@ session_start();
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>RunMaster 5000</h1>
+		<h1>Favorites</h1>
          <a href="home.php" data-icon="back">Back</a>
 
 	</div><!-- /header -->
