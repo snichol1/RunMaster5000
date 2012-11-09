@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -16,13 +19,18 @@
 		<h1>Run Finished</h1>
 		<a href="home.php" data-icon="home">Back</a>
 	</div><!-- /header -->
-	<h2>Congrats on your run! Keep up the good work.</h2>
+	<h2 id="message">Congrats on meeting your goal! Keep up the good work.</h2>
 	<div id="time"></div>
+	<div id="goal"></div>
 	<a href="newChallenge.php" data-role="button" data-icon="" data-iconpos="right">Challenge a Friend</a>
 	<a href="home.php" data-role="button" data-icon="home" data-iconpos="right">Home</a>
 	
 	<script type="text/javascript">
-		document.getElementById("time").textContent = "Your time was: " sessionStorage.time;
+		if(sessionStorage.goalTime > sessionStorage.time) {
+			document.getElementById("message").textContent = "Good work, you'll reach your goal in no time!";
+		}
+		document.getElementById("time").textContent = "Your time was: " + sessionStorage.timePretty;
+		document.getElementById("goal").textContent = "Your goal was: " + sessionStorage.goalTimePretty;
 	</script>
 </div>
 <body>

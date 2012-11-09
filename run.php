@@ -1,4 +1,4 @@
-<?php session_start() ?>
+<?php session_start(); ?>
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -56,7 +56,7 @@
 		}else {
 			echo ("
 				<script type=\"text/javascript\">
-				var goalTimePretty = 0;
+				var goalTimePretty = \"00:00:00\";
 				</script>
 			");
 		}
@@ -145,7 +145,10 @@
 			function pauseTimer() {
 				clearTimeout(t);
 				is_on = 0;
-				sessionStorage.time = formatTime(elapsed);
+				sessionStorage.timePretty = formatTime(elapsed);
+				sessionStorage.goalTimePretty = goalTimePretty;
+				sessionStorage.time = elapsed;
+				sessionStorage.goalTime = goalTime;
 			}
 			
 			function resumeTimer() {
