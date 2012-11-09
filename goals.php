@@ -120,7 +120,7 @@ session_start();
 				echo "<table>";
 			  		echo "<tr>"; 
 			  		echo "<td>"; 
-			  		echo "<b>Username</b>"; 
+			  		echo "<b>Route</b>"; 
 			  		echo "</td>"; 
 			  		echo "<td>"; 
 			  		echo "<b>Goal Time</b>"; 
