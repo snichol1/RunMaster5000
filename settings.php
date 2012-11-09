@@ -20,7 +20,7 @@ function showPassword() {
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>RunMaster 5000 | Login</h1>
+		<h1>Settings</h1>
 		<a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Home</a>
 	</div><!-- /header -->
 
