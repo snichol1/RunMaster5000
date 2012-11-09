@@ -112,60 +112,106 @@ session_start();
 		echo "<br><a data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a>";
 		 ?>
 		 
-		<h3> Goals </h3> 	
-		<table> 
+		<h3> Current Goals </h3> 	
 		
 				<?php
 				include("config.php");
+				
+				echo "<table>";
+			  		echo "<tr>"; 
+			  		echo "<td>"; 
+			  		echo "<b>Username</b>"; 
+			  		echo "</td>"; 
+			  		echo "<td>"; 
+			  		echo "<b>Goal Time</b>"; 
+			  		echo "</td>";
+					echo "<td> <b>Challenger</b> </td>";
+						
+					echo "</tr>"; //Remove if reverted
+				echo "</table>";
+
+				
+				
+				
 				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '%s' and Goals.Met = '0'", $_SESSION['userID']);
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
 		  			
-		  		$query = sprintf("select * from Users where UserID = '%s' LIMIT 0, 30 ", $row['AntagonistID']); 
-				$userArray = mysql_query($query); 
-				$nameRow = mysql_fetch_array($userArray); 
-				$challengerName = $nameRow['Name']; 
-				
-		  		echo "<tr>"; 
-		  		echo "<td>"; 
-		  		$name = $row['Name']; 
-		  		echo $name; 
-		  		echo "</td>"; 
-		  		echo "<td>"; 
-		  		$time = $row['Time']; 
-		  		echo $time; 
-		  		echo "</td>";
-				
-				if ($row['AntagonistID'] !=  $_SESSION['userID']) echo "<td>" . "from " . $challengerName . "</td>";
-				else echo "<td> &nbsp; </td>"; 
-		  		echo "<td>"; 
-				echo "<a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
-			  		echo "\">"; 
-			 	 	echo "RUN!"; 
-			  		echo "</a>";
-		  		echo "</td>"; 
-		  		
-		  		echo "<td>"; 
-		  		
-				echo "<a href = \"removeGoal.php?routeID="; 
-			  	echo $row['RouteID'];
-			  	echo "&UserID=";
-			  	echo $row['UserID'];
-			  	echo "&AntagonistID=";
-			  	echo $row['AntagonistID'];
-		  		echo "\"> Remove"; 
-		  		echo "</a>"; 		  		
-		  		
-		  		
-		  		echo "</td>"; 
-		  		
-		  		echo "</tr>"; 
+			  		$query = sprintf("select * from Users where UserID = '%s' LIMIT 0, 30 ", $row['AntagonistID']); 
+					$userArray = mysql_query($query); 
+					$nameRow = mysql_fetch_array($userArray); 
+					$challengerName = $nameRow['Name']; 
+					
+			  		$name = $row['Name']; 
+					$time = $row['Time'];
+					$routeID = $row['RouteID'];
+					$userID = $_SESSION['userID'];
+					
+					
+					/*echo "<div class=\"goalentry\"><span class=\"namelabel\">".$name."</span>";
+					echo "<span class=\"timelabel\">".$time."</span>";
+					echo */
+					
+					echo "<table>";
+			  		echo "<tr>"; 
+			  		echo "<td>"; 
+			  		$name = $row['Name']; 
+			  		echo $name; 
+			  		echo "</td>"; 
+			  		echo "<td>"; 
+			  		$time = $row['Time']; 
+			  		echo $time; 
+			  		echo "</td>";
+			  		
+					
+					if ($row['AntagonistID'] !=  $_SESSION['userID']) 
+						echo "<td>" . "from " . $challengerName . "</td>";
+					else 
+						echo "<td> Yourself </td>";
+						
+					echo "</tr>"; //Remove if reverted
+					echo "</table>";
+					
+					echo "<span class=\"runbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
+					echo "\">"; 
+			 	 	echo "RUN"; 
+			  		echo "</a></span>";
+			  		
+			  		echo "<span class=\"runbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"removeGoal.php?routeID=" .$routeID; 
+				  	echo "&UserID=";
+				  	echo $row['UserID'];
+				  	echo "&AntagonistID=";
+				  	echo $row['AntagonistID'];
+			  		echo "\"> Remove"; 
+			  		echo "</a></span><br><br>";	  		
+					
+			  		/*echo "<td>"; 
+					echo "<a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
+				  		echo "\">"; 
+				 	 	echo "RUN!"; 
+				  		echo "</a>";
+			  		echo "</td>"; 
+			  		
+			  		echo "<td>"; 
+			  		
+					echo "<a href = \"removeGoal.php?routeID="; 
+				  	echo $row['RouteID'];
+				  	echo "&UserID=";
+				  	echo $row['UserID'];
+				  	echo "&AntagonistID=";
+				  	echo $row['AntagonistID'];
+			  		echo "\"> Remove"; 
+			  		echo "</a>";	  		
+			  		
+			  		
+			  		echo "</td>";  */	
+			  		
+			  		//echo "</tr>"; 
 		  		}
 			?>
 				
-		</table> 
 		
 
 
