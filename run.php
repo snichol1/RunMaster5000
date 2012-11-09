@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -38,11 +39,28 @@
 	<?php
 		$routeID = $_GET['routeID'];
 		$userID = $_GET['userID'];
+		$goal = $_SESSION['goal'];
 		include("config.php");
 		$startLat = 0;
 		$startLng = 0;
 		$finLat = 0;
 		$finLng = 0;
+
+		if(isset($goal)) {
+			echo ("
+				<script type=\"text/javascript\">
+				var goalTimePretty = \"".$goal."\";
+				//console.log(goalTimePretty);
+				</script>
+			");
+		}else {
+			echo ("
+				<script type=\"text/javascript\">
+				var goalTimePretty = 0;
+				</script>
+			");
+		}
+
 		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $routeID);
 		$bcresult = mysql_query($bcquery);
 		echo ("
@@ -93,6 +111,7 @@
 			var elapsed = 0;
 			var is_on = 1;
 			var t;
+			var goalTime = 0;
 			
 			function runTimer() {
 				var currTime = new Date().getTime();
@@ -111,6 +130,16 @@
 				milli = ("000" + milli).slice(-4);
 				return (min + ":" + sec + ":" + milli);
 
+			}
+
+			function unformatTime(time) {
+				var rawTime = 0;
+				var bits = time.split(":");
+				//console.log(bits.toString());
+				rawTime += 3600000 * bits[0];
+				rawTime += 60000 * bits[1];
+				rawTime += 1000 * bits[2];
+				return rawTime;
 			}
 			
 			function pauseTimer() {
@@ -153,46 +182,49 @@
 				//Calculate user's current position and add it to their locations
 				var currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 				currMarker.setPosition(currLatLng);
-				console.log("Lat:" + currLatLng.lat());
-				console.log("Lng:" + currLatLng.lng());
-				console.log(ticker);
+				//console.log("Lat:" + currLatLng.lat());
+				//console.log("Lng:" + currLatLng.lng());
+				//console.log(ticker);
 				ticker++;
 				locations[ticker] = currLatLng;
 
-				//Calculate their milage and update the page accordingly
-				var currDistance = calculateDistance(locations);
-				document.getElementById("mileage").textContent = currDistance + " miles run.";
+				//track and display the user's pace re: their goal time, if there is one.
+				if(goalTime > 0) {
+					//Calculate their milage and update the page accordingly
+					var currDistance = calculateDistance(locations);
+					document.getElementById("mileage").textContent = currDistance + " miles run.";
 
-				//Calculate how far on or off pace the runner is and display
-				var distToGo = runDistance - currDistance;
-				var goalTime = 1000000;
-				console.log("elapsed: " + elapsed);
-				console.log("total run distance:" + runDistance);
+					//Calculate how far on or off pace the runner is and display
+					var distToGo = runDistance - currDistance;
+					//var goalTime = 1000000;
+					//console.log("elapsed: " + elapsed);
+					//console.log("total run distance:" + runDistance);
 
-				var lastTwoLocations = new Array(2);
-				lastTwoLocations[0] = locations[locations.length - 2];
-				lastTwoLocations[1] = locations[locations.length - 1];
-				var lastLegVelocity = calculateDistance(lastTwoLocations) / 10000;
-				//var lastLegVelocity = runDistance / goalTime;
-				console.log("llv: " + lastLegVelocity);
+					var lastTwoLocations = new Array(2);
+					lastTwoLocations[0] = locations[locations.length - 2];
+					lastTwoLocations[1] = locations[locations.length - 1];
+					var lastLegVelocity = calculateDistance(lastTwoLocations) / 10000;
+					//var lastLegVelocity = runDistance / goalTime;
+					//console.log("llv: " + lastLegVelocity);
 
-				if(lastLegVelocity > 0) {
-					var timeNeeded = distToGo / lastLegVelocity;
-					var timeLeft = goalTime - elapsed;
-					console.log("time needed:" + timeNeeded);
-					console.log("time left:" + timeLeft);
-					if(timeNeeded < timeLeft) {
-						//yay you're ahead by...
-						var timeAhead = formatTime(timeLeft - timeNeeded);
-						document.getElementById("pace").textContent = timeAhead + "ahead of pace.";
+					if(lastLegVelocity > 0) {
+						var timeNeeded = distToGo / lastLegVelocity;
+						var timeLeft = goalTime - elapsed;
+						//console.log("time needed:" + timeNeeded);
+						//console.log("time left:" + timeLeft);
+						if(timeNeeded < timeLeft) {
+							//yay you're ahead by...
+							var timeAhead = formatTime(timeLeft - timeNeeded);
+							document.getElementById("pace").textContent = timeAhead + "ahead of pace.";
 
+						}else {
+							//sad face you're behind...
+							var timeBehind = formatTime(timeNeeded - timeLeft);
+							document.getElementById("pace").textContent = timeBehind + "behind pace :(";
+						}
 					}else {
-						//sad face you're behind...
-						var timeBehind = formatTime(timeNeeded - timeLeft);
-						document.getElementById("pace").textContent = timeBehind + "behind pace :(";
+						document.getElementById("pace").textContent = "Infinitely behind pace. Couch potato.";
 					}
-				}else {
-					document.getElementById("pace").textContent = "Infinitely behind pace. Couch potato.";
 				}
 			}
 			function handleError(error) {
@@ -223,7 +255,7 @@
 					var x = (lng2 - lng1) * Math.cos((lat1 + lat2)/2);
 					var y = (lat2 - lat1);
 					totalDistance += Math.sqrt(x*x + y*y)*earthRadius;
-					console.log("Leg#" + i + ": " + Math.sqrt(x*x + y*y)*earthRadius);
+					//console.log("Leg#" + i + ": " + Math.sqrt(x*x + y*y)*earthRadius);
 				}
 				return totalDistance.toFixed(2);
 			}
@@ -239,13 +271,15 @@
 					var nextD = Math.acos(Math.sin(lat1)*Math.sin(lat2) + 
                   			Math.cos(lat1)*Math.cos(lat2) *
                   			Math.cos(lng2-lng1)) * earthRadius;
-                  	console.log("FancyLeg#" + i + ": " + nextD);					
+                  	//console.log("FancyLeg#" + i + ": " + nextD);					
 					totalDistance += nextD;
 				}
 				return totalDistance.toFixed(2);
 			}
 	
 		$(function() {
+			goalTime = unformatTime(goalTimePretty);
+			//console.log(goalTime);
 			initializeCurrLocation();
 			//Build LatLng objects
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
@@ -285,11 +319,10 @@
 			finMarker.setMap(map);
 			runPath.setMap(map);
 			
-			//console.log("num coords:" + runCoordinates.length);
-			//console.log("Lat" + runCoordinates[0].lat());
-			//console.log("Miles:" + calculateDistance(runCoordinates));
+			////console.log("num coords:" + runCoordinates.length);
+			////console.log("Lat" + runCoordinates[0].lat());
+			////console.log("Miles:" + calculateDistance(runCoordinates));
 
-			
 			runTimer();
 			trackLocation();
 		});
@@ -316,8 +349,11 @@
 	</script>
 	
 	<?php
+		$goal = $_SESSION['goal'];
 		echo "<div id=\"yourTime\">Your Time: </div>";
-		echo "<p>Goal Time: </p>";
+		//if(isset($goal)) {
+			echo "<p>Goal Time: ".$goal."</p>";
+		//}
 		echo "<div id=\"mileage\">0 miles run.</div>";
 		echo "<div id=\"pace\"></div>"
 	?>

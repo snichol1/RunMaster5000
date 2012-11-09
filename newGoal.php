@@ -42,8 +42,8 @@ session_start();
   		$goalsRowCheck = mysql_num_rows($goalsResult);
   		if($goalsRowCheck > 0) {
   			while($row = mysql_fetch_array($goalsResult)) {
-  				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">" . $row['Name'] . "'s PR: " . $row['Time'] . "</a>";
-  				//do something about transferring the data back...
+  				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">" . $row['Name'] . "'s PR: " . $row['Time'] . "</a>";
+  				$_SESSION['goal']=$row['Time'];
   			}
   		}
 
@@ -52,8 +52,8 @@ session_start();
   		$selfGoalRowCheck = mysql_num_rows($selfGoalResult);
   		if($selfGoalRowCheck > 0) {
   			while($row = mysql_fetch_array($selfGoalResult)) {
-  				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your goal: " . $row['Time'] . "</a>";
-  				//do something about transferring the data back...
+  				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your goal: " . $row['Time'] . "</a>";
+  				$_SESSION['goal']=$row['Time'];
   			}
   		}
 
@@ -63,8 +63,8 @@ session_start();
   			$PR = $row['Time'];
   		}
   		if($PR != NULL) {
-  			echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your PR: " . $PR . "</a>";
-
+  			echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your PR: " . $PR . "</a>";
+  			$_SESSION['goal']=$row['Time'];
   		}
   		
 
@@ -75,8 +75,8 @@ session_start();
   			while($row = mysql_fetch_array($RRResult)) {
   				$RRecord = $row['Time'];
   				if($RRecord > $PR) {
-  					echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Route Record: " . $RRecord . "</a>";
-
+  					echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Route Record: " . $RRecord . "</a>";
+  					$_SESSION['goal']=$row['Time'];
   				}
   			}
   		}
@@ -84,12 +84,13 @@ session_start();
 
 
 	?> 
-	
+	<h3>Custom goal time:</h3>
+
 
 
 <form name="input" action="addNewGoal.php" method="get">
 Hours: 
-<select name="hours">
+<select name="hours" style="width:100px">
 <option value="00" selected = "selected">Hours</option>
 <option value="00">00</option>
 <option value="01">01</option>
@@ -286,7 +287,7 @@ Seconds:
 </select>
 
 
-<input type="submit" value="Submit">
+<input type="submit" value="Set Goal">
 </form>
 
  </div><!-- /content -->

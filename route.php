@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -15,8 +17,9 @@
 			<div data-role="header">
 			<h1>
 			<?php
-			$routeID = $_GET['routeID'];
-			$userID = $_GET['userID']; 
+				$routeID = $_GET['routeID'];
+				$userID = $_GET['userID'];
+				$goal = $_SESSION['Time']; 
 				include("config.php");
 
 				$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
@@ -36,6 +39,8 @@
 
 	<?php
 		$routeID = $_GET['routeID'];
+		$userID = $_GET['userID'];
+		$goal = $_SESSION['goal'];
 		include("config.php");
 		$startLat;
 		$startLng;
@@ -156,11 +161,17 @@
 		  			echo "<h3> Difficulty: "; 
 		  			echo $row['Difficulty']; 
 		  			echo " out of 5 </h3>"; 
+
+		  			if(isset($goal)) {
+		  				echo "<h3> Goal time: " . $goal . "</h3>";
+		  			}
 		  		}
 				
 		  		echo "<a href=\"leaderboard.php?routeID=".$routeID. "&userID=" . $_GET['userID'] ."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
 		  		
-				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
+		  		$goalText = "Add Goal";
+		  		if(isset($goal)) $goalText = "Change Goal";
+				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">".$goalText."</a>";
 				
 				
 			?>
