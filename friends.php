@@ -78,10 +78,10 @@ session_start();
 		  		echo ">"; 
 
 		  		echo "<input type=\"submit\" value="; 
-		  		echo "Follow"; 
+		  		echo "Follow";
 		  		echo "> </form>";
-		  		echo "</td>"; 
-		  		echo "</tr>";  
+		  		echo "</td>";
+		  		echo "</tr>";
 		  		}
 				?>
 				

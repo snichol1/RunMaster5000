@@ -110,12 +110,19 @@ if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($
 		$routeName = "";	
 	}
 	
+	$oneResult = false;
+	
 	while($row = mysql_fetch_assoc($result)){
+		$oneResult = true;
 		if($routeName === "" || (stristr($row["Name"], $_GET['name']) !== FALSE)){
 			echo "<div class='routeresult'><span class='nameresult'><a href=\"route.php?routeID=".$row["RouteID"]."&userID=".$_GET["userID"]."\">".$row["Name"]."</a></span>";
 			echo "<span class='distanceresult'> Dist: ".$row["Distance"]."</span>";
 			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>";
 		}
+	}
+	
+	if(!$oneResult){
+		echo "<div>Sorry there are no matching results.</div>";
 	}
 	
 ?>
