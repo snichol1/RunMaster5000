@@ -38,7 +38,7 @@
 ?>
 
 <script type="text/javascript">
-	var coords = [0, 1, 2, 3,];
+	var coords = [ ];
 </script>
 
 <script type="text/javascript">

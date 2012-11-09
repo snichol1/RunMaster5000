@@ -39,10 +39,10 @@
 		$routeID = $_GET['routeID'];
 		$userID = $_GET['userID'];
 		include("config.php");
-		$startLat;
-		$startLng;
-		$finLat;
-		$finLng;
+		$startLat = 0;
+		$startLng = 0;
+		$finLat = 0;
+		$finLng = 0;
 		$bcquery = sprintf("select * from BreadCrumbs where RouteID='%s' order by bcID", $routeID);
 		$bcresult = mysql_query($bcquery);
 		echo ("
@@ -90,21 +90,28 @@
 
 			//Variables for our timer code:
 			var startTime = new Date().getTime();
-			var elapsed = '0.0';
+			var elapsed = 0;
 			var is_on = 1;
 			var t;
 			
 			function runTimer() {
 				var currTime = new Date().getTime();
-				var currMin = Math.floor((currTime - startTime)/60000);
-				var currSec = Math.floor((currTime - startTime) / 1000) - (currMin * 60);
-				currSec = ("0" + currSec).slice(-2);
-				var currMilli = currTime - startTime - (currMin * 60000) - (currSec * 1000);
-				currMilli = ("000" + currMilli).slice(-4);
-				var elapsed = currMin + ":" + currSec + ":" + currMilli;
-				document.getElementById('yourTime').textContent="Your Time: " + elapsed;
+				elapsed += currTime - startTime;
+				startTime = currTime;
+				var elapsedPretty = formatTime(elapsed);
+				document.getElementById('yourTime').textContent="Your Time: " + elapsedPretty;
 				t=setTimeout("runTimer()",50);
 			};
+
+			function formatTime(time) {
+				var min = Math.floor(time/60000);
+				var sec = Math.floor(time / 1000) - (min * 60);
+				sec = ("0" + sec).slice(-2);
+				var milli = time - (min * 60000) - (sec * 1000);
+				milli = ("000" + milli).slice(-4);
+				return (min + ":" + sec + ":" + milli);
+
+			}
 			
 			function pauseTimer() {
 				clearTimeout(t);
@@ -114,7 +121,8 @@
 			function resumeTimer() {
 				if(!is_on) {
 					is_on = 1;
-					runTimer();
+					startTime = new Date().getTime();
+					runTimer();				
 				}
 			}
 
@@ -156,8 +164,35 @@
 
 				//Calculate how far on or off pace the runner is and display
 				var distToGo = runDistance - currDistance;
-				//how distance covered in the last 10s leg
-				var lastLeg;
+				var goalTime = 1000000;
+				console.log("elapsed: " + elapsed);
+				console.log("total run distance:" + runDistance);
+
+				var lastTwoLocations = new Array(2);
+				lastTwoLocations[0] = locations[locations.length - 2];
+				lastTwoLocations[1] = locations[locations.length - 1];
+				var lastLegVelocity = calculateDistance(lastTwoLocations) / 10000;
+				//var lastLegVelocity = runDistance / goalTime;
+				console.log("llv: " + lastLegVelocity);
+
+				if(lastLegVelocity > 0) {
+					var timeNeeded = distToGo / lastLegVelocity;
+					var timeLeft = goalTime - elapsed;
+					console.log("time needed:" + timeNeeded);
+					console.log("time left:" + timeLeft);
+					if(timeNeeded < timeLeft) {
+						//yay you're ahead by...
+						var timeAhead = formatTime(timeLeft - timeNeeded);
+						document.getElementById("pace").textContent = timeAhead + "ahead of pace.";
+
+					}else {
+						//sad face you're behind...
+						var timeBehind = formatTime(timeNeeded - timeLeft);
+						document.getElementById("pace").textContent = timeBehind + "behind pace :(";
+					}
+				}else {
+					document.getElementById("pace").textContent = "Infinitely behind pace. Couch potato.";
+				}
 			}
 			function handleError(error) {
 				switch(error.code)  {  
@@ -189,7 +224,7 @@
 					totalDistance += Math.sqrt(x*x + y*y)*earthRadius;
 					console.log("Leg#" + i + ": " + Math.sqrt(x*x + y*y)*earthRadius);
 				}
-				return totalDistance.toFixed();
+				return totalDistance.toFixed(2);
 			}
 
 			function calculateDistanceFancy(positions) {
@@ -235,12 +270,15 @@
 				position: finLatLng,
 				title: "Finish"
 			});
-			var runPath = new google.maps.Polyline({
-				path: runCoordinates,
-				strokeColor: "#FF0000",
-				strokeOpacity: 1.0,
-				strokeWeight: 2
-			});
+			var runPath;
+			if(runCoordinates.length > 0) {
+				runPath = new google.maps.Polyline({
+					path: runCoordinates,
+					strokeColor: "#FF0000",
+					strokeOpacity: 1.0,
+					strokeWeight: 2
+				});
+			}
 			//And add them to the map.
 			startMarker.setMap(map);
 			finMarker.setMap(map);
@@ -279,7 +317,8 @@
 	<?php
 		echo "<div id=\"yourTime\">Your Time: </div>";
 		echo "<p>Goal Time: </p>";
-		echo "<div id=\"mileage\">0 miles run.</div>"
+		echo "<div id=\"mileage\">0 miles run.</div>";
+		echo "<div id=\"pace\"></div>"
 	?>
 	<div class="running" id="runningBlock">
 	<a href="#" id="pause" data-role="button">Pause</a>
