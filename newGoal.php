@@ -18,20 +18,69 @@ session_start();
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Add New Goal</h1>
+		<h1>Set a Goal</h1>
         <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
 	<?php
-		$runNumber = $_GET['routeid'];
+		$routeID = $_GET['routeID'];
+		$userID = $_GET['userID'];
 		include("config.php");
-		$query = sprintf("select * from Routes where RouteID='%s'", $runNumber);
+		$RRecord;
+		$PR;
+
+		$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
   		{
-  			echo "Set a new goal for " . $row['Name']; 
+  			echo "<h1>Set a goal for " . $row['Name'] . ":</h1>"; 
   		}
+
+  		$goalsQuery = sprintf("SELECT Goals.UserID AS UserID, Users.Name AS Name, Time FROM Goals, Users WHERE Goals.AntagonistID = Users.UserID AND routeID=".$routeID." AND met=0 AND AntagonistID <> ".$userID." AND Goals.UserID=".$userID);
+  		$goalsResult = mysql_query($goalsQuery);
+  		$goalsRowCheck = mysql_num_rows($goalsResult);
+  		if($goalsRowCheck > 0) {
+  			while($row = mysql_fetch_array($goalsResult)) {
+  				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">" . $row['Name'] . "'s PR: " . $row['Time'] . "</a>";
+  				//do something about transferring the data back...
+  			}
+  		}
+
+  		$selfGoalQuery = sprintf("SELECT min(Time) as Time FROM Goals WHERE routeID=".$routeID." AND met=0 AND AntagonistID = ".$userID);
+  		$selfGoalResult = mysql_query($selfGoalQuery);
+  		$selfGoalRowCheck = mysql_num_rows($selfGoalResult);
+  		if($selfGoalRowCheck > 0) {
+  			while($row = mysql_fetch_array($selfGoalResult)) {
+  				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your goal: " . $row['Time'] . "</a>";
+  				//do something about transferring the data back...
+  			}
+  		}
+
+  		$PRQuery = sprintf("SELECT min(Time) as Time FROM Records WHERE RouteID = ".$routeID." AND UserID = ".$userID);
+  		$PRResult = mysql_query($PRQuery);
+  		while($row = mysql_fetch_array($PRResult)) {
+  			$PR = $row['Time'];
+  		}
+  		if($PR != NULL) {
+  			echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your PR: " . $PR . "</a>";
+
+  		}
+  		
+
+  		$RRquery = sprintf("SELECT min(Time) AS Time FROM Records WHERE RouteID = " . $routeID);
+  		$RRResult = mysql_query($RRquery);
+  		$RRRowCheck = mysql_num_rows($RRResult);
+  		if($RRRowCheck > 0) {
+  			while($row = mysql_fetch_array($RRResult)) {
+  				$RRecord = $row['Time'];
+  				if($RRecord > $PR) {
+  					echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Route Record: " . $RRecord . "</a>";
+
+  				}
+  			}
+  		}
+
 
 
 	?> 

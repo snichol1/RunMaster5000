@@ -51,7 +51,6 @@ session_start();
 			while ($row = mysql_fetch_array($result)) {
 				$id = $row['UserID'];
 				$name = $row['Name'];
-				session_start();
 			// store session data
 				$_SESSION['userID']=$row['UserID'];
 			}
