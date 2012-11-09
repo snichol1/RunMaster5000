@@ -47,19 +47,19 @@
 				$result2 = mysql_query($userquery);
 				while($row2 = mysql_fetch_assoc($result2)){
 					if($output === "It looks like no one has run this route. The leaderboard is empty."){
-						$output = "All Leaderboard Results:";	
+						$output = "<h3>All Leaderboard Results:</h3>";	
 					}
 					$userName = $row2["Name"];
-					$output = $output." <div class='routeresult'>".$count.". <span class='userName'>".$userName."</span> ";
+					$output = $output." <div class='routeresult'><b>".$count.".</b> <span class='userName'>".$userName."</span> ";
 					if($userID == $row["UserID"]){
-						echo "<div class='yourResult'>Your Place in the Leaderboard:";
-						echo " <div class='routeresult'>".$count.". <span class='userName'>".$userName."</span> ";	
-						echo " <span class='distanceresult'> Time: ".$row["min(Time)"]."</span> ";
-						echo " <span class='difficultyresult'> Date: ".$row["Date"]."</span></div> <br>";
+						echo "<div class='yourResult'><h3>Your Place in the Leaderboard:</h3>";
+						echo " <div class='routeresult'><b>".$count.".</b> <span class='userName'>".$userName."</span> ";	
+						echo " <span class='distanceresult'> <b>Time:</b> ".$row["min(Time)"]."</span> ";
+						echo " <span class='difficultyresult'> <b>Date:</b> ".$row["Date"]."</span></div> <br>";
 					}	
 				}
-				$output = $output." <span class='distanceresult'> Time: ".$row["min(Time)"]."</span> ";
-				$output = $output." <span class='difficultyresult'> Date: ".$row["Date"]."</span></div> ";
+				$output = $output." <span class='distanceresult'> <b>Time:</b> ".$row["min(Time)"]."</span> ";
+				$output = $output." <span class='difficultyresult'> <b>Date:</b> ".$row["Date"]."</span></div> ";
 	
 				$count++;
 			}
