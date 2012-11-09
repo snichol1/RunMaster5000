@@ -29,7 +29,7 @@ session_start();
 			$name = $_GET['name'];
 
 			include("config.php");
-			$query = sprintf("select * from Users where UserID = '%s'", $_GET['id']); 
+			$query = sprintf("select * from Users where UserID = '%s'", $_GET['userID']); 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
@@ -37,9 +37,9 @@ session_start();
 		  		}
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
-			<?php echo "<li><a href=\"nearby.php?id=" . $_SESSION['userID'] . "\">Stanford Runs</a></li>" ?>
-			<?php echo "<li><a href=\"favorites.php?id=" . $_SESSION['userID'] . "\">Favorite Runs</a></li>" ?>
-			<li><a href="search.html">Search</a></li>
+			<?php echo "<li><a href=\"nearby.php?userID=" . $_SESSION['userID'] . "\">Stanford Runs</a></li>" ?>
+			<?php echo "<li><a href=\"favorites.php?userID=" . $_SESSION['userID'] . "\">Favorite Runs</a></li>" ?>
+			<?php echo "<li><a href=\"search.php?userID=" . $_SESSION['userID'] . "\">Search Runs</a></li>" ?>
 			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals</a></li>" ?>
 			<?php echo "<li><a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
 			<?php echo "<li><a href=\"settings.php?userID=" . $_SESSION['userID'] . "\">Settings</a></li>" ?>

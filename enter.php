@@ -55,7 +55,7 @@ session_start();
 			// store session data
 				$_SESSION['userID']=$row['UserID'];
 			}
-			$url = "home.php?id=" . $id . "&name=" . $name;
+			$url = "home.php?userID=" . $id . "&userName=" . $name;
 			echo "<p>URL:".$url."</p>";
 			
 			
