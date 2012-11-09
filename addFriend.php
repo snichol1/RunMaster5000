@@ -37,10 +37,10 @@ session_start();
 		<?php
 
 		$name = $_POST["username"]; 
-		$id = $_SESSION["userID"];
+		$userID = $_SESSION["userID"];
 		$friendID = $_POST['friendID'];
 		include("config.php"); 
-		$query = sprintf("update Friends set isConnected = 'true' where ID1 = '%s' and ID2 = '%s'", $id, $friendID); 
+		$query = sprintf("insert into Friends values('%s', '%s', 'true')", $userID, $friendID); 
 		mysql_query($query);
 		?>
 		

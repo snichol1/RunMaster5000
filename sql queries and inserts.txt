@@ -2,7 +2,7 @@ CONNECTION
 <?php
 $host = "mysql-user-master.stanford.edu";
 $user = "ccs147thesam";
-$pass = "biechaid";
+$pass = " ";
 $mysql_database = "c_cs147_thesam";
 
 $link = mysql_connect($host, $user, $pass);

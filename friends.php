@@ -36,22 +36,22 @@ session_start();
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
-		  		echo "<tr>"; 
-		  		echo "<td>"; 
-		  		echo $row['Name']; 
-		  		echo "</td>"; 
-		  		echo "<td>"; 
-		  		echo "<form action=\"removeFriend.php?userID=" . $_SESSION['userID'] ."\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
-		  		echo $row['Name']; 
-		  		echo "> "; 
-		  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
-		  		echo $row['UserID']; 
-		  		echo ">"; 
-		  		echo "<input type=\"submit\" value="; 
-		  		echo "Unfollow"; 
-		  		echo "> </form>";
-		  		echo "</td>"; 
-		  		echo "<tr>"; 
+			  		echo "<tr>"; 
+			  		echo "<td>"; 
+			  		echo $row['Name']; 
+			  		echo "</td>"; 
+			  		echo "<td>"; 
+			  		echo "<form action=\"removeFriend.php?userID=" . $_SESSION['userID'] ."\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
+			  		echo $row['Name']; 
+			  		echo "> "; 
+			  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
+			  		echo $row['UserID']; 
+			  		echo ">"; 
+			  		echo "<input type=\"submit\" value="; 
+			  		echo "Unfollow"; 
+			  		echo "> </form>";
+			  		echo "</td>"; 
+			  		echo "<tr>"; 
 		  		}
 				?>
 	</table> 		
@@ -60,28 +60,28 @@ session_start();
 	<table> 
 				<?php
 				include("config.php");
-				$query = sprintf("select Users.UserID, Users.Name from Users, Friends where Friends.ID2 = Users.UserID and Friends.ID1 = '%s' and Friends.isConnected = 'false'", $_SESSION['userID']);
+				$query = sprintf("select distinct Users.UserID, Users.Name from Users, Friends where Friends.ID2 = Users.UserID and Friends.ID1 = '%s' and Friends.isConnected = 'false'", $_SESSION['userID']);
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
-		  		echo "<tr>"; 
-		  		echo "<td>"; 
-		  		echo $row['Name']; 
-		  		echo "</td>"; 
-		  		echo "<td>"; 
-		  		echo "<form action=\"addFriend.php?userID=" . $_SESSION['userID']. "\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
-		  		echo $row['Name']; 
-		  		echo "> "; 
-		  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
-		  		echo $row['UserID']; 
-		  		echo ">"; 
-
-		  		echo "<input type=\"submit\" value="; 
-		  		echo "Follow";
-		  		echo "> </form>";
-		  		echo "</td>";
-		  		echo "</tr>";
+			  		echo "<tr>"; 
+			  		echo "<td>"; 
+			  		echo $row['Name']; 
+			  		echo "</td>"; 
+			  		echo "<td>"; 
+			  		echo "<form action=\"addFriend.php?userID=" . $_SESSION['userID']. "\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
+			  		echo $row['Name']; 
+			  		echo "> "; 
+			  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
+			  		echo $row['UserID']; 
+			  		echo ">"; 
+	
+			  		echo "<input type=\"submit\" value="; 
+			  		echo "Follow";
+			  		echo "> </form>";
+			  		echo "</td>";
+			  		echo "</tr>";
 		  		}
 				?>
 				

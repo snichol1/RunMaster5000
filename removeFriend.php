@@ -36,11 +36,12 @@ session_start();
 		
 		<?php
 		$name = $_POST["username"]; 
-		$id = $_SESSION["userID"];
+		$userID = $_SESSION["userID"];
 		$friendID = $_POST['friendID']; 
 
 		include("config.php"); 
-		$query = sprintf("update Friends set isConnected = 'false' where ID1 = '%s' and ID2 = '%s'", $id, $friendID); 
+		$query = sprintf("delete from Friends where ID1 = '%s' and ID2 = '%s'", $userID, $friendID); 
+		
 		mysql_query($query); 
 		echo "Friend Removed!"; 
 		?>

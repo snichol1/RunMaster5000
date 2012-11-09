@@ -42,8 +42,10 @@ session_start();
 				include("config.php");
 				$query = sprintf("select * from Challenge where Challenge.ToID = '%s'", $_SESSION['userID']); 
 				$result = mysql_query($query);
+				$isNewGoal = false;
 				while($row = mysql_fetch_array($result))
 		  		{
+		  			$isNewGoal = true;
 			  		$query = sprintf("select * from Users where UserID = '%s' LIMIT 0, 30 ", $row['FromID']); 
 					$userArray = mysql_query($query); 
 					$nameRow = mysql_fetch_array($userArray);  
@@ -96,6 +98,8 @@ session_start();
 					echo "</td>"; 
 			  		echo "</tr>"; */
 		  		}
+		  		if(!$isNewGoal)
+		  			echo "<div id=\"nonewgoals\">You have no new goal notifications.</div>"
 				?>
 		
 		</table> 
@@ -116,7 +120,7 @@ session_start();
 		
 				<?php
 				include("config.php");
-				
+				$haveAGoal = false;
 				echo "<table>";
 			  		echo "<tr>"; 
 			  		echo "<td>"; 
@@ -138,7 +142,7 @@ session_start();
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
-		  			
+		  			$haveAGoal = true;
 			  		$query = sprintf("select * from Users where UserID = '%s' LIMIT 0, 30 ", $row['AntagonistID']); 
 					$userArray = mysql_query($query); 
 					$nameRow = mysql_fetch_array($userArray); 
@@ -210,6 +214,10 @@ session_start();
 			  		
 			  		//echo "</tr>"; 
 		  		}
+		  		if(!$haveAGoal){
+		  			echo "<div id=\"nogoals\">You have no current goals.</div>";
+
+		  		}
 			?>
 				
 		
@@ -223,25 +231,29 @@ session_start();
 				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '%s' and Goals.Met = '1'", $_SESSION['userID']);
 
 				$result = mysql_query($query);
+				$haveMetAGoal = false;
 				while($row = mysql_fetch_array($result))
 		  		{
-		  		echo "<tr>"; 
-		  		echo "<td>"; 
-		  		$name = $row['Name']; 
-		  		echo $name; 
-		  		echo "</td>"; 
-		  		echo "<td>"; 
-		  		$time = $row['Time']; 
-		  		echo $time; 
-		  		echo "</td>";
-		  		echo "<td>"; 
-				echo "<a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
-			  		echo "\">"; 
-			 	 	echo "RUN!"; 
-			  		echo "</a>";
-		  		echo "</td>";		  		
-		  		echo "</tr>"; 
+		  			$haveMetAGoal = true;
+			  		echo "<tr>"; 
+			  		echo "<td>"; 
+			  		$name = $row['Name']; 
+			  		echo $name; 
+			  		echo "</td>"; 
+			  		echo "<td>"; 
+			  		$time = $row['Time']; 
+			  		echo $time; 
+			  		echo "</td>";
+			  		echo "<td>"; 
+					echo "<a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
+				  		echo "\">"; 
+				 	 	echo "RUN!"; 
+				  		echo "</a>";
+			  		echo "</td>";		  		
+			  		echo "</tr>"; 
 		  		}
+		  		if(!$haveMetAGoal)
+		  			echo "<div id=\"nometgoals\">You have not met any goals yet.</div>";
 			?>
 				
 		</table> 
