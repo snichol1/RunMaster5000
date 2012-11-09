@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +21,8 @@
 <!-- /header -->
 <div data-role="header">
 	<h1>Results</h1>
-	<a href="search.html" data-icon="back" data-rel="back" data-add-back-btn="true">Search</a>
+	
+	<a href="search.php" data-icon="back" data-rel="back" data-add-back-btn="true">Search</a>
 </div>
 	
 <!--- Where all the main content goes! --->
@@ -107,7 +112,7 @@ if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($
 	
 	while($row = mysql_fetch_assoc($result)){
 		if($routeName === "" || (stristr($row["Name"], $_GET['name']) !== FALSE)){
-			echo "<div class='routeresult'><span class='nameresult'><a href=\"run.php?routeID=".$row["RouteID"]."\">".$row["Name"]."</a></span>";
+			echo "<div class='routeresult'><span class='nameresult'><a href=\"route.php?routeID=".$row["RouteID"]."&userID=".$_GET["userID"]."\">".$row["Name"]."</a></span>";
 			echo "<span class='distanceresult'> Dist: ".$row["Distance"]."</span>";
 			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>";
 		}
