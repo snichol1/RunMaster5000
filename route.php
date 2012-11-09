@@ -33,7 +33,6 @@
 	</div><!-- /header -->
 	
     <div data-role="content">
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 	<?php
 		$routeID = $_GET['routeID'];
