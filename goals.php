@@ -20,7 +20,7 @@ session_start();
 
 	<div data-role="header">
 		<h1>Goals</h1>
-                <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
+		<a href="home.php" data-icon="home" id="back" class="ui-btn-left">Home</a>
 
 	</div><!-- /header -->
 
