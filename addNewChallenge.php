@@ -28,7 +28,7 @@ session_start();
 
 		<h1>Challenge sent</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
-        <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true" class="ui-btn-left">Back</a>
+		<a href="home.php" data-icon="check" id="back" class="ui-btn-right">Home</a>
 
 	</div><!-- /header -->
 
@@ -56,7 +56,9 @@ session_start();
 
 		<h1>Challenge Sent! </h1>
 				
-
+<script> 
+window.location.href = "goals.php"; 
+</script> 
 	</div><!-- /content -->
 
 		
