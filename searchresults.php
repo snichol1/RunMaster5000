@@ -17,7 +17,6 @@ session_start();
 	
 </head>
 <body>
-<div data-role="page">
 
 <!-- /header -->
 <div data-role="header">
@@ -25,7 +24,7 @@ session_start();
 	
 	<a href="search.php" data-icon="back" data-rel="back" data-add-back-btn="true">Search</a>
 </div>
-
+	
 <!--- Where all the main content goes! --->
 <div data-role="content">
 	
@@ -113,31 +112,14 @@ if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($
 	
 	$oneResult = false;
 	
-	echo "<ul data-role=\"listview\" data-filter=\"true\" data-theme=\"b\">";
-
 	while($row = mysql_fetch_assoc($result)){
 		$oneResult = true;
 		if($routeName === "" || (stristr($row["Name"], $_GET['name']) !== FALSE)){
-			$diffLabel = "Easy";
-			if($row["Difficulty"] === "2")
-				$diffLabel = "Medium";
-			else if($row["Difficulty"] === "3")
-				$diffLabel = "Hard";
-			
-			echo "<li data-corners=\"false\" data-icon=\"arrow-r\" data-iconpos=\"right\" data-theme=\"c\">";
-			echo "<a href=\"route.php?routeID=".$row["RouteID"]."&userID=".$_GET["userID"]."\">";
-			echo "<p class=\"ui-li-aside ui-li-desc\"><strong>".$row["Distance"]."</strong> mi<br>".$diffLabel."</p>";
-			echo "<h3>".$row["Name"]."</h3>";
-			echo "</a>";		
-			echo "</li>";
-			
-			/*echo "<div class='routeresult'><span class='nameresult'><a href=\"route.php?routeID=".$row["RouteID"]."&userID=".$_GET["userID"]."\">".$row["Name"]."</a></span>";
+			echo "<div class='routeresult'><span class='nameresult'><a href=\"route.php?routeID=".$row["RouteID"]."&userID=".$_GET["userID"]."\">".$row["Name"]."</a></span>";
 			echo "<span class='distanceresult'> Dist: ".$row["Distance"]."</span>";
-			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>"; */
+			echo "<span class='difficultyresult'> Diff: ".$row["Difficulty"]."</span></div>";
 		}
 	}
-	echo "</ul>";
-
 	
 	if(!$oneResult){
 		echo "<div>Sorry there are no matching results.</div>";
@@ -145,8 +127,7 @@ if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($
 	
 ?>
 
-</div>
-</div>
+<div>
 
 </body>
 </html>
