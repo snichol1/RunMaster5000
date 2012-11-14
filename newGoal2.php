@@ -29,6 +29,12 @@ margin-right:auto;
 	</div><!-- /header -->
 
 	<div data-role="content">	
+	
+	<div data-role="collapsible-set">
+
+<div data-role="collapsible" data-collapsed="true">
+	<h3>Choose from Preset Goals</h3>
+
 	<?php
 		$routeID = $_GET['routeID'];
 		$userID = $_GET['userID'];
@@ -40,7 +46,7 @@ margin-right:auto;
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
   		{
-  			echo "<h1>Set a goal for " . $row['Name'] . ":</h1>"; 
+  			echo "<h1>Choose a preset goal for " . $row['Name'] . ":</h1>"; 
   		}
 
   		$goalsQuery = sprintf("SELECT Goals.UserID AS UserID, Users.Name AS Name, Time FROM Goals, Users WHERE Goals.AntagonistID = Users.UserID AND routeID=".$routeID." AND met=0 AND AntagonistID <> ".$userID." AND Goals.UserID=".$userID);
@@ -90,9 +96,10 @@ margin-right:auto;
 
 
 	?> 
-	<h3>Custom goal time:</h3>
-
-
+	
+	</div> 
+<div data-role="collapsible" data-collapsed="true">
+	<h3>Create a custom goal</h3>
 
 <form name="input" action="addNewGoal.php" method="get">
 <select name="hours" id = "hours">
@@ -293,6 +300,8 @@ margin-right:auto;
 <input type="submit" value="Set Goal">
 </form>
 
+</div> 
+</div> 
  </div><!-- /content -->
 
 </div><!-- /page -->
