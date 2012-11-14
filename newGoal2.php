@@ -100,7 +100,7 @@ margin-right:auto;
 	</div> 
 <div data-role="collapsible" data-collapsed="true">
 	<h3>Create a custom goal</h3>
-
+<h1> Create a custom goal </h1> 
 <form name="input" action="addNewGoal.php" method="get">
 <select name="hours" id = "hours">
 <option value="00" selected = "selected">Hours</option>
