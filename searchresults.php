@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Search Results</title> 
+	<title>Stanford Routes</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/	jquery.mobile-1.2.0.min.css" />
 	
@@ -20,14 +20,80 @@ session_start();
 <div data-role="page">
 
 <!-- /header -->
-<div data-role="header">
-	<h1>Results</h1>
-	
-	<a href="search.php" data-icon="back" data-rel="back" data-add-back-btn="true">Search</a>
+<div data-role="header" class="header">
+	<h1>Routes</h1>
+
+<!--- Displays buttons on the header --->
+	<?php 
+	echo "<a href=\"home.php\" data-icon=\"back\" data-rel=\"back\" data-add-back-btn=\"true\" data-iconpos=\"left\" class=\"ui-btn-left\">Back</a>";
+	echo "<a href=\"search.php?userID=\"". $_GET["userID"]. " data-icon=\"search\" data-iconpos=\"right\" class=\"searchbut ui-btn-right\"s>Filter</a>";
+	?>
+	<!---/*<a href="search.php" data-icon="search" >Search</a>*/--->
 </div>
 
 <!--- Where all the main content goes! --->
 <div data-role="content">
+	<script type="text/javascript"> 
+	
+	$(document).ready(function () {
+ 		$(".searchform").hide();
+	});
+	</script>
+	
+	<form action="searchresults.php" class="searchform" id="searchform" method="get">
+	
+	<!--- Distance Selector ---->
+	    <div id="distanceselector" data-role="fieldcontain">
+	        <fieldset data-role="controlgroup" data-type="horizontal">
+	            <legend>
+	                <b>Specify Route Distance:</b>
+	            </legend>
+	            <input id="shortdist" class="dist" name="shortdist" type="checkbox" onlick="displayDistance()"/>
+	            <label for="shortdist">
+	                Short
+	                <div class="distspecify"> 0 - 2 mi</div>
+	            </label>
+	            <input id="mediumdist" class="dist" value="mediumdist" name="mediumdist" type="checkbox"/>
+	            <label for="mediumdist" onlick="displayDistance()">
+	                Medium
+	                <div class="distspecify">2 - 5 mi</div>
+	            </label>
+	            <input id="longdist" class="dist" value="longdist" name="longdist" type="checkbox" />
+	            <label for="longdist" onlick="displayDistance()">
+	                Long
+	                <div class="distspecify">5+ mi</div>
+	            </label>
+	        </fieldset>
+	      <!---  <div class="selectedDist">No distances specified. <br> All distances will be searched.</div> --->
+		</div>
+		
+		
+	
+	
+	<!---- Difficulty Selector ----->
+	    <div id="difficultyselector" data-role="fieldcontain">
+	        <fieldset data-role="controlgroup" data-type="horizontal">
+	            <legend>
+	                <b>Specify Route Difficulty:</b>
+	            </legend>
+	            <input id="easydiff" class="diff" name="easydiff" type="checkbox"/>
+	            <label for="easydiff">
+	                Easy
+	            </label>
+	            <input id="mediumdiff" class="diff" name="mediumdiff" type="checkbox"/>
+	            <label for="mediumdiff">
+	                Medium
+	            </label>
+	            <input id="harddiff" class="diff" name="harddiff" type="checkbox" />
+	            <label for="harddiff">
+	                Hard
+	            </label>
+	        </fieldset>
+	        <!--- <div class="selectedDiff">No difficulties specified. <br> All difficulties will be searched.</div> --->
+	      </div>
+	<br>
+</form>
+
 	
 <?php
 	include("config.php");
@@ -113,8 +179,9 @@ if((empty($med) && !empty($short) && !empty($long)) && (empty($med2) && !empty($
 	
 	$oneResult = false;
 	
-	echo "<ul data-role=\"listview\" data-filter=\"true\" data-theme=\"b\">";
+	echo "<ul data-role=\"listview\" data-filter-placeholder=\"Find in results...\" data-filter=\"true\" data-theme=\"b\">";
 
+	/*Displays results*/
 	while($row = mysql_fetch_assoc($result)){
 		$oneResult = true;
 		if($routeName === "" || (stristr($row["Name"], $_GET['name']) !== FALSE)){
