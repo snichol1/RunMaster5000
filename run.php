@@ -94,7 +94,7 @@
 	
 		
 				
-	<div id="mapcanvas" style="height:288px;width:300px"></div>
+	<div id="mapcanvas2" style="height:288px;width:300px"></div>
 	<script type="text/javascript">
 			//total length of the run in miles
 			var runDistance = calculateDistance(runCoordinates);
@@ -298,7 +298,7 @@
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			//Create Markers and Path for the start end ending points.
-			map = new google.maps.Map(document.getElementById("mapcanvas"),
+			map = new google.maps.Map(document.getElementById("mapcanvas2"),
 				mapOptions);
 			var startMarker = new google.maps.Marker({
 				position: startLatLng,
@@ -328,6 +328,8 @@
 
 			runTimer();
 			trackLocation();
+			google.maps.event.trigger(map, 'resize');
+			map.setCenter(startLatLng);
 		});
 		
 

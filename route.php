@@ -115,6 +115,8 @@ session_start();
 			}
 
 			//Set our map options.
+			console.log("sLat:" + startLatLng.lat());
+			console.log("sLng:" + startLatLng.lng());
 			var mapOptions = {
 				center: startLatLng,
 				zoom: 15,
@@ -142,7 +144,11 @@ session_start();
 			startMarker.setMap(map);
 			finMarker.setMap(map);
 			runPath.setMap(map);
-			
+			$(document).bind('pageshow', function() {
+				google.maps.event.trigger(map, 'resize');
+							map.setCenter(startLatLng);
+
+			});
 		});
 	</script>
 
@@ -197,7 +203,7 @@ session_start();
 				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 
 				 
-				 echo "<a class = \"run\" href=\"run.php?routeID=".$routeID. "&userID=".$_GET['userID']."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">Run!</a>";
+				 echo "<a class = \"run\" href=\"run.php?routeID=".$routeID. "&userID=".$_GET['userID']."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\" rel=\"external\">Run!</a>";
             ?> 
 
                                     
