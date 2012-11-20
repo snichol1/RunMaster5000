@@ -193,7 +193,7 @@
 				locations[ticker] = currLatLng;
 
 				//track and display the user's pace re: their goal time, if there is one.
-				if(goalTime > 0) {
+				if(goalTime > 0 && !(Number(sessionStorage.locationOff) == 1)) {
 					//Calculate their milage and update the page accordingly
 					var currDistance = calculateDistance(locations);
 					document.getElementById("mileage").textContent = currDistance + " miles run.";
@@ -360,9 +360,9 @@
 	<?php
 		$goal = $_SESSION['goal'];
 		echo "<div id=\"yourTime\">Your Time: </div>";
-		//if(isset($goal)) {
+		if(isset($goal)) {
 			echo "<p>Goal Time: ".$goal."</p>";
-		//}
+		}
 		echo "<div id=\"mileage\">0 miles run.</div>";
 		echo "<div id=\"pace\"></div>"
 	?>

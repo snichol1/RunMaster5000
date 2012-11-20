@@ -21,7 +21,6 @@ session_start();
 			<?php
 				$routeID = $_GET['routeID'];
 				$userID = $_GET['userID'];
-				$goal = $_SESSION['Time']; 
 				include("config.php");
 
 				$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
@@ -42,7 +41,6 @@ session_start();
 	<?php
 		$routeID = $_GET['routeID'];
 		$userID = $_GET['userID'];
-		$goal = $_SESSION['goal'];
 		include("config.php");
 		$startLat;
 		$startLng;

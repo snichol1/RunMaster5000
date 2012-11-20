@@ -29,13 +29,28 @@ margin-right:auto;
 	</div><!-- /header -->
 
 	<div data-role="content">	
+
+
+
 	<?php
 		$routeID = $_GET['routeID'];
 		$userID = $_GET['userID'];
 		include("config.php");
 		$RRecord;
 		$PR;
+  ?>
 
+  <script type="text/javascript">
+    function reply_click(clicked_id)
+    {
+      localStorage.goalTime = clicked_id;
+      localStorage.goalRoute = <?= $routeID ?>;
+      console.log(clicked_id);
+      window.location.href = "route.php?userID=" + <?=$userID?> + "&routeID=" + <?=$routeID?>;
+    }
+  </script>
+
+  <?php
 		$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
@@ -48,8 +63,7 @@ margin-right:auto;
   		$goalsRowCheck = mysql_num_rows($goalsResult);
   		if($goalsRowCheck > 0) {
   			while($row = mysql_fetch_array($goalsResult)) {
-  				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">" . $row['Name'] . "'s PR: " . $row['Time'] . "</a>";
-  				$_SESSION['goal']=$row['Time'];
+  				echo "<button id=\"".$row['Time']."\" onClick=\"reply_click(this.id)\">".$row['Name']."'s PR: ".$row['Time']."</button>";
   			}
   		}
 
@@ -58,9 +72,10 @@ margin-right:auto;
   		$selfGoalRowCheck = mysql_num_rows($selfGoalResult);
   		if($selfGoalRowCheck > 0) {
   			while($row = mysql_fetch_array($selfGoalResult)) {
-  				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your goal: " . $row['Time'] . "</a>";
-  				$_SESSION['goal']=$row['Time'];
+          $SG = $row['Time'];
   			}
+        if($SG != NULL) echo "<button id=\"".$SG."\" onClick=\"reply_click(this.id)\">Your goal: ".$SG."</button>";
+
   		}
 
   		$PRQuery = sprintf("SELECT min(Time) as Time FROM Records WHERE RouteID = ".$routeID." AND UserID = ".$userID);
@@ -69,8 +84,8 @@ margin-right:auto;
   			$PR = $row['Time'];
   		}
   		if($PR != NULL) {
-  			echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your PR: " . $PR . "</a>";
-  			$_SESSION['goal']=$row['Time'];
+  			echo "<button id=\"".$PR."\" onClick=\"reply_click(this.id)\">Your PR: ".$PR."</button>";
+
   		}
   		
 
@@ -80,10 +95,9 @@ margin-right:auto;
   		if($RRRowCheck > 0) {
   			while($row = mysql_fetch_array($RRResult)) {
   				$RRecord = $row['Time'];
-  				if($RRecord > $PR) {
-  					echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Route Record: " . $RRecord . "</a>";
-  					$_SESSION['goal']=$row['Time'];
-  				}
+        }
+  			if($RRecord != NULL) {
+  				echo "<button id=\"".$RRecord."\" onClick=\"reply_click(this.id)\">Route Record: ".$RRecord."</button>";	
   			}
   		}
 

@@ -56,6 +56,7 @@ margin-right:auto;
   			while($row = mysql_fetch_array($goalsResult)) {
   				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">" . $row['Name'] . "'s PR: " . $row['Time'] . "</a>";
   				$_SESSION['goal']=$row['Time'];
+          $_SESSION['goalRoute'] = $routeID;
   			}
   		}
 
@@ -66,6 +67,7 @@ margin-right:auto;
   			while($row = mysql_fetch_array($selfGoalResult)) {
   				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your goal: " . $row['Time'] . "</a>";
   				$_SESSION['goal']=$row['Time'];
+          $_SESSION['goalRoute'] = $routeID;
   			}
   		}
 
@@ -77,6 +79,7 @@ margin-right:auto;
   		if($PR != NULL) {
   			echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your PR: " . $PR . "</a>";
   			$_SESSION['goal']=$row['Time'];
+        $_SESSION['goalRoute'] = $routeID;
   		}
   		
 
@@ -89,6 +92,7 @@ margin-right:auto;
   				if($RRecord > $PR) {
   					echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Route Record: " . $RRecord . "</a>";
   					$_SESSION['goal']=$row['Time'];
+            $_SESSION['goalRoute'] = $routeID;
   				}
   			}
   		}
