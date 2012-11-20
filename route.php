@@ -102,15 +102,18 @@ session_start();
 				console.log("Lng:" + currLatLng.lng());
 			}
 			function handle_error(error) {
-				switch(error.code)  {  
-                case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
-                break;  
-                case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
-                break;  
-                case error.TIMEOUT: alert("retrieving position timed out");  
-                break;  
-                default: alert("unknown error");  
-                break;  
+				if(!(sessionStorage.locationOff == 1)) {
+					switch(error.code)  {  
+                		case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
+                		break;  
+                		case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
+                		break;  
+                		case error.TIMEOUT: alert("retrieving position timed out");  
+                		break;  
+                		default: alert("unknown error");  
+                		break;  
+            		}
+            		sessionStorage.locationOff = 1;
             	}  
 			}
 
