@@ -207,6 +207,7 @@ session_start();
 				$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);
 				$result = mysql_query($query);
 				$isFavorite = 0; 
+				$return = "route";
 				while($row = mysql_fetch_array($result))
 		  		{
 		  			$isFavorite = 1; 
@@ -217,7 +218,7 @@ session_start();
 		  			$message = "Remove from Favorites"; 
 		  			$action = "removeFromFavorites.php"; 
 		  		}
-				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
+				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "&return=".$return."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 
 				 
 				 echo "<a class = \"run\" href=\"run.php?routeID=".$routeID. "&userID=".$_GET['userID']."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\" rel=\"external\">Run!</a>";

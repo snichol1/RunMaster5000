@@ -30,6 +30,23 @@ session_start();
 	<div id="time"></div>
 	<div id="goal"></div>
 	<a href="newChallenge.php?routeID=<?=$routeID?>&userID=<?=$userID?>" data-role="button" data-icon="" data-iconpos="right">Challenge a Friend</a>
+	
+	<?php
+		$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);
+		$result = mysql_query($query);
+		$isFavorite = 0; 
+		$return = "endRun";
+		while($row = mysql_fetch_array($result))
+		  	{
+		  	$isFavorite = 1; 
+		  	}
+		$message = "Add To Favorites"; 
+		$action = "addToFavorites.php"; 
+		if ($isFavorite == 0) {
+			echo "<a href=\"" .$action . "?routeID=" . $routeID . "\"&return=\"".$return."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
+		}
+	?>
+
 	<a href="home.php?routeID=<?=$routeID?>&userID=<?=$userID?>" data-role="button" data-icon="home" data-iconpos="right">Home</a>
 	
 	<script type="text/javascript">

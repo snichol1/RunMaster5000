@@ -8,7 +8,7 @@
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
-
+    <script src="js/runutilities.js"
 
 </head> 
 <body> 
@@ -125,25 +125,7 @@
 				t=setTimeout("runTimer()",50);
 			};
 
-			function formatTime(time) {
-				var min = Math.floor(time/60000);
-				var sec = Math.floor(time / 1000) - (min * 60);
-				sec = ("0" + sec).slice(-2);
-				var milli = time - (min * 60000) - (sec * 1000);
-				milli = ("000" + milli).slice(-4);
-				return (min + ":" + sec + ":" + milli);
-
-			}
-
-			function unformatTime(time) {
-				var rawTime = 0;
-				var bits = time.split(":");
-				//console.log(bits.toString());
-				rawTime += 3600000 * bits[0];
-				rawTime += 60000 * bits[1];
-				rawTime += 1000 * bits[2];
-				return rawTime;
-			}
+			
 			
 			function pauseTimer() {
 				clearTimeout(t);
@@ -152,13 +134,15 @@
 				//sessionStorage.goalTimePretty = goalTimePretty;
 				sessionStorage.time = elapsed;
 				sessionStorage.goalTime = goalTime;
+				console.log("paused");
 			}
 			
 			function resumeTimer() {
 				if(!is_on) {
 					is_on = 1;
 					startTime = new Date().getTime();
-					runTimer();				
+					runTimer();
+					console.log("resumed");				
 				}
 			}
 

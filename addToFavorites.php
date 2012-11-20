@@ -36,16 +36,16 @@ session_start();
 		
 		<?php
 		$userID = $_SESSION['userID']; 
-		$routeID = $_GET['routeID']; 
-		// This is a hack. You should connect to a database here.
-		
-		include("config.php"); 
+		$routeID = $_GET['routeID'];
+		$return = $_GET['return']; 		
+		include("config.php");
+		$alreadyFavQuery =  
 		$sql = sprintf("INSERT INTO `c_cs147_thesam`.`Favorites` (`UserID`, `RouteID`) VALUES ('%s', '%s');", $userID, $routeID); 
 		mysql_query($sql); 
 		?>
 		
 		<script> 
-			window.location.href = "route.php?userID=" + <?php echo $_SESSION['userID'] ?> + "&routeID=" + <?php echo $_GET['routeID'] ?>; 
+			window.location.href = "<?=$return?>.php?userID=" + <?php echo $_SESSION['userID'] ?> + "&routeID=" + <?php echo $_GET['routeID'] ?>; 
 		</script> 
 				
 	</div><!-- /content -->
