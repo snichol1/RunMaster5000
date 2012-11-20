@@ -152,6 +152,22 @@ session_start();
 							map.setCenter(startLatLng);
 
 			});
+
+			//Display the goal time, if there is one.
+			var goalTimePretty;
+			var goalRoute = 0;
+			if(sessionStorage.goalTimePretty) goalTimePretty = sessionStorage.goalTimePretty;
+			if(sessionStorage.goalRoute) goalRoute = sessionStorage.goalRoute;
+			console.log("Set Goaltime: " + goalTimePretty);
+			console.log("Set route: " + goalRoute);
+
+
+			if(goalRoute == <?=$routeID?> && goalTimePretty != null) {
+				//console.log("Good Goaltime: " + goalTime);
+				document.getElementById("addGoal").textContent = "Change Goal";
+				document.getElementById("goalDisplay").textContent = "Goal time: " + goalTimePretty;
+			}
+
 		});
 	</script>
 
@@ -171,16 +187,14 @@ session_start();
 		  			echo $row['Difficulty']; 
 		  			echo " out of 5 </h3>"; 
 
-		  			if(isset($goal)) {
-		  				echo "<h3> Goal time: " . $goal . "</h3>";
-		  			}
+		  			
+		  			echo "<h3 id=\"goalDisplay\"></h3>";
+		  			
 		  		}
 				
 		  		echo "<a href=\"leaderboard.php?routeID=".$routeID. "&userID=" . $_GET['userID'] ."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
 		  		
-		  		$goalText = "Add Goal";
-		  		if(isset($goal)) $goalText = "Change Goal";
-				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">".$goalText."</a>";
+				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" id=\"addGoal\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
 				
 				
 			?>

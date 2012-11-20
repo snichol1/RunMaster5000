@@ -43,8 +43,8 @@ margin-right:auto;
   <script type="text/javascript">
     function reply_click(clicked_id)
     {
-      localStorage.goalTime = clicked_id;
-      localStorage.goalRoute = <?= $routeID ?>;
+      sessionStorage.goalTimePretty = clicked_id;
+      sessionStorage.goalRoute = <?= $routeID ?>;
       console.log(clicked_id);
       window.location.href = "route.php?userID=" + <?=$userID?> + "&routeID=" + <?=$routeID?>;
     }

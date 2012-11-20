@@ -113,6 +113,8 @@
 			var is_on = 1;
 			var t;
 			var goalTime = 0;
+			var goalTimePretty;
+
 			
 			function runTimer() {
 				var currTime = new Date().getTime();
@@ -147,7 +149,7 @@
 				clearTimeout(t);
 				is_on = 0;
 				sessionStorage.timePretty = formatTime(elapsed);
-				sessionStorage.goalTimePretty = goalTimePretty;
+				//sessionStorage.goalTimePretty = goalTimePretty;
 				sessionStorage.time = elapsed;
 				sessionStorage.goalTime = goalTime;
 			}
@@ -330,6 +332,14 @@
 			////console.log("Lat" + runCoordinates[0].lat());
 			////console.log("Miles:" + calculateDistance(runCoordinates));
 
+			if(sessionStorage.goalTimePretty && sessionStorage.goalRoute == <?=$routeID?>) {
+				goalTimePretty = sessionStorage.goalTimePretty;
+				goalTime = unformatTime(goalTimePretty);
+				console.log("Goal time:" + goalTimePretty);
+				console.log("Raw time:" + goalTime);
+				document.getElementById("goalDisplay").textContent = "Goal Time: " + goalTimePretty;
+			}
+
 			runTimer();
 			trackLocation();
 			google.maps.event.trigger(map, 'resize');
@@ -358,11 +368,8 @@
 	</script>
 	
 	<?php
-		$goal = $_SESSION['goal'];
 		echo "<div id=\"yourTime\">Your Time: </div>";
-		if(isset($goal)) {
-			echo "<p>Goal Time: ".$goal."</p>";
-		}
+		echo "<div id=\"goalDisplay\"></div>";
 		echo "<div id=\"mileage\">0 miles run.</div>";
 		echo "<div id=\"pace\"></div>"
 	?>
@@ -371,7 +378,7 @@
 	</div>
 	<div class="paused" id="pausedBlock">
 	<a href="#" id="resume" data-role="button">Resume</a>
-	<a href="endRun.php" id="end" data-role="button">End</a>
+	<a href="endRun.php?routeID=<?=$routeID?>&userID=<?=$userID?>" id="end" data-role="button">End</a>
 	</div>
  </div><!-- /content -->
 
