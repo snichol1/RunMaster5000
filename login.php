@@ -16,7 +16,9 @@
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		
+		<?php
+			if(isset($_GET['bad'])) echo "<p>Login failed. Check your username and password and try again.</p>";
+		?>
 		<form action="enter.php" method="post">
 		<label for="foo">Username:</label>
 		<input type="text" name="name" id="foo">

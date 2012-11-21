@@ -39,12 +39,47 @@ session_start();
 		$name = $_POST["username"]; 
 		$password = $_POST["password"];
 		include("config.php"); 
-		$query = sprintf("INSERT INTO `c_cs147_thesam`.`Users` (`UserID`, `Name`, `Password`) VALUES (NULL, '%s', '%s');", $name, $password); 
-		mysql_query($query);
+
+		//if the username already exists, throw back to create account
+		$query = "SELECT * FROM Users WHERE Name='" . $name."';";
+		$result = mysql_query($query);
+		$alreadyExists = mysql_num_rows($result);
+		if($alreadyExists == 0) {
+			$insert = sprintf("INSERT INTO `c_cs147_thesam`.`Users` (`UserID`, `Name`, `Password`) VALUES (NULL, '%s', '%s');", $name, $password); 
+			mysql_query($insert);
+		}else {
+			?>
+			<script type="text/javascript">
+			window.location.href="newUser.php?bad=1";
+			</script>
+			<?php
+		}
 		?>
 		
-		<script> 
-			window.location.href = "login.php";
+		<script type="text/javascript"> 
+			method = "post";
+			path = "enter.php";
+			var form = document.createElement("form");
+    		form.setAttribute("method", method);
+    		form.setAttribute("action", path);
+
+    		
+    		var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "name");
+            hiddenField.setAttribute("value", "<?=$name?>");
+
+            form.appendChild(hiddenField);
+
+            hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "password");
+            hiddenField.setAttribute("value", "<?=$password?>");
+            form.appendChild(hiddenField);
+
+    		//pack it, ship it
+    		document.body.appendChild(form);
+    		form.submit();
 		</script> 
 
 	</div><!-- /content -->

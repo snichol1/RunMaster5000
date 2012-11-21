@@ -66,7 +66,11 @@ session_start();
 				-->
 				</script>");
 		} else {
-			echo "<p>Hmm. Something's not right; try again?</p>";
+			?>
+			<script type="text/javascript">
+			window.location.href="login.php?bad=1";
+			</script>
+			<?php
 		}
 	}
 	?> 

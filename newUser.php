@@ -19,6 +19,11 @@
 
 	<div data-role="content">	
 		<h3> Create New Account </h3> 
+
+		<?php
+			if(isset($_GET['bad'])) echo "<p>Sorry, that user name is already taken.</p>";
+		?>
+
 		<form action="addUser.php" method="post">
 		<label for="foo">Username:</label>
 		<input type="text" name="username" id="foo">
