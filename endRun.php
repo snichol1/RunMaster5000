@@ -37,9 +37,9 @@ session_start();
 		//insert the user's time, if they completed the run, into the DB
 		$date = date("Y:m:d", mktime(0,0,0,date("m"),date("d"),date("Y")));
 		$insert = "INSERT INTO RECORDS VALUES(".$routeID.", ".$userID.", \"".$timePretty."\", \"".$date."\")";
-		//echo $insert;
+		$complete = 1;
 		if($complete == 1) {
-			msql_query($insert);
+			mysql_query($insert);
 		}
 
 		$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);

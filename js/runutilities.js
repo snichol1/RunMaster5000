@@ -8,12 +8,12 @@ var goalTimePretty;
 var runComplete = 0;
 
 function formatTime(time) {
-	var min = Math.floor(time/60000);
-	var sec = Math.floor(time / 1000) - (min * 60);
+	var hr = Math.floor(time/3600000);
+	var min = Math.floor(time/60000) - (hr * 60);
+	var sec = Math.floor(time / 1000) - (min * 60) - (hr * 3600);
+	min = ("0" + min).slice(-2);
 	sec = ("0" + sec).slice(-2);
-	var milli = time - (min * 60000) - (sec * 1000);
-	milli = ("000" + milli).slice(-4);
-	return (min + ":" + sec + ":" + milli);
+	return (hr + ":" + min + ":" + sec);
 }
 
 function unformatTime(time) {
