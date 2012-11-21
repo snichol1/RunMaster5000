@@ -11,7 +11,7 @@ session_start();
 		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
-
+		<script src="js/runutilities.js"></script>
 	</head>
     <body>
         <!-- Home -->
@@ -93,9 +93,13 @@ session_start();
 
 			function handle_location(position) {
 				currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+				
+				var pinColor = "251BE0";
+    			var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor);
 				var currMarker = new google.maps.Marker({
 					position: currLatLng,
-					title: "Current Location"
+					title: "Current Location",
+					icon: pinImage
 				});
 				currMarker.setMap(map);
 				console.log("Lat:" + currLatLng.lat());
@@ -128,13 +132,19 @@ session_start();
 			//Create Markers and Path for the start end ending points.
 			map = new google.maps.Map(document.getElementById("mapcanvas1"),
 				mapOptions);
+			pinColor = "00F224";
+			pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor);
 			var startMarker = new google.maps.Marker({
 				position: startLatLng,
-				title: "Start"
+				title: "Start",
+				icon: pinImage
 			});
+			pinColor = "F2003D";
+			pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor);
 			var finMarker = new google.maps.Marker({
 				position: finLatLng,
-				title: "Finish"
+				title: "Finish",
+				icon: pinImage
 			});
 
 			var runPath = new google.maps.Polyline({

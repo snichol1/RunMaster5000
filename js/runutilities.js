@@ -72,10 +72,13 @@ function trackLocation() {
 function handleLocationInitialization(position) {
 	var currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	locations[ticker] = currLatLng;
+	var pinColor = "251BE0";
+    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor);
 	currMarker = new google.maps.Marker({
 		position: currLatLng,
 		animation: google.maps.Animation.BOUNCE,
-		title: "Current Location"
+		title: "Current Location",
+		icon: pinImage
 	});
 	currMarker.setMap(map);
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-	<title>New Goal</title> 
+	<title>Run! Run! Run!</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
@@ -124,13 +124,19 @@
 			//Create Markers and Path for the start end ending points.
 			map = new google.maps.Map(document.getElementById("mapcanvas2"),
 				mapOptions);
+			pinColor = "00F224";
+			pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor);
 			var startMarker = new google.maps.Marker({
 				position: startLatLng,
-				title: "Start"
+				title: "Start",
+				icon: pinImage
 			});
+			pinColor = "F2003D";
+			pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor);
 			var finMarker = new google.maps.Marker({
 				position: finLatLng,
-				title: "Finish"
+				title: "Finish",
+				icon: pinImage
 			});
 			var runPath;
 			if(runCoordinates.length > 0) {
