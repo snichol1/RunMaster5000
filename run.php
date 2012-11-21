@@ -113,10 +113,7 @@
 			initializeCurrLocation();
 			//Build LatLng objects
 			var startLatLng = new google.maps.LatLng(startLat, startLng);
-			var finLatLng = new google.maps.LatLng(finLat, finLng);
-
-
-
+			finLatLng = new google.maps.LatLng(finLat, finLng);
 
 			//Set our map options.
 			var mapOptions = {
@@ -185,8 +182,7 @@
 			});
 			$("#end").click(function() {
 				method = "post";
-				path = "endRun.php?routeID=<?=$routeID?>&userID=<?=$userID?>";
-				if(runComplete) path += "&complete=1";
+				path = "endRun.php?routeID=<?=$routeID?>&userID=<?=$userID?>&complete=" + runComplete;
 				var form = document.createElement("form");
     			form.setAttribute("method", method);
     			form.setAttribute("action", path);

@@ -1,4 +1,5 @@
 //Variables for our timer code:
+var finLatLng;
 var startTime = new Date().getTime();
 var elapsed = 0;
 var is_on = 1;
@@ -127,6 +128,21 @@ function handleLocationUpdate(position) {
 		}else {
 			document.getElementById("pace").textContent = "Infinitely behind pace. Couch potato.";
 		}
+
+		//If the user has run far enough and is close enough to the end point,
+		//set runComplete = 1
+		var distanceFromFinish = calculateDistance([currLatLng, finLatLng]);
+		console.log("Dist from fin:" + distanceFromFinish);
+		if(distanceFromFinish < .05 && distToGo < .05) {
+			console.log("Close enough");
+			runComplete = 1;
+		}
+
+		//If the run is complete, stop the timer, quit updating location, and turn end button into finish
+		if(runComplete == 1)
+		clearTimeout(t);
+		clearTimeout(lt);
+		document.getElementById("end").textContent="Finish";
 	}
 }
 			
