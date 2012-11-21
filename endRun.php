@@ -23,6 +23,8 @@ session_start();
 	<?php
 		$routeID = $_GET['routeID'];
 		$userID = $_GET['userID'];
+		$complete = $_GET['complete'];
+		$timePretty = $_POST['timePretty'];
 		$goal = $_SESSION['goal'];
 		include("config.php");
 	?>
@@ -32,6 +34,14 @@ session_start();
 	<a href="newChallenge.php?routeID=<?=$routeID?>&userID=<?=$userID?>" data-role="button" data-icon="" data-iconpos="right">Challenge a Friend</a>
 	
 	<?php
+		//insert the user's time, if they completed the run, into the DB
+		$date = date("Y:m:d", mktime(0,0,0,date("m"),date("d"),date("Y")));
+		$insert = "INSERT INTO RECORDS VALUES(".$routeID.", ".$userID.", \"".$timePretty."\", \"".$date."\")";
+		//echo $insert;
+		if($complete == 1) {
+			msql_query($insert);
+		}
+
 		$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);
 		$result = mysql_query($query);
 		$isFavorite = 0; 
