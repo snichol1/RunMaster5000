@@ -45,7 +45,7 @@ margin-right:auto;
     {
       sessionStorage.goalTimePretty = clicked_id;
       sessionStorage.goalRoute = <?= $routeID ?>;
-      console.log(clicked_id);
+      //console.log(clicked_id);
       window.location.href = "route.php?userID=" + <?=$userID?> + "&routeID=" + <?=$routeID?>;
     }
   </script>
@@ -108,7 +108,7 @@ margin-right:auto;
 
 
 
-<form name="input" action="addNewGoal.php" method="get">
+<form name="input" action="addNewGoal.php?routeID=<?=$routeID?>&userID=<?=$userID?>" method="post">
 <select name="hours" id = "hours">
 <option value="00" selected = "selected">Hours</option>
 <option value="00">00</option>
@@ -298,8 +298,7 @@ margin-right:auto;
 <option value="58">58</option>
 <option value="59">59</option>
 
-<input type="hidden" name="userID" value = <?php echo $_SESSION['userID']?>>
-<input type="hidden" name="routeID" value = <?php echo $_GET['routeid']?>>
+
 
 </select>
 
