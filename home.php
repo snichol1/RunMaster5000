@@ -5,11 +5,16 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-	<title>RunMaster 5000</title> 
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<title>Home</title> 
+	
+	  <meta charset="utf-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="themes/blue.css" />
+	  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> 
+	  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script> 
+	  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script> 
+	
+	
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 </head> 
@@ -18,7 +23,7 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>RunMaster 5000</h1>
+		<h1>Home</h1>
 				<a href="login.php" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
 	</div><!-- /header -->
 

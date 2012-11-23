@@ -6,10 +6,14 @@ session_start();
 <html>
     <head>
 		<title>RunMaster 5000</title> 
-		<meta name="viewport" content="width=device-width, initial-scale=1"> 
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		  <meta charset="utf-8" />
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="themes/blue.css" />
+		  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> 
+		  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script> 
+		  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script> 
+		
+		
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 		<script src="js/runutilities.js"></script>
 	</head>
@@ -231,7 +235,7 @@ session_start();
 				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "&return=".$return."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 
 				 
-				 echo "<a class = \"run\" href=\"run.php?routeID=".$routeID. "&userID=".$_GET['userID']."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\" rel=\"external\">Run!</a>";
+				 echo "<a id = \"run\" href=\"run.php?routeID=".$routeID. "&userID=".$_GET['userID']."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\" rel=\"external\">Run!</a>";
             ?> 
 
                                     

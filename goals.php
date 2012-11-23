@@ -8,11 +8,14 @@ session_start();
 <html> 
 <head> 
 	<title>Goals</title> 
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-	<link rel="stylesheet" href="friends.css"/>
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="themes/blue.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> 
+		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script> 
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>    
+	
+	
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
 
 </head> 
 <body> 
@@ -125,10 +128,10 @@ session_start();
 				echo "<table>";
 			  		echo "<tr>"; 
 			  		echo "<td>"; 
-			  		echo "<b>Route</b>"; 
+			  		echo "<b>Route | </b>"; 
 			  		echo "</td>"; 
 			  		echo "<td>"; 
-			  		echo "<b>Goal Time</b>"; 
+			  		echo "<b>Goal Time | </b>"; 
 			  		echo "</td>";
 					echo "<td> <b>Challenger</b> </td>";
 						
@@ -184,7 +187,7 @@ session_start();
 			 	 	echo "RUN"; 
 			  		echo "</a></span>";
 			  		
-			  		echo "<span class=\"runbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"removeGoal.php?routeID=" .$routeID; 
+			  		echo "<span class=\"removebutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"removeGoal.php?routeID=" .$routeID; 
 				  	echo "&UserID=";
 				  	echo $row['UserID'];
 				  	echo "&AntagonistID=";
@@ -246,7 +249,7 @@ session_start();
 			  		echo $time; 
 			  		echo "</td>";
 			  		echo "<td>"; 
-					echo "<a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
+					echo "<a class = \"runbutton\" href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
 				  		echo "\">"; 
 				 	 	echo "RUN!"; 
 				  		echo "</a>";
