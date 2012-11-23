@@ -29,6 +29,22 @@ margin-right:auto;
 	</div><!-- /header -->
 
 	<div data-role="content">	
+    <?php
+      $routeID = $_GET['routeID'];
+      $userID = $_GET['userID'];
+      include("config.php");
+      $RRecord;
+      $PR;
+    ?>
+<script type="text/javascript">
+    function reply_click(clicked_id)
+    {
+      sessionStorage.goalTimePretty = clicked_id;
+      sessionStorage.goalRoute = <?= $routeID ?>;
+      //console.log(clicked_id);
+      window.location.href = "route.php?userID=" + <?=$userID?> + "&routeID=" + <?=$routeID?>;
+    }
+  </script>
 	
 	<div data-role="collapsible-set">
 
@@ -36,76 +52,65 @@ margin-right:auto;
 	<h3>Choose from Preset Goals</h3>
 
 	<?php
-		$routeID = $_GET['routeID'];
-		$userID = $_GET['userID'];
-		include("config.php");
-		$RRecord;
-		$PR;
+    $query = sprintf("select * from Routes where RouteID='%s'", $routeID);
+    $result = mysql_query($query);
+    while($row = mysql_fetch_array($result))
+      {
+        echo "<h1>Set a goal for " . $row['Name'] . ":</h1>"; 
+      }
 
-		$query = sprintf("select * from Routes where RouteID='%s'", $routeID);
-		$result = mysql_query($query);
-		while($row = mysql_fetch_array($result))
-  		{
-  			echo "<h1>Choose a preset goal for " . $row['Name'] . ":</h1>"; 
-  		}
+      $goalsQuery = sprintf("SELECT Goals.UserID AS UserID, Users.Name AS Name, Time FROM Goals, Users WHERE Goals.AntagonistID = Users.UserID AND routeID=".$routeID." AND met=0 AND AntagonistID <> ".$userID." AND Goals.UserID=".$userID);
+      $goalsResult = mysql_query($goalsQuery);
+      $goalsRowCheck = mysql_num_rows($goalsResult);
+      if($goalsRowCheck > 0) {
+        while($row = mysql_fetch_array($goalsResult)) {
+          echo "<button id=\"".$row['Time']."\" onClick=\"reply_click(this.id)\">".$row['Name']."'s PR: ".$row['Time']."</button>";
+        }
+      }
 
-  		$goalsQuery = sprintf("SELECT Goals.UserID AS UserID, Users.Name AS Name, Time FROM Goals, Users WHERE Goals.AntagonistID = Users.UserID AND routeID=".$routeID." AND met=0 AND AntagonistID <> ".$userID." AND Goals.UserID=".$userID);
-  		$goalsResult = mysql_query($goalsQuery);
-  		$goalsRowCheck = mysql_num_rows($goalsResult);
-  		if($goalsRowCheck > 0) {
-  			while($row = mysql_fetch_array($goalsResult)) {
-  				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">" . $row['Name'] . "'s PR: " . $row['Time'] . "</a>";
-  				$_SESSION['goal']=$row['Time'];
-          $_SESSION['goalRoute'] = $routeID;
-  			}
-  		}
+      $selfGoalQuery = sprintf("SELECT min(Time) as Time FROM Goals WHERE routeID=".$routeID." AND met=0 AND AntagonistID = ".$userID);
+      $selfGoalResult = mysql_query($selfGoalQuery);
+      $selfGoalRowCheck = mysql_num_rows($selfGoalResult);
+      if($selfGoalRowCheck > 0) {
+        while($row = mysql_fetch_array($selfGoalResult)) {
+          $SG = $row['Time'];
+        }
+        if($SG != NULL) echo "<button id=\"".$SG."\" onClick=\"reply_click(this.id)\">Your goal: ".$SG."</button>";
 
-  		$selfGoalQuery = sprintf("SELECT min(Time) as Time FROM Goals WHERE routeID=".$routeID." AND met=0 AND AntagonistID = ".$userID);
-  		$selfGoalResult = mysql_query($selfGoalQuery);
-  		$selfGoalRowCheck = mysql_num_rows($selfGoalResult);
-  		if($selfGoalRowCheck > 0) {
-  			while($row = mysql_fetch_array($selfGoalResult)) {
-  				echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your goal: " . $row['Time'] . "</a>";
-  				$_SESSION['goal']=$row['Time'];
-          $_SESSION['goalRoute'] = $routeID;
-  			}
-  		}
+      }
 
-  		$PRQuery = sprintf("SELECT min(Time) as Time FROM Records WHERE RouteID = ".$routeID." AND UserID = ".$userID);
-  		$PRResult = mysql_query($PRQuery);
-  		while($row = mysql_fetch_array($PRResult)) {
-  			$PR = $row['Time'];
-  		}
-  		if($PR != NULL) {
-  			echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Your PR: " . $PR . "</a>";
-  			$_SESSION['goal']=$row['Time'];
-        $_SESSION['goalRoute'] = $routeID;
-  		}
-  		
+      $PRQuery = sprintf("SELECT min(Time) as Time FROM Records WHERE RouteID = ".$routeID." AND UserID = ".$userID);
+      $PRResult = mysql_query($PRQuery);
+      while($row = mysql_fetch_array($PRResult)) {
+        $PR = $row['Time'];
+      }
+      if($PR != NULL) {
+        echo "<button id=\"".$PR."\" onClick=\"reply_click(this.id)\">Your PR: ".$PR."</button>";
 
-  		$RRquery = sprintf("SELECT min(Time) AS Time FROM Records WHERE RouteID = " . $routeID);
-  		$RRResult = mysql_query($RRquery);
-  		$RRRowCheck = mysql_num_rows($RRResult);
-  		if($RRRowCheck > 0) {
-  			while($row = mysql_fetch_array($RRResult)) {
-  				$RRecord = $row['Time'];
-  				if($RRecord > $PR) {
-  					echo "<a href=\"route.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" data-role=\"button\">Route Record: " . $RRecord . "</a>";
-  					$_SESSION['goal']=$row['Time'];
-            $_SESSION['goalRoute'] = $routeID;
-  				}
-  			}
-  		}
+      }
+      
+
+      $RRquery = sprintf("SELECT min(Time) AS Time FROM Records WHERE RouteID = " . $routeID);
+      $RRResult = mysql_query($RRquery);
+      $RRRowCheck = mysql_num_rows($RRResult);
+      if($RRRowCheck > 0) {
+        while($row = mysql_fetch_array($RRResult)) {
+          $RRecord = $row['Time'];
+        }
+        if($RRecord != NULL) {
+          echo "<button id=\"".$RRecord."\" onClick=\"reply_click(this.id)\">Route Record: ".$RRecord."</button>";  
+        }
+      }
 
 
 
-	?> 
+  ?> 
 	
 	</div> 
 <div data-role="collapsible" data-collapsed="true">
 	<h3>Create a custom goal</h3>
 <h1> Create a custom goal </h1> 
-<form name="input" action="addNewGoal.php" method="get">
+<form name="input" action="addNewGoal.php?routeID=<?=$routeID?>&userID=<?=$userID?>" method="post">
 <select name="hours" id = "hours">
 <option value="00" selected = "selected">Hours</option>
 <option value="00">00</option>
@@ -295,8 +300,7 @@ margin-right:auto;
 <option value="58">58</option>
 <option value="59">59</option>
 
-<input type="hidden" name="userID" value = <?php echo $_SESSION['userID']?>>
-<input type="hidden" name="routeID" value = <?php echo $_GET['routeid']?>>
+
 
 </select>
 
