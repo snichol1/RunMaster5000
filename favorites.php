@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['userID']=$_GET['userID'];
+
 ?>
 
 
@@ -31,11 +33,12 @@ session_start();
          <a href="home.php" data-icon="back">Back</a>
 
 	</div><!-- /header -->
-
 	<div data-role="content">	
+	<h3> Your favorite runs </h3> 
 
 		<ul data-role="listview" data-inset="true" data-filter="false">
 				<?php
+				$count = 0; 
 				include("config.php");
 				$query = sprintf("select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty from Favorites, Routes where Favorites.RouteID = Routes.RouteID and Favorites.UserID='%s'", $_SESSION['userID']);
 
@@ -46,14 +49,73 @@ session_start();
 			  		echo "\">"; 
 			 	 	echo $row['Name']; 
 			  		echo "</a> </li>";
+			  		$count++; 
 		  		}
-				?>
+		  	?>
 				
 		</ul>
+		<?php
+			if ($count == 0) echo "<h2>... oops, you don't have any! Add some!</h2>"; 
+		?> 
+	
+	<div data-role="collapsible-set" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-mini="true">
+	<hr> 
+	<h3> Edit Favorites list </h3> 
+	<div data-role="collapsible" data-collapsed="true" >
+	<h3>Add to Favorites</h3>
+	<?php
+				include("config.php");
+				$addCount == 0; 
+				$routesQuery = sprintf("select * from Routes"); 
+				$routesResult = mysql_query($routesQuery);
+				while($row = mysql_fetch_array($routesResult))
+		  		{
+		  			$query = sprintf("select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty from Favorites, Routes where Favorites.RouteID = '%s' and Favorites.UserID='%s'", $row['RouteID'],$_SESSION['userID']);
+					$result = mysql_query($query);
+					$included = 0; 
+					while($newRow = mysql_fetch_array($result))
+			  		{
+			  			$included = 1; 
+			  		}
+					if ($included == 0) {
+						$addCount++; 
+				  		echo "<p><a href = \"editFavorites.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'] . "&action=add"; 
+				  		echo "\">"; 
+				 	 	echo $row['Name']; 
+				  		echo "</a> </p>";
+					}
+		  		}
+		  		if ($addCount == 0) echo "You've already added all available runs to your favorites!"; 
+				?>				
+				
+	</div>
+	
+	<div data-role="collapsible">
+	<h3>Remove from Favorites</h3>
+	<?php
+				include("config.php");
+				$query = sprintf("select Routes.RouteID, Routes.Name, Routes.Distance, Routes.Difficulty from Favorites, Routes where Favorites.RouteID = Routes.RouteID and Favorites.UserID='%s'", $_SESSION['userID']);
+
+				$result = mysql_query($query);
+				$removeCount = 0; 
+				while($row = mysql_fetch_array($result))
+		  		{
+			  		echo "<p><a href = \"editFavorites.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'] . "&action=remove"; 
+			  		echo "\">"; 
+			 	 	echo $row['Name']; 
+			  		echo "</a> </p>";
+			  		$removeCount++; 
+		  		}
+		  		if ($removeCount == 0) echo "Oops, you don't have any favorites yet!"; 
+				?>
+	</div>
+	
+</div>
 		
 	</div><!-- /content -->
 
 </div><!-- /page -->
+
 
 </body>
 </html>

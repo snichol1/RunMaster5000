@@ -2,7 +2,6 @@
 session_start();
 ?>
 
-
 <!DOCTYPE html> 
 <html>
 
@@ -27,7 +26,7 @@ session_start();
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Add To Favorites</h1>
+		<h1>My Title</h1>
 		<a href="#" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
                 <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
@@ -37,20 +36,28 @@ session_start();
 		<?php
 		$userID = $_SESSION['userID']; 
 		$routeID = $_GET['routeID'];
-		$return = $_GET['return']; 		
-		include("config.php");
-		$sql = sprintf("INSERT INTO `c_cs147_thesam`.`Favorites` (`UserID`, `RouteID`) VALUES ('%s', '%s');", $userID, $routeID); 
-		mysql_query($sql); 
+		$action = $_GET['action'];  
+
+		include("config.php"); 
+		if ($action == "remove") {
+			$sql = sprintf("DELETE FROM `c_cs147_thesam`.`Favorites` WHERE `Favorites`.`UserID` = '%s' AND `Favorites`.`RouteID` = '%s' LIMIT 1", $userID, $routeID);  
+			mysql_query($sql);
+		}
+		if ($action == "add") {
+			$sql = sprintf("INSERT INTO `c_cs147_thesam`.`Favorites` (`UserID`, `RouteID`) VALUES ('%s', '%s');", $userID, $routeID); 
+			mysql_query($sql); 
+		}
 		?>
 		
 		<script> 
-			window.location.href = "<?=$return?>.php?userID=" + <?php echo $_SESSION['userID'] ?> + "&routeID=" + <?php echo $_GET['routeID'] ?>; 
+		window.location.href = "favorites.php?userID=" + <?php echo $userID ?>; 
 		</script> 
-				
+
 	</div><!-- /content -->
 
 		
-	</div><!-- /page -->
+
+</div><!-- /page -->
 
 </body>
 </html>
