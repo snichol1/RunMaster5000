@@ -79,7 +79,7 @@ $_SESSION['userID']=$_GET['userID'];
 
 		</form>
 		<hr> 
-		<h3> Set a goal for a friend! 
+		<h3> Challenge a friend 
 		<?php 
 			$userID = $_SESSION['userID']; 
 
@@ -202,7 +202,7 @@ $_SESSION['userID']=$_GET['userID'];
 		  		}
 		  		if(!$haveAGoal){
 		  			echo "<div id=\"nogoals\">You have no current goals. Let's solve that problem!</div>";
-		  			echo "<h3> Step 1: Pick a route </h3>";
+		  			echo "<h3><i> Step 1: Pick a route </i></h3>";
 					include("config.php");
 					$query = sprintf("select * from Routes"); 
 					$result = mysql_query($query);
@@ -214,7 +214,7 @@ $_SESSION['userID']=$_GET['userID'];
 		  			echo "</select>"; 
 		  			
 		  			?>
-					<h3> Step 2: Make it official! 
+					<h3><i> Step 2: Make it official! </i>
 		  			<br><a data-role="button" href="#" onclick="submitRequest()">Add a new goal for this route!</a>
 		  			</h3>
 		  			<script> 

@@ -31,7 +31,8 @@
 		<?php
 			$userID = $_SESSION['userID'];
 			$name = $_GET['name'];
-
+			
+			if ($_GET['changed']) echo "<h3 style=\"color: green;\"> Password successfully changed! </h3>"; 
 			include("config.php");
 			$query = sprintf("select * from Users where UserID = '%s'", $_GET['userID']); 
 				$result = mysql_query($query);

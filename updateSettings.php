@@ -42,20 +42,17 @@ session_start();
 		include("config.php"); 
 		$result   = mysql_query("select * from Users where UserID='$userID' AND Password='$password'");
 		$rowCheck = mysql_num_rows($result);
-		$message = ""; 
 		$isCorrect = false; 
 		if ($rowCheck != 0) {
-			$message = "Password successfully changed!"; 
 			$query = sprintf("UPDATE `c_cs147_thesam`.`Users` SET `Password` = '%s' WHERE `Users`.`UserID` = '%s';", $newPassword, $userID); 
 			mysql_query($query);
-			echo $message;
 			$isCorrect = true; 
 		}
 		?>
 		
 		<script> 
 		var correct = "<?php echo $isCorrect ?>";
-		if (correct) window.location.href = "home.php"; 
+		if (correct) window.location.href = "home.php?userID=<?php echo $_SESSION['userID']?>&changed=1"; 
 		else window.location.href = "settings.php?userID=<?php echo $_SESSION['userID']?>&isCorrect=0"; 
 		</script> 
 
