@@ -198,9 +198,10 @@ session_start();
 		  			echo " miles </h3>"; 
 		  			
 		  			echo "<h3> Difficulty: "; 
-		  			echo $row['Difficulty']; 
-		  			echo " out of 5 </h3>"; 
-
+		  			$diff = $row['Difficulty']; 
+		  			if ($diff == 1) echo "Easy";
+		  			if ($diff == 2) echo "Medium"; 
+		  			if ($diff == 3) echo "Hard"; 
 		  			
 		  			echo "<h3 id=\"goalDisplay\"></h3>";
 		  			
@@ -228,11 +229,13 @@ session_start();
 		  		}
 		  		$message = "Add To Favorites"; 
 		  		$action = "addToFavorites.php"; 
+		  		$icon = "plus";
 		  		if ($isFavorite == 1) {
 		  			$message = "Remove from Favorites"; 
 		  			$action = "removeFromFavorites.php"; 
+		  			$icon = "minus"; 
 		  		}
-				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "&return=".$return."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
+				 echo "<a href=\"" .$action . "?routeID=" . $routeID . "&return=".$return."\" data-role=\"button\" data-icon=". $icon ."  data-iconpos=\"right\">" . $message . "</a>";
 
 				 
 				 echo "<a id = \"run\" href=\"run.php?routeID=".$routeID. "&userID=".$_GET['userID']."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\" rel=\"external\">Run!</a>";

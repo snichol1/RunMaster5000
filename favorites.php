@@ -30,11 +30,11 @@ $_SESSION['userID']=$_GET['userID'];
 
 	<div data-role="header">
 		<h1>Favorites</h1>
-         <a href="home.php" data-icon="back">Back</a>
+		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 
 	</div><!-- /header -->
 	<div data-role="content">	
-	<h3> Your favorite runs </h3> 
+	<h3> Your favorite routes </h3> 
 
 		<ul data-role="listview" data-inset="true" data-filter="false">
 				<?php

@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['userID']=$_GET['userID'];
 ?>
 
 
@@ -24,7 +25,7 @@ session_start();
 
 	<div data-role="header">
 		<h1>Goals</h1>
-		<a href="home.php" data-icon="home" id="back" class="ui-btn-left">Home</a>
+		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 
 	</div><!-- /header -->
 
@@ -64,43 +65,6 @@ session_start();
 					echo "<span class=\"dismissbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"dismissChallenge.php?routeID=".$row['RouteID']."&AntagonistID=".$row['FromID']."&Time=".$row['Time']."\"> Dismiss :( </a></span>";
 					echo "</div>";
 					
-			  		/*echo "<tr>"; 
-			  		echo "<td>"; 
-			  		echo $nameRow['Name']; 
-			  		echo "  challenged you to " . $routeRow['Name']; 
-					echo "!<br></td>"; 
-			  		echo "<td>"; 
-			  		$name = $row['Name']; 
-			  		
-			  		echo "<a href = \"addToGoals.php?routeID="; 
-				  	echo $row['RouteID'];
-				  	echo "&UserID=";
-				  	echo $row['ToID'];
-				  	echo "&AntagonistID=";
-				  	echo $row['FromID'];
-				  	echo "&Time=";
-				  	echo $row['Time'];
-				  	echo "&DateSet=";
-				  	echo $row['Date'];
-			  		echo "\"> Accept the challenge!"; 
-			  		echo "</a>"; 
-			
-			  		echo "</td>"; 
-			  		echo "<td>"; 
-			  		echo "<a href = \"dismissChallenge.php?routeID="; 
-				  	echo $row['RouteID'];
-				  	echo "&UserID=";
-				  	echo $row['ToID'];
-				  	echo "&AntagonistID=";
-				  	echo $row['FromID'];
-				  	echo "&Time=";
-				  	echo $row['Time'];
-				  	echo "&DateSet=";
-				  	echo $row['Date'];
-			  		echo "\"> Dismiss :( "; 
-			  		echo "</a>"; 
-					echo "</td>"; 
-			  		echo "</tr>"; */
 		  		}
 		  		if(!$isNewGoal)
 		  			echo "<div id=\"nonewgoals\">You have no new goal notifications.</div>"
@@ -114,29 +78,32 @@ session_start();
 	    
 
 		</form>
+		<hr> 
+		<h3> Set a goal for a friend! 
+		<?php 
+			$userID = $_SESSION['userID']; 
 
-				<?php 
-		$userID = $_SESSION['userID']; 
-		echo "<br><a data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a>";
+			include("config.php");
+			$haveTimes = false;
+			$query = sprintf("select * from Records where UserID = '%s'", $userID); 
+			$result = mysql_query($query);
+			while($row = mysql_fetch_array($result)) {
+				$haveTimes = true; 
+			}
+			if ($haveTimes) echo "<br><a data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a> </h3>";
+			else {
+				echo " </h3> Oops! You can't send a challenge until you've run a route yourself."; 
+			}
+
 		 ?>
 		 
+		 <hr>
 		<h3> Current Goals </h3> 	
 		
 				<?php
 				include("config.php");
 				$haveAGoal = false;
-				echo "<table>";
-			  		echo "<tr>"; 
-			  		echo "<td>"; 
-			  		echo "<b>Route | </b>"; 
-			  		echo "</td>"; 
-			  		echo "<td>"; 
-			  		echo "<b>Goal Time | </b>"; 
-			  		echo "</td>";
-					echo "<td> <b>Challenger</b> </td>";
-						
-					echo "</tr>"; //Remove if reverted
-				echo "</table>";
+				
 
 				
 				
@@ -144,8 +111,22 @@ session_start();
 				$query = sprintf("select Routes.RouteID, Routes.Name, Goals.Time, Goals.UserID, Goals.AntagonistID from Routes, Goals where Goals.RouteID = Routes.RouteID and Goals.UserID = '%s' and Goals.Met = '0'", $_SESSION['userID']);
 
 				$result = mysql_query($query);
+				$counter = 0; 
 				while($row = mysql_fetch_array($result))
 		  		{
+		  			if ($counter == 0) {
+		  				echo "<table>";
+				  		echo "<tr>"; 
+				  		echo "<td>"; 
+				  		echo "<b>Route | </b>"; 
+				  		echo "</td>"; 
+				  		echo "<td>"; 
+				  		echo "<b>Goal Time | </b>"; 
+				  		echo "</td>";
+						echo "<td> <b>Challenger</b> </td>";
+						echo "</tr>"; //Remove if reverted
+						echo "</table>";
+		  			}
 		  			$haveAGoal = true;
 			  		$query = sprintf("select * from Users where UserID = '%s' LIMIT 0, 30 ", $row['AntagonistID']); 
 					$userArray = mysql_query($query); 
@@ -156,6 +137,7 @@ session_start();
 					$time = $row['Time'];
 					$routeID = $row['RouteID'];
 					$userID = $_SESSION['userID'];
+					$counter++; 
 					
 					
 					/*echo "<div class=\"goalentry\"><span class=\"namelabel\">".$name."</span>";
@@ -184,7 +166,7 @@ session_start();
 					
 					echo "<span class=\"runbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
 					echo "\">"; 
-			 	 	echo "RUN"; 
+			 	 	echo "Run!"; 
 			  		echo "</a></span>";
 			  		
 			  		echo "<span class=\"removebutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"removeGoal.php?routeID=" .$routeID; 
@@ -219,16 +201,43 @@ session_start();
 			  		//echo "</tr>"; 
 		  		}
 		  		if(!$haveAGoal){
-		  			echo "<div id=\"nogoals\">You have no current goals.</div>";
+		  			echo "<div id=\"nogoals\">You have no current goals. Let's solve that problem!</div>";
+		  			echo "<h3> Step 1: Pick a route </h3>";
+					include("config.php");
+					$query = sprintf("select * from Routes"); 
+					$result = mysql_query($query);
+					echo "<select id = 'newRoute'>"; 
+					while($row = mysql_fetch_array($result))
+		  			{
+		  				echo "<option value=" . $row['RouteID'] .">" . $row['Name'] . "</option>"; 
+		  			}
+		  			echo "</select>"; 
+		  			
+		  			?>
+					<h3> Step 2: Make it official! 
+		  			<br><a data-role="button" href="#" onclick="submitRequest()">Add a new goal for this route!</a>
+		  			</h3>
+		  			<script> 
+		  				function submitRequest() {
+		  					var baseURL = "addGoalFromGoalsPage.php"; 
+		  					var userID = "<?php echo $_SESSION['userID'] ?>";
+		  					var routeID = document.getElementById("newRoute").value; 
+		  					var completeURL = baseURL + "?userID=" + userID + "&routeID=" + routeID; 
+		  					window.location.href = completeURL; 
+		  				}
+		  			</script> 
+
+		  			<?php 
+
 
 		  		}
 			?>
 				
 		
 
-
+<hr>
 		 <h3> Goals you've met: </h3> 
-		 <table> 
+		 	
 		
 				<?php
 				include("config.php");
@@ -238,6 +247,9 @@ session_start();
 				$haveMetAGoal = false;
 				while($row = mysql_fetch_array($result))
 		  		{
+		  			echo "<div data-role=\"collapsible-set\">"; 
+		  			echo "<div data-role=\"collapsible\" data-collapsed=\"true\" collapsedIcon=\"arrow-r\">";
+		  			echo "<h3>See your achievements!</h3><table>"; 
 		  			$haveMetAGoal = true;
 			  		echo "<tr>"; 
 			  		echo "<td>"; 
@@ -255,13 +267,12 @@ session_start();
 				  		echo "</a>";
 			  		echo "</td>";		  		
 			  		echo "</tr>"; 
+			  		echo "</table></div></div>";
 		  		}
 		  		if(!$haveMetAGoal)
-		  			echo "<div id=\"nometgoals\">You have not met any goals yet.</div>";
+		  			echo "<div id=\"nometgoals\">You have not met any goals yet. :( </div>";
 			?>
 				
-		</table> 
-
 	</div><!-- /content -->
 
 </div><!-- /page -->

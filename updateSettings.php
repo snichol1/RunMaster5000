@@ -36,18 +36,27 @@ session_start();
 		
 		<?php
 
-		$password = $_POST["password"]; 
+		$password = $_POST["oldPassword"]; 
+		$newPassword = $_POST["newPassword"]; 
 		$userID = $_SESSION["userID"];
-
-		echo $password; 
-		echo $userID; 
 		include("config.php"); 
-		$query = sprintf("UPDATE `c_cs147_thesam`.`Users` SET `Password` = '%s' WHERE `Users`.`UserID` = '%s';", $password, $userID); 
-		mysql_query($query);
+		$result   = mysql_query("select * from Users where UserID='$userID' AND Password='$password'");
+		$rowCheck = mysql_num_rows($result);
+		$message = ""; 
+		$isCorrect = false; 
+		if ($rowCheck != 0) {
+			$message = "Password successfully changed!"; 
+			$query = sprintf("UPDATE `c_cs147_thesam`.`Users` SET `Password` = '%s' WHERE `Users`.`UserID` = '%s';", $newPassword, $userID); 
+			mysql_query($query);
+			echo $message;
+			$isCorrect = true; 
+		}
 		?>
 		
 		<script> 
-			window.location.href = "home.php";
+		var correct = "<?php echo $isCorrect ?>";
+		if (correct) window.location.href = "home.php"; 
+		else window.location.href = "settings.php?userID=<?php echo $_SESSION['userID']?>&isCorrect=0"; 
 		</script> 
 
 	</div><!-- /content -->

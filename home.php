@@ -46,7 +46,7 @@
 			<!---<?php echo "<li><a href=\"searchresults.php?name=optional&mysubmit=Search!&userID=" . $_SESSION['userID'] . "\">Search Routes</a></li>" ?>--->
 			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals</a></li>" ?>
 			<?php echo "<li><a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
-			<?php echo "<li><a href=\"settings.php?userID=" . $_SESSION['userID'] . "\">Settings</a></li>" ?>
+			<?php echo "<li><a href=\"settings.php?userID=" . $_SESSION['userID'] . "&isCorrect=1\">Settings</a></li>" ?>
 
 		</ul>
 	</div><!-- /content -->

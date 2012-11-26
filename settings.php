@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html> 
 <html> 
 <head> 
@@ -22,14 +26,22 @@ function showPassword() {
 
 	<div data-role="header">
 		<h1>Settings</h1>
-		<a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Home</a>
+		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	
 		
-		<form action="updateSettings" method="post">
-		<label for="foo">Change password:</label>
-		<input type="password" name="password" id="bar">
+		<?php
+			$correct = $_GET['isCorrect']; 
+			if ($correct == 0) echo "<h3 style=\"color: red;\"> The current password you entered is incorrect. Try again. <h3> " 
+
+		?> 
+		<form action="updateSettings.php" method="post">
+		<label for="foo">Old password:</label>
+		<input type="password" name="oldPassword" id="bar">
+		<label for="foo">New password:</label>
+		<input type="password" name="newPassword" id="bar">
+
 	    <input type="submit" value="Change Password">
 		</form>
 
