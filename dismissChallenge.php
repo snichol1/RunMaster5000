@@ -51,7 +51,9 @@ session_start();
 Challenge dismissed! 
 
 	</div><!-- /content -->
-
+	<script> 
+		window.location.href = "goals.php?userID=<?php echo $_SESSION['userID'] ?>"; 
+	</script> 
 		
 	<script type="text/javascript">
 		$("#logout").click(function() {
