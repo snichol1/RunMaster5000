@@ -47,7 +47,7 @@ session_start();
 		?>
 		
 		<script> 
-		window.location.href = "friends.php"; 
+		window.location.href = "friends.php?userID=<?php echo $_SESSION['userID']?>"; 
 		</script> 
 
 	</div><!-- /content -->

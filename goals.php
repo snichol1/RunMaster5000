@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['userID']=$_GET['userID'];
+if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 ?>
 
 

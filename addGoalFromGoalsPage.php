@@ -1,5 +1,7 @@
 <?php
 session_start();
+if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
+
 ?>
 
 <!DOCTYPE html> 
