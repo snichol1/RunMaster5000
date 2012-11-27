@@ -12,7 +12,7 @@
     
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv5woZWJa4qFr4nO4Dp9dCl3LrPQBMToE&sensor=false"></script>
     <script src="js/runutilities.js"></script>
-
+	
 </head> 
 <body> 
 
@@ -174,19 +174,19 @@
 
 		
 		$(function() {
-			$("#end").hide();
+			//$("#end").hide();
 			$("#resume").hide();
 
 			$("#pause").click(function() {
 				$(this).hide();
 				$("#resume").show();
-				$("#end").show();
+				//$("#end").show();
 				pauseTimer();
 			});
 			$("#resume").click(function() {
 				$("#pause").show();
 				$("#resume").hide();
-				$("#end").hide();
+				//$("#end").hide();
 				resumeTimer();
 			});
 			$("#end").click(function() {
@@ -210,19 +210,24 @@
 			});
 		});
 	</script>
-	
+	<style type="text/css">
+		.ui-grid-b .ui-block-a{ width: 65% }
+		.ui-grid-b .ui-block-b{ width: 35%; } 
+	</style>
 	<?php
 		echo "<div id=\"yourTime\">Your Time: </div>";
 		echo "<div id=\"goalDisplay\"></div>";
 		echo "<div id=\"mileage\">0 miles run.</div>";
 		echo "<div id=\"pace\"></div>"
 	?>
-	<div class="running" id="runningBlock">
-	<a href="#" id="pause" data-role="button">Pause</a>
-	</div>
-	<div class="paused" id="pausedBlock">
-	<a href="#" id="resume" data-role="button">Resume</a>
-	<a href="#" id="end" data-role="button">End</a>
+	<div class="ui-grid-b">
+		<div class="ui-block-a">
+			<a href="#" id="pause" class="" data-role="button">Pause</a>
+			<a href="#" id="resume" class="" data-role="button">Resume</a>
+		</div>
+		<div class="ui-block-b">
+			<a href="#" id="end" class="" data-role="button">End</a>
+		</div>
 	</div>
  </div><!-- /content -->
 
