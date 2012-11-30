@@ -20,25 +20,34 @@ session_start();
 </head>
 <body>
 
+<div data-role="page">
 <div data-role="header">
-	<h1>Route Search</h1>
+	<h1>Filter</h1>
 	
-	<a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Home</a>
+	<a href="searchresults.php?mysubmit=Search!" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 </div><!-- /header -->
 	
 <div data-role="content">	
 
 <?php echo "<form action=\"searchresults.php?userID=" . $_GET['userID'] . "\" id=\"searchform\" method=\"get\">" ?>
 
-<!---//<form action="searchresults.php" id="searchform" method="get">
-	 Location Entry
+<form action="searchresults.php" id="searchform" method="get">
+	<!---// Location Entry
 	<div data-role="fieldcontain">
 	    <label for="name">Location:</label>
 	    <input type="text" name="location" id="location" value=""  />
 	</div>	---->
 	
-	<div data-role="fieldcontain">
-	    <label for="name"><b>Route Name:</b></label>
+	<!--- Hides the text field because of mofified design. -->
+	<script type="text/javascript"> 
+	$(document).ready(function(){
+	       $(".routenamefield").hide();	 
+	});
+	</script>
+
+	
+	<div class="routenamefield" data-role="fieldcontain" hidden=tu>
+	    <label for="name" hidden=true><b>Route Name:</b></label>
 	    <input type="text" name="name" id="name" value="optional"  />
 	</div>	
 	
@@ -64,7 +73,7 @@ session_start();
 	                <div class="distspecify">5+ mi</div>
 	            </label>
 	        </fieldset>
-	        <div class="selectedDist">No distances specified. <br> All distances will be searched.</div>
+	      <!---  <div class="selectedDist">No distances specified. <br> All distances will be searched.</div> --->
 		</div>
 		
 		
@@ -89,12 +98,13 @@ session_start();
 	                Hard
 	            </label>
 	        </fieldset>
-	         <div class="selectedDiff">No difficulties specified. <br> All difficulties will be searched.</div>
+	        <!--- <div class="selectedDiff">No difficulties specified. <br> All difficulties will be searched.</div> --->
 	      </div>
 	<br>
 	<input type="submit" name="mysubmit" value="Search!" />
 	
 </form>
+</div>
 </div>
 
 	<script type="text/javascript">

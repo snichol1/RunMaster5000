@@ -38,7 +38,7 @@ session_start();
 
 		$name = $_POST["username"]; 
 		$userID = $_SESSION["userID"];
-		$friendID = $_POST['friendID'];
+		$friendID = $_GET['friendID'];
 		include("config.php"); 
 		$query = sprintf("insert into Friends values('%s', '%s', 'true')", $userID, $friendID); 
 		mysql_query($query);

@@ -32,7 +32,7 @@ $_SESSION['userID']=$_GET['userID'];
     });
     </script>
 <div data-role="page">
-
+<script src="//cdn.optimizely.com/js/140762800.js"></script>
 	<div data-role="header">
 		<h1>Home</h1>
 				<a href="login.php" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
@@ -64,16 +64,16 @@ $_SESSION['userID']=$_GET['userID'];
 				$count = 0; 
 				while($row = mysql_fetch_array($result))
 		  		{
-					if ($count < 2) echo "<p><a id='run' href=\"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_GET['userID']. "\">" . $row['Name'] ."</a></p>"; 
+					if ($count < 2) echo "<p><a class='route' id='run' href=\"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_GET['userID']. "\">" . $row['Name'] ."</a></p>"; 
 					$count++; 
 		  		}
 		  		
 		  		echo "<div class=\"ui-grid-a my-breakpoint\">"; 
 
-		  		if ($count > 2) echo "<div class=\"ui-block-a\" <p> <a href=\"favorites.php?userID=" . $_GET['userID'] . "\">See all favorites</a></p></div>";
+		  		if ($count > 2) echo "<div class=\"fave ui-block-a\" <p> <a class=\"faves\" href=\"favorites.php?userID=" . $_GET['userID'] . "\">See all favorites</a></p></div>";
 
 				$url = "searchresults.php?name=optional&mysubmit=Search!&userID=" . $_GET['userID']; 
-				echo "<div class=\"ui-block-b\"><p><a href = " . $url . "\> See all routes </a></p></div>"; 
+				echo "<div class=\"ui-block-b\"><p><a class=\"routes\" href = " . $url . "\> See all routes </a></p></div>"; 
 			echo "</div>"; 
 		?>
 		<hr> 
@@ -142,12 +142,12 @@ $_SESSION['userID']=$_GET['userID'];
 						echo "</tr>"; //Remove if reverted
 						echo "</table>";
 						
-						echo "<span class=\"runbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
+						echo "<span class=\"runbutton\"><a class=\"runbutton\" data-mini=\"true\" data-inline=\"true\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
 						echo "\">"; 
 				 	 	echo "Run!"; 
 				  		echo "</a></span>";
 				  		
-				  		echo "<span class=\"removebutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"removeGoal.php?routeID=" .$routeID; 
+				  		echo "<span class=\"removebutton\"><a class=\"removebutton\" data-mini=\"true\" data-inline=\"true\" href = \"removeGoal.php?routeID=" .$routeID; 
 					  	echo "&UserID=";
 					  	echo $row['UserID'];
 					  	echo "&AntagonistID=";
@@ -158,19 +158,31 @@ $_SESSION['userID']=$_GET['userID'];
 					$goalsCount++; 	
 
 		  		}
-		if ($goalsCount > 2) echo "<a href=\"goals.php?userID=" . $_GET['userID'] . "\"> See all goals </a>";  
+		if ($goalsCount > 2) echo "<a class=\"allgoals\" href=\"goals.php?userID=" . $_GET['userID'] . "\"> See all goals </a>";  
 		
 	?>
 		<hr> 
 		<h3> Manage my Account </h3> 
 		<div class="ui-grid-a my-breakpoint">
-			<div class="ui-block-a"> <?php echo "<a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a>" ?>      </div>
-			<div class="ui-block-b">  	<?php echo "<a href=\"settings.php?userID=" . $_SESSION['userID'] . "&isCorrect=1\">Settings</a>"?>
+			<div class="ui-block-a"> <?php echo "<a class=\"friends\" href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a>" ?>      </div>
+			<div class="ui-block-b">  	<?php echo "<a class=\"settings\" href=\"settings.php?userID=" . $_SESSION['userID'] . "&isCorrect=1\">Settings</a>"?>
     </div>
 		</div><!-- /grid-a -->
 	</div><!-- /content -->
 
 </div><!-- /page -->
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36350637-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </body>
 </html>

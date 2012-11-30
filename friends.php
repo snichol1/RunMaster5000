@@ -34,7 +34,7 @@ session_start();
 				<?php
 				include("config.php");
 				$query = sprintf("select ID2 from Friends where ID1 = %s", $_SESSION['userID']);
-
+				echo "<ul data-inset=\"true\" data-role=\"listview\" data-filter-placeholder=\"Search users...\" data-filter=\"true\" data-theme=\"b\">";
 				$result = mysql_query($query);
 				while($row2 = mysql_fetch_array($result))
 		  		{
@@ -42,54 +42,41 @@ session_start();
 		  			$result2 = mysql_query($query2);
 		  			while($row = mysql_fetch_array($result2))
 		  			{
-				  		echo "<tr>"; 
-				  		echo "<td>"; 
-				  		echo $row['Name']; 
-				  		echo "</td>"; 
-				  		echo "<td>"; 
-				  		echo "<form action=\"removeFriend.php?userID=" . $_SESSION['userID'] ."\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
-				  		echo $row['Name']; 
-				  		echo "> "; 
-				  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
-				  		echo $row['UserID']; 
-				  		echo ">"; 
-				  		echo "<input type=\"submit\" value="; 
-				  		echo "Unfollow"; 
-				  		echo "> </form>";
-				  		echo "</td>"; 
-				  		echo "<tr>"; 
+				  		echo "<li data-corners=\"false\" data-icon=\"arrow-r\" data-iconpos=\"right\" data-theme=\"c\">";
+							echo "<a href=\"removeFriend.php?userID=" . $_SESSION['userID'] . "&friendID=" . $row['UserID'] . "\">";
+								echo "<p class=\"ui-li-aside ui-li-desc\"><strong>Follow <br>User</strong>".$diffLabel."</p>";
+								echo "<h3>   ".$row["Name"]."</h3>";
+							echo "</a>";
+						echo "</li>";
+
 		  			}
 		  		}
+		  		echo "</ul>";
 				?>
 	</table> 		
-		
-	<h3> Friends you're not following: </h3> 
+	<?php
+	echo "<a data-mini=\"true\" data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a>";
+	?>
+	
+	<h3> Users you're not following: </h3> 
 	<table> 
 				<?php
 				include("config.php");
 				$query = sprintf("select distinct UserID, Name from Users where not exists (select ID2 from Friends where ID1 = %s and UserID = ID2) and UserID <> %s", $_SESSION['userID'], $_SESSION['userID']);
+				echo "<ul data-inset=\"true\" data-role=\"listview\" data-filter-placeholder=\"Search users...\" data-filter=\"true\" data-theme=\"b\">";
 
 				$result = mysql_query($query);
 				while($row = mysql_fetch_array($result))
 		  		{
-			  		echo "<tr>"; 
-			  		echo "<td>"; 
-			  		echo $row['Name']; 
-			  		echo "</td>"; 
-			  		echo "<td>"; 
-			  		echo "<form action=\"addFriend.php?userID=" . $_SESSION['userID']. "\" method=\"post\"> <input type=\"hidden\" name=\"username\" id=\"foo\" value = "; 
-			  		echo $row['Name']; 
-			  		echo "> "; 
-			  		echo "<input type=\"hidden\" name=\"friendID\" id=\"foo\" value = "; 
-			  		echo $row['UserID']; 
-			  		echo ">"; 
-	
-			  		echo "<input type=\"submit\" value="; 
-			  		echo "Follow";
-			  		echo "> </form>";
-			  		echo "</td>";
-			  		echo "</tr>";
+			  		echo "<li data-corners=\"false\" data-icon=\"arrow-r\" data-iconpos=\"right\" data-theme=\"c\">";
+						echo "<a href=\"addFriend.php?userID=" . $_SESSION['userID'] . "&friendID=" . $row['UserID'] . "\">";
+							echo "<p class=\"ui-li-aside ui-li-desc\"><strong>Follow <br>User</strong>".$diffLabel."</p>";
+							echo "<h3>   ".$row["Name"]."</h3>";
+						echo "</a>";
+					echo "</li>";
 		  		}
+		  		echo "</ul>";
+
 				?>
 				
 		

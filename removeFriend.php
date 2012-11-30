@@ -37,7 +37,7 @@ session_start();
 		<?php
 		$name = $_POST["username"]; 
 		$userID = $_SESSION["userID"];
-		$friendID = $_POST['friendID']; 
+		$friendID = $_GET['friendID']; 
 
 		include("config.php"); 
 		$query = sprintf("delete from Friends where ID1 = '%s' and ID2 = '%s'", $userID, $friendID); 
