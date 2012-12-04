@@ -1,4 +1,5 @@
 //Variables for our timer code:
+var DELAY = 1000;
 var finLatLng;
 var startTime = new Date().getTime();
 var elapsed = 0;
@@ -65,7 +66,12 @@ function initializeCurrLocation() {
 //Continuously keep track of the user's current location
 function trackLocation() {
 	navigator.geolocation.getCurrentPosition(handleLocationUpdate, handleError)
-	lt=setTimeout("trackLocation()", 10000);
+	lt=setTimeout("trackLocation()", DELAY);
+}
+//our new route variant
+function trackLocationNR() {
+	navigator.geolocation.getCurrentPosition(handleLocationUpdateNR, handleError)
+	lt=setTimeout("trackLocation()", DELAY);
 }
 
 //Set the initial location of the current location marker
@@ -83,6 +89,7 @@ function handleLocationInitialization(position) {
 	currMarker.setMap(map);
 }
 
+
 //Update the position of the current location marker
 function handleLocationUpdate(position) {
 //Calculate user's current position and add it to their locations
@@ -94,8 +101,7 @@ function handleLocationUpdate(position) {
 	ticker++;
 	locations[ticker] = currLatLng;
 
-	//track and display the user's pace re: their goal time, if there is one.
-	if(goalTime > 0 && !(Number(sessionStorage.locationOff) == 1)) {
+	
 		//Calculate their milage and update the page accordingly
 		var currDistance = calculateDistance(locations);
 		document.getElementById("mileage").textContent = currDistance + " miles run.";
@@ -106,14 +112,17 @@ function handleLocationUpdate(position) {
 		//console.log("elapsed: " + elapsed);
 		//console.log("total run distance:" + runDistance);
 
+		//Calculate the user's velocity over the last 10 seconds
 		var lastTwoLocations = new Array(2);
 		lastTwoLocations[0] = locations[locations.length - 2];
 		lastTwoLocations[1] = locations[locations.length - 1];
-		var lastLegVelocity = calculateDistance(lastTwoLocations) / 10000;
+		lastLegDistance = calculateDistance(lastTwoLocations);
+		var lastLegVelocity = lastLegDistance / DELAY;
 		//var lastLegVelocity = runDistance / goalTime;
 		//console.log("llv: " + lastLegVelocity);
 
-		if(lastLegVelocity > 0) {
+		//if the user has set a goal time, display how ahead of or behind pace they are
+		if(goalTime > 0 && !(Number(sessionStorage.locationOff) == 1) && lastLegVelocity > 0) {
 			var timeNeeded = distToGo / lastLegVelocity;
 			var timeLeft = goalTime - elapsed;
 			//console.log("time needed:" + timeNeeded);
@@ -132,6 +141,20 @@ function handleLocationUpdate(position) {
 			document.getElementById("pace").textContent = "Infinitely behind pace. Couch potato.";
 		}
 
+
+		//if the distance run over the last 10 seconds is greater than...something,
+		//draw the bit that they've run on the map.
+		console.log(lastLegDistance + "mi run in the last 10 seconds");
+		if(lastLegDistance > 0.01) {
+			var nextLeg = new google.maps.Polyline({
+				path: lastTwoLocations,
+				strokeColor: "251BE0",
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			});
+			nextLeg.setMap(map);
+		}
+
 		//If the user has run far enough and is close enough to the end point,
 		//set runComplete = 1
 		var distanceFromFinish = calculateDistance([currLatLng, finLatLng]);
@@ -142,11 +165,46 @@ function handleLocationUpdate(position) {
 		}
 
 		//If the run is complete, stop the timer, quit updating location, and turn end button into finish
-		if(runComplete == 1)
-		clearTimeout(t);
-		clearTimeout(lt);
-		document.getElementById("end").textContent="Finish";
+		if(runComplete == 1) {
+			clearTimeout(t);
+			clearTimeout(lt);
+			document.getElementById("end").textContent="Finish";
+		}
+	
+}
+
+function handleLocationUpdateNR(position) {
+	var currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	currMarker.setPosition(currLatLng);
+	//console.log("Lat:" + currLatLng.lat());
+	//console.log("Lng:" + currLatLng.lng());
+	//console.log(ticker);
+	ticker++;
+	locations[ticker] = currLatLng;
+
+	
+	//Calculate their milage and update the page accordingly
+	var currDistance = calculateDistance(locations);
+	document.getElementById("mileage").textContent = currDistance + " miles run.";
+
+	var lastTwoLocations = new Array(2);
+	lastTwoLocations[0] = locations[locations.length - 2];
+	lastTwoLocations[1] = locations[locations.length - 1];
+	lastLegDistance = calculateDistance(lastTwoLocations);
+
+	//if the distance run over the last 10 seconds is greater than...something,
+	//draw the bit that they've run on the map.
+	console.log(lastLegDistance + "mi run in the last 10 seconds");
+	if(lastLegDistance > 0.01) {
+		var nextLeg = new google.maps.Polyline({
+			path: lastTwoLocations,
+			strokeColor: "00F224",
+			strokeOpacity: 1.0,
+			strokeWeight: 2
+		});
+		nextLeg.setMap(map);
 	}
+
 }
 			
 function handleError(error) {
