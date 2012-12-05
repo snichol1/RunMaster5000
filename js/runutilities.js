@@ -68,11 +68,6 @@ function trackLocation() {
 	navigator.geolocation.getCurrentPosition(handleLocationUpdate, handleError)
 	lt=setTimeout("trackLocation()", DELAY);
 }
-//our new route variant
-function trackLocationNR() {
-	navigator.geolocation.getCurrentPosition(handleLocationUpdateNR, handleError)
-	lt=setTimeout("trackLocation()", DELAY);
-}
 
 //Set the initial location of the current location marker
 function handleLocationInitialization(position) {
@@ -173,39 +168,7 @@ function handleLocationUpdate(position) {
 	
 }
 
-function handleLocationUpdateNR(position) {
-	var currLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	currMarker.setPosition(currLatLng);
-	//console.log("Lat:" + currLatLng.lat());
-	//console.log("Lng:" + currLatLng.lng());
-	//console.log(ticker);
-	ticker++;
-	locations[ticker] = currLatLng;
 
-	
-	//Calculate their milage and update the page accordingly
-	var currDistance = calculateDistance(locations);
-	document.getElementById("mileage").textContent = currDistance + " miles run.";
-
-	var lastTwoLocations = new Array(2);
-	lastTwoLocations[0] = locations[locations.length - 2];
-	lastTwoLocations[1] = locations[locations.length - 1];
-	lastLegDistance = calculateDistance(lastTwoLocations);
-
-	//if the distance run over the last 10 seconds is greater than...something,
-	//draw the bit that they've run on the map.
-	console.log(lastLegDistance + "mi run in the last 10 seconds");
-	if(lastLegDistance > 0.01) {
-		var nextLeg = new google.maps.Polyline({
-			path: lastTwoLocations,
-			strokeColor: "00F224",
-			strokeOpacity: 1.0,
-			strokeWeight: 2
-		});
-		nextLeg.setMap(map);
-	}
-
-}
 			
 function handleError(error) {
 	if(!(sessionStorage.locationOff == 1)) {
