@@ -20,7 +20,7 @@
 <div data-role="page" class="leaderboardpage">
 	<div data-role="header">
 		<h1>Leaderboard</h1>
-		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
+		<a href=<?php echo "home.php?userID=" . $_GET['userID'];?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 	</div>
 		
 	<div data-role="content">	

@@ -39,7 +39,8 @@ session_start();
 		$date = date("Y:m:d", mktime(0,0,0,date("m"),date("d"),date("Y")));
 		$insert = "INSERT INTO RECORDS VALUES(".$routeID.", ".$userID.", \"".$timePretty."\", \"".$date."\")";
 		if($complete == 1) {
-			mysql_query($insert);
+			//mysql_query($insert);
+			echo "<br> run complete";
 		}
 
 		$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);

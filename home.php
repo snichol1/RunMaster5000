@@ -52,7 +52,12 @@
 			<?php echo "<li><a href=\"favorites.php?userID=" . $_SESSION['userID'] . "\">Favorite Routes</a></li>" ?>
 			<!---<?php echo "<li><a href=\"searchresults.php?name=optional&mysubmit=Search!&userID=" . $_SESSION['userID'] . "\">Search Routes</a></li>" ?> -->
 			<?php echo "<li><a href=\"newRoute.php?userID=" . $_SESSION['userID'] . "\">Create a New Route</a></li>" ?>
-			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals</a></li>" ?>
+			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals";
+				$chQuery = "SELECT * FROM Challenge WHERE ToID = " . $userID;
+				$chResult = mysql_query($chQuery);
+				$chCheck = mysql_num_rows($chResult);
+				if($chCheck > 0) echo "  <div style=\"color: red; float: right;\">New challenge!</div>";
+				echo "</a></li>"; ?>
 			<?php echo "<li><a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
 			<?php echo "<li><a href=\"settings.php?userID=" . $_SESSION['userID'] . "&isCorrect=1\">Settings</a></li>" ?>
 
