@@ -20,7 +20,7 @@ session_start();
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Friends</h1>
+		<h1><div class="text">Friends</div></h1>
 		<a href="home.php?userID=<?php echo $_SESSION['userID']?>" data-icon="home" id="home" class="ui-btn-left">Home</a>
 
 
@@ -38,6 +38,15 @@ session_start();
 	
 	.bottomtitle{
 		margin-top: 35px;	
+	}
+	
+	@font-face {
+		font-family: PTSans;
+		src: url('PTSans.ttf');
+	}
+	
+	.text{
+		font-family: PTSans;
 	}
 	</style>
 	<div data-role="content">	

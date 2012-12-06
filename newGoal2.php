@@ -7,9 +7,10 @@ session_start();
 <head> 
 	<title>New Goal</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<link rel="stylesheet" href="themes/blue.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> 
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>  
   <link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" /> 
 <style type="text/css">
 .ui-select  {
@@ -22,9 +23,18 @@ margin-right:auto;
 <body> 
 
 <div data-role="page">
-
+		<style>
+			@font-face {
+				font-family: PTSans;
+				src: url('PTSans.ttf');
+			}
+			
+			.text{
+				font-family: PTSans;
+			}
+		</style>
 	<div data-role="header">
-		<h1>Set a Goal</h1>
+		<h1 class="text">Set a Goal</h1>
     <a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 	</div><!-- /header -->
 

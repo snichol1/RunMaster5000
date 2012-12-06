@@ -23,11 +23,21 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Home</h1>
+		<h1><div class="headtext">Home</div></h1>
 				<a href="login.php" data-icon="check" id="logout" class="ui-btn-right">Logout</a>
 	</div><!-- /header -->
-
+	
 	<div data-role="content">	
+		<style>
+			@font-face {
+				font-family: PTSans;
+				src: url('PTSans.ttf');
+			}
+			
+			.headtext{
+				font-family: PTSans;
+			}
+		</style>
 		<?php
 			$userID = $_SESSION['userID'];
 			$name = $_GET['name'];
@@ -48,18 +58,18 @@
 		  		}
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
-			<?php echo "<li><a href=\"searchresults.php?name=optional&mysubmit=Search!&userID=" . $_SESSION['userID'] . "\">Routes</a></li>" ?>
-			<?php echo "<li><a href=\"favorites.php?userID=" . $_SESSION['userID'] . "\">Favorite Routes</a></li>" ?>
+			<?php echo "<li><a class=\"\" href=\"searchresults.php?name=optional&mysubmit=Search!&userID=" . $_SESSION['userID'] . "\">Routes</a></li>" ?>
+			<?php echo "<li><a class=\"\" href=\"favorites.php?userID=" . $_SESSION['userID'] . "\">Favorite Routes</a></li>" ?>
 			<!---<?php echo "<li><a href=\"searchresults.php?name=optional&mysubmit=Search!&userID=" . $_SESSION['userID'] . "\">Search Routes</a></li>" ?> -->
-			<?php echo "<li><a href=\"newRoute.php?userID=" . $_SESSION['userID'] . "\">Create a New Route</a></li>" ?>
-			<?php echo "<li><a href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals";
+			<?php echo "<li><a class=\"\" href=\"newRoute.php?userID=" . $_SESSION['userID'] . "\">Create a New Route</a></li>" ?>
+			<?php echo "<li><a class=\"\" href=\"goals.php?userID=" . $_SESSION['userID'] . "\">Goals";
 				$chQuery = "SELECT * FROM Challenge WHERE ToID = " . $userID;
 				$chResult = mysql_query($chQuery);
 				$chCheck = mysql_num_rows($chResult);
-				if($chCheck > 0) echo "  <div style=\"color: red; float: right;\">New challenge!</div>";
+				if($chCheck > 0) echo "  <div class=\"\" style=\"color: red; float: right;\">New challenge!</div>";
 				echo "</a></li>"; ?>
-			<?php echo "<li><a href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
-			<?php echo "<li><a href=\"settings.php?userID=" . $_SESSION['userID'] . "&isCorrect=1\">Settings</a></li>" ?>
+			<?php echo "<li><a class=\"\" href=\"friends.php?userID=" . $_SESSION['userID'] . "\">Friends</a></li>" ?>
+			<?php echo "<li><a class=\"\" href=\"settings.php?userID=" . $_SESSION['userID'] . "&isCorrect=1\">Settings</a></li>" ?>
 
 		</ul>
 	</div><!-- /content -->

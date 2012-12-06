@@ -17,9 +17,18 @@ session_start();
 <body> 
 
 <div data-role="page">
-
+<style>
+	@font-face {
+		font-family: PTSans;
+		src: url('PTSans.ttf');
+	}
+	
+	.text{
+		font-family: PTSans;
+	}
+</style>
 	<div data-role="header">
-		<h1>Challenge</h1>
+		<h1 class="text">Challenge</h1>
 		<a href="goals.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 	</div><!-- /header -->
 

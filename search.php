@@ -8,10 +8,10 @@ session_start();
 	<title>Search</title> 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/	jquery.mobile-1.2.0.min.css" />
-	
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<link rel="stylesheet" href="themes/blue.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> 
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>  
 	<script src="js/search.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -21,8 +21,67 @@ session_start();
 <body>
 
 <div data-role="page">
+
+<style>
+	@font-face {
+		font-family: PTSans;
+		src: url('PTSans.ttf');
+	}
+	
+	.text{
+		font-family: PTSans;
+	}
+	
+	#search{
+		color: white;
+		background: black;
+		height: 40px;
+		width: 100px;
+		text-align: center;
+	}
+
+	.distspecify{
+		font-size: 10px;	
+	}
+	
+	#selectedDist{
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	#name{
+		margin-right: 10px;
+	}
+	
+	#distance{
+		margin-right: 10px;
+	}
+	
+	#difficulty{
+		margin-right: 10px;
+	}
+	
+	.headtitle{
+		font-size: 20px;
+		font-family: "Arial";
+		margin-bottom: 0px;
+		margin-top: -10px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+		
+	.headtitlebottom{
+		font-size: 20px;
+		font-family: "Arial";
+		margin-bottom: 5px;
+		margin-top: 20px;
+		margin-left: auto;
+		margin-right: auto;	
+	}
+</style>
+
 <div data-role="header">
-	<h1>Filter</h1>
+	<h1 class="text">Filter</h1>
 	
 	<a href="searchresults.php?mysubmit=Search!" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
 </div><!-- /header -->
@@ -52,10 +111,10 @@ session_start();
 	</div>	
 	
 	<!--- Distance Selector ---->
-	    <div id="distanceselector" data-role="fieldcontain">
+	    <div id="distanceselector" data-role="">
 	        <fieldset data-role="controlgroup" data-type="horizontal">
 	            <legend>
-	                <b>Specify Route Distance:</b>
+	                <div class="headtitle">Distance:</div>
 	            </legend>
 	            <input id="shortdist" class="dist" name="shortdist" type="checkbox" onlick="displayDistance()"/>
 	            <label for="shortdist">
@@ -80,10 +139,10 @@ session_start();
 	
 	
 	<!---- Difficulty Selector ----->
-	    <div id="difficultyselector" data-role="fieldcontain">
+	    <div id="difficultyselector" data-role="">
 	        <fieldset data-role="controlgroup" data-type="horizontal">
 	            <legend>
-	                <b>Specify Route Difficulty:</b>
+	                <div class="headtitlebottom">Difficulty:</div>
 	            </legend>
 	            <input id="easydiff" class="diff" name="easydiff" type="checkbox"/>
 	            <label for="easydiff">

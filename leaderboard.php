@@ -18,8 +18,20 @@
 <body>
 
 <div data-role="page" class="leaderboardpage">
+
+<style>
+	@font-face {
+		font-family: PTSans;
+		src: url('PTSans.ttf');
+	}
+	
+	.text{
+		font-family: PTSans;
+	}
+</style>
+
 	<div data-role="header">
-		<h1>Leaderboard</h1>
+		<h1 class="text">Leaderboard</h1>
 		<a href=<?php echo "home.php?userID=" . $_GET['userID'];?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 	</div>
 		

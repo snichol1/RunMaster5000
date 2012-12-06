@@ -20,8 +20,18 @@ session_start();
     <body>
         <!-- Home -->
         <div data-role="page">
+        <style>
+			@font-face {
+				font-family: PTSans;
+				src: url('PTSans.ttf');
+			}
+			
+			.text{
+				font-family: PTSans;
+			}
+		</style>
 			<div data-role="header">
-			<h1>
+			<h1 class="text">
 			<?php
 				$routeID = $_GET['routeID'];
 				$userID = $_GET['userID'];

@@ -22,9 +22,18 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 <body> 
 
 <div data-role="page">
-
+<style>
+	@font-face {
+		font-family: PTSans;
+		src: url('PTSans.ttf');
+	}
+	
+	.text{
+		font-family: PTSans;
+	}
+</style>
 	<div data-role="header">
-		<h1>Goals</h1>
+		<h1 class="text">Goals</h1>
 		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 
 	</div><!-- /header -->
@@ -41,7 +50,11 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
     });
     </script>
 <h3> New Goals </h3> 
-				
+			<style>
+				.newchallenge{
+					margin-top: 5px;	
+				}
+			</style>
 			<table> 
 				<?php
 				include("config.php");
@@ -60,7 +73,7 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 					$routeRow = mysql_fetch_array($routeArray);  
 					
 					echo "<div class=\"newgoals\">";
-					echo "<span class=\"challenger\">".$nameRow['Name'] . " challenged you to " . $routeRow['Name']. "!</span>";
+					echo "<span class=\"challenger newchallenge\">".$nameRow['Name'] . " challenged you to " . $routeRow['Name']. "!</span>";
 					echo "<span class=\"acceptbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"addToGoals.php?routeID=".$row['RouteID']."&UserID=".$row['ToID']."&AntagonistID=".$row['FromID']."&Time=".$row['Time']."&DateSet=". $row['Date']."\"> Accept the challenge!</a></span>";
 					echo "<span class=\"dismissbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"dismissChallenge.php?routeID=".$row['RouteID']."&AntagonistID=".$row['FromID']."&Time=".$row['Time']."\"> Dismiss :( </a></span>";
 					echo "</div>";

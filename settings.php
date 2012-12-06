@@ -23,9 +23,18 @@ function showPassword() {
 </script> 
 
 <div data-role="page">
-
+<style>
+	@font-face {
+		font-family: PTSans;
+		src: url('PTSans.ttf');
+	}
+	
+	.text{
+		font-family: PTSans;
+	}
+</style>
 	<div data-role="header">
-		<h1>Settings</h1>
+		<h1 class="text">Settings</h1>
 		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 	</div><!-- /header -->
 

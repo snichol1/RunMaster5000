@@ -21,10 +21,19 @@ session_start();
 </head>
 <body>
 <div data-role="page">
-
+<style>
+	@font-face {
+		font-family: PTSans;
+		src: url('PTSans.ttf');
+	}
+	
+	.text{
+		font-family: PTSans;
+	}
+</style>
 <!-- /header -->
 <div data-role="header" class="header">
-	<h1>Routes</h1>
+	<h1 class="text">Routes</h1>
 
 <!--- Displays buttons on the header --->
 	<?php 
