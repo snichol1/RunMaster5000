@@ -34,7 +34,7 @@ $_SESSION['userID']=$_GET['userID'];
 
 	</div><!-- /header -->
 	<div data-role="content">	
-	<h3> Your favorite routes </h3> 
+	<h3> Your Favorite Routes </h3> 
 
 		<ul data-role="listview" data-inset="true" data-filter="false">
 				<?php
@@ -58,9 +58,13 @@ $_SESSION['userID']=$_GET['userID'];
 			if ($count == 0) echo "<h2>... oops, you don't have any! Add some!</h2>"; 
 		?> 
 	
+	<style>
+	
+	</style>
+	
 	<div data-role="collapsible-set" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" data-mini="true">
 	<hr> 
-	<h3> Edit Favorites list </h3> 
+	<h3> Edit Favorites List </h3> 
 	<div data-role="collapsible" data-collapsed="true" >
 	<h3>Add to Favorites</h3>
 	<?php

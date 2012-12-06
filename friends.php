@@ -24,12 +24,25 @@ session_start();
 		<a href="home.php?userID=<?php echo $_SESSION['userID']?>" data-icon="home" id="home" class="ui-btn-left">Home</a>
 
 
-
+	
 	</div><!-- /header -->
-
+	<style>
+	h3{
+		font-variant: inherent;
+		margin-top: -10px;	
+	}
+	
+	.toptitle{
+		margin-top: 5px;	
+	}
+	
+	.bottomtitle{
+		margin-top: 35px;	
+	}
+	</style>
 	<div data-role="content">	
 	
-	<h3> Friends you're following: </h3> 
+	<div class="toptitle"><h3>Friends you're following: </h3></div>
 	<table> 
 				<?php
 				include("config.php");
@@ -44,7 +57,7 @@ session_start();
 		  			{
 				  		echo "<li data-corners=\"false\" data-icon=\"arrow-r\" data-iconpos=\"right\" data-theme=\"c\">";
 							echo "<a href=\"removeFriend.php?userID=" . $_SESSION['userID'] . "&friendID=" . $row['UserID'] . "\">";
-								echo "<p class=\"ui-li-aside ui-li-desc\"><strong>Follow <br>User</strong>".$diffLabel."</p>";
+								echo "<p class=\"ui-li-aside ui-li-desc\"><strong>Unfollow <br>User</strong>".$diffLabel."</p>";
 								echo "<h3>   ".$row["Name"]."</h3>";
 							echo "</a>";
 						echo "</li>";
@@ -58,7 +71,7 @@ session_start();
 	echo "<a data-mini=\"true\" data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a>";
 	?>
 	
-	<h3> Users you're not following: </h3> 
+	<div class="bottomtitle"><h3> Users you're not following: </h3></div>
 	<table> 
 				<?php
 				include("config.php");
