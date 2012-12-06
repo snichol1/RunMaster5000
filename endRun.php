@@ -18,7 +18,7 @@ session_start();
 
 	<div data-role="header">
 		<h1>Run Finished</h1>
-		<a href="home.php" data-icon="home">Back</a>
+		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 	</div><!-- /header -->
 
 	<?php

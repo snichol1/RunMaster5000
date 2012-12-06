@@ -25,7 +25,7 @@ margin-right:auto;
 
 	<div data-role="header">
 		<h1>Set a Goal</h1>
-        <a href="home.php" data-icon="back" data-rel="back" data-add-back-btn="true">Back</a>
+    <a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 	</div><!-- /header -->
 
 	<div data-role="content">	

@@ -28,7 +28,7 @@
 			if(isset($_GET['bad'])) echo "<p>Login failed. Check your username and password and try again.</p>";
 		?>
 		<form action="enter.php" method="post">
-		<input type="text"  placeholder='Username' name="name" id="foo">
+		<input type="text"  placeholder='Username' name="name" id="foo" autofocus>
 		<input type="password" placeholder='Password' name="password" id="bar">
 	    <input type="submit" value="Login">
 		</form>

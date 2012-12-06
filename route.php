@@ -36,7 +36,7 @@ session_start();
 
 			?>
 			</h1>
-			<a href="home.php" data-icon="back" data-rel="back">Home</a>
+		<a href=<?php echo "home.php?userID=" . $_SESSION['userID']?> data-icon="home" id="back" class="ui-btn-left">Home</a>
 
 	</div><!-- /header -->
 	
@@ -209,7 +209,7 @@ session_start();
 				
 		  		echo "<a href=\"leaderboard.php?routeID=".$routeID. "&userID=" . $_GET['userID'] ."\" data-role=\"button\" data-icon=\"\" data-iconpos=\"right\">Leaderboard</a>";
 		  		
-				echo "<a href=\"newGoal.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" id=\"addGoal\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
+				echo "<a href=\"newGoal2.php?routeID=". $routeID . "&userID=" . $_GET['userID'] . "\" id=\"addGoal\" data-role=\"button\" data-icon=\"plus\" data-iconpos=\"right\">Add Goal</a>";
 				
 				
 			?>

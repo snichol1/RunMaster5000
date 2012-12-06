@@ -28,8 +28,8 @@ session_start();
 
 <!--- Displays buttons on the header --->
 	<?php 
-	echo "<a href=\"home.php\" data-icon=\"back\" data-rel=\"back\" data-add-back-btn=\"true\" data-iconpos=\"left\" class=\"ui-btn-left\">Back</a>";
-	echo "<a href=\"search.php?userID=\"". $_GET["userID"]. " data-icon=\"search\" data-iconpos=\"right\" class=\"searchbut ui-btn-right\"s>Filter</a>";
+	echo "<a href=\"home.php?userID=".$_GET["userID"]."\" data-icon=\"back\" data-rel=\"back\" data-add-back-btn=\"true\" data-iconpos=\"left\" class=\"ui-btn-left\">Home</a>";
+	echo "<a href=\"search.php?userID=". $_GET["userID"]. "\" data-icon=\"search\" data-iconpos=\"right\" class=\"searchbut ui-btn-right\"s>Filter</a>";
 	?>
 	<!---/*<a href="search.php" data-icon="search" >Search</a>*/--->
 </div>
