@@ -36,6 +36,7 @@ session_start();
 
 <!--- Where all the main content goes! --->
 <div data-role="content">
+	
 	<script type="text/javascript"> 
 	
 	$(document).ready(function () {

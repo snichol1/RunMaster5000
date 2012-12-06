@@ -190,6 +190,10 @@
 				resumeTimer();
 			});
 			$("#end").click(function() {
+				sessionStorage.timePretty = formatTime(elapsed);
+				sessionStorage.time = elapsed;
+				sessionStorage.goalTime = goalTime;
+
 				method = "post";
 				path = "endRun.php?routeID=<?=$routeID?>&userID=<?=$userID?>&complete=" + runComplete;
 				var form = document.createElement("form");

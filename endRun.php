@@ -40,7 +40,7 @@ session_start();
 		$insert = "INSERT INTO RECORDS VALUES(".$routeID.", ".$userID.", \"".$timePretty."\", \"".$date."\")";
 		if($complete == 1) {
 			//mysql_query($insert);
-			echo "<br> run complete";
+			
 		}
 
 		$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);
@@ -56,6 +56,9 @@ session_start();
 		if ($isFavorite == 0) {
 			echo "<a href=\"" .$action . "?routeID=" . $routeID . "\"&return=\"".$return."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 		}
+
+		//delete me!!
+		$complete = 1;
 	?>
 
 	<a href="home.php?routeID=<?=$routeID?>&userID=<?=$userID?>" data-role="button" data-icon="home" data-iconpos="right">Home</a>
@@ -71,8 +74,20 @@ session_start();
 		if(sessionStorage.timePretty) timePretty = sessionStorage.timePretty;
 		if(sessionStorage.time) time = sessionStorage.time;
 		
-		if(goalTime < time) {
+		console.log("GTP" + goalTimePretty);
+		console.log("GTR" + goalTime);
+		console.log("TP" + timePretty);
+		console.log("TR" + time);
+
+
+		if(parseInt(time) > parseInt(goalTime)) {
 			document.getElementById("message").textContent = "Good work, you'll reach your goal in no time!";
+		}
+		if(<?=$complete?> != 1) {
+			document.getElementById("message").textContent = "Try harder next time...";
+		}
+		if(goalTime == 0 || goalTime == null) {
+			document.getElementById("message").textContent = "Nice run! Try setting a goal next time.";
 		}
 
 		if(goalTimePretty != null) document.getElementById("time").textContent = "Your time was: " + timePretty;
