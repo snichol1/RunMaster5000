@@ -34,11 +34,17 @@
 			
 			if ($_GET['changed']) echo "<h3 style=\"color: green;\"> Password successfully changed! </h3>"; 
 			include("config.php");
-			$query = sprintf("select * from Users where UserID = '%s'", $_GET['userID']); 
-				$result = mysql_query($query);
+			$query = sprintf("select * from Users where UserID = '%s'", $_GET['userID']); 			
+			$result = mysql_query($query);
+
+			$champQuery = "select UserID, RouteID, mins.Time from Records, (select min(Time) as Time from Records group by RouteID) mins where Records.Time = mins.Time and UserID = " . $userID;
+			$champResult = mysql_query($champQuery);
+			$champCheck = mysql_num_rows($champResult);
 				while($row = mysql_fetch_array($result))
 		  		{
-					echo "Welcome, " . $row['Name']; 
+					echo "<h3>";
+					if($champCheck > 0) echo "<img src=\"trophy.jpg\" />";
+					echo $row['Name'] . "</h3>"; 
 		  		}
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
