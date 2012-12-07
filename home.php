@@ -28,6 +28,7 @@
 	</div><!-- /header -->
 	
 	<div data-role="content">	
+
 		<style>
 			@font-face {
 				font-family: PTSans;
