@@ -49,12 +49,32 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
             });
     });
     </script>
-<h3> New Goals </h3> 
-			<style>
-				.newchallenge{
-					margin-top: 5px;	
-				}
-			</style>
+    
+    <style>
+    	.newgoalshead{
+    		margin-top: -3px;
+    		margin-bottom: 10px;
+    	}
+    	.newgoals{
+    		margin-bottom: 10px;	
+    	}
+    	.challengehead{
+    		margin-bottom: -10px;	
+    	}
+    	.currgoalshead{
+    		margin-bottom: 10px;	
+    	}
+    	.challengebut{
+    		margin-top: -23px;	
+    		margin-bottom: 20px;
+    	}
+    	.lheader{
+			font-size: 10px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+    </style>
+	<h3 class="newgoalshead head"> New Goals </h3> 
 			<table> 
 				<?php
 				include("config.php");
@@ -75,7 +95,7 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 					echo "<div class=\"newgoals\">";
 					echo "<span class=\"challenger newchallenge\">".$nameRow['Name'] . " challenged you to " . $routeRow['Name']. "!</span>";
 					echo "<span class=\"acceptbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"addToGoals.php?routeID=".$row['RouteID']."&UserID=".$row['ToID']."&AntagonistID=".$row['FromID']."&Time=".$row['Time']."&DateSet=". $row['Date']."\"> Accept the challenge!</a></span>";
-					echo "<span class=\"dismissbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"dismissChallenge.php?routeID=".$row['RouteID']."&AntagonistID=".$row['FromID']."&Time=".$row['Time']."\"> Dismiss :( </a></span>";
+					echo "<span class=\"dismissbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"dismissChallenge.php?routeID=".$row['RouteID']."&AntagonistID=".$row['FromID']."&Time=".$row['Time']."\"> Dismiss.</a></span>";
 					echo "</div>";
 					
 		  		}
@@ -85,14 +105,11 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 		
 		</table> 
 
-				
-		</ul>
-	    
 	    
 
 		</form>
 		<hr> 
-		<h3> Challenge a friend 
+		<h3 = "challengehead head"> Challenge a friend </h3>
 		<?php 
 			$userID = $_SESSION['userID']; 
 
@@ -103,15 +120,16 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 			while($row = mysql_fetch_array($result)) {
 				$haveTimes = true; 
 			}
-			if ($haveTimes) echo "<br><a data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a> </h3>";
+			if ($haveTimes) echo "<br><a class='challengebut' data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a> ";
 			else {
-				echo " </h3> Oops! You can't send a challenge until you've run a route yourself."; 
+				echo " </h3 class='challengebut'> Oops! You can't send a challenge until you've run a route yourself."; 
 			}
 
 		 ?>
 		 
 		 <hr>
-		<h3> Current Goals </h3> 	
+		 
+		<h3 class="currgoalshead head"> Current Goals </h3> 	
 		
 				<?php
 				include("config.php");
@@ -128,7 +146,10 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 				while($row = mysql_fetch_array($result))
 		  		{
 		  			if ($counter == 0) {
-		  				echo "<table>";
+		  				echo "<div class=\"ui-grid-b\">";
+						echo "<div class='ui-block-a lheader'><b>ROUTE</b></div> <div class='ui-block-b lheader'><b>GOAL TIME</b></div> <div class='ui-block-c lheader'><b>CHALLENGER</b></div>";
+						echo "</div>";
+		  				/*echo "<table>";
 				  		echo "<tr>"; 
 				  		echo "<td>"; 
 				  		echo "<b>Route | </b>"; 
@@ -137,8 +158,8 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 				  		echo "<b>Goal Time | </b>"; 
 				  		echo "</td>";
 						echo "<td> <b>Challenger</b> </td>";
-						echo "</tr>"; //Remove if reverted
-						echo "</table>";
+						echo "</tr>"; 
+						echo "</table>";*/
 		  			}
 		  			$haveAGoal = true;
 			  		$query = sprintf("select * from Users where UserID = '%s' LIMIT 0, 30 ", $row['AntagonistID']); 
@@ -152,66 +173,30 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 					$userID = $_SESSION['userID'];
 					$counter++; 
 					
-					
-					/*echo "<div class=\"goalentry\"><span class=\"namelabel\">".$name."</span>";
-					echo "<span class=\"timelabel\">".$time."</span>";
-					echo */
-					
-					echo "<table>";
-			  		echo "<tr>"; 
-			  		echo "<td>"; 
-			  		$name = $row['Name']; 
-			  		echo $name; 
-			  		echo "</td>"; 
-			  		echo "<td>"; 
-			  		$time = $row['Time']; 
-			  		echo $time; 
-			  		echo "</td>";
-			  		
-					
+					echo "<div class=\"ui-grid-b\">";
+					echo "<div class='ui-block-a'>". $name . "</div>";
+					echo "<div class='ui-block-b'>". $time . "</div>";
 					if ($row['AntagonistID'] !=  $_SESSION['userID']) 
-						echo "<td>" . "from " . $challengerName . "</td>";
+						echo "<div class='ui-block-c'>". $challengerName . "</div>";
 					else 
-						echo "<td> Yourself </td>";
-						
-					echo "</tr>"; //Remove if reverted
-					echo "</table>";
+						echo "<div class='ui-block-c'>Yourself</div>";
+					echo "</div>";
 					
-					echo "<span class=\"runbutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
-					echo "\">"; 
-			 	 	echo "Run!"; 
-			  		echo "</a></span>";
-			  		
-			  		echo "<span class=\"removebutton\"><a data-mini=\"true\" data-inline=\"true\" href = \"removeGoal.php?routeID=" .$routeID; 
-				  	echo "&UserID=";
-				  	echo $row['UserID'];
-				  	echo "&AntagonistID=";
-				  	echo $row['AntagonistID'];
-			  		echo "\"> Remove"; 
-			  		echo "</a></span><br><br>";	  		
-					
-			  		/*echo "<td>"; 
-					echo "<a href = \"route.php?routeID=" . $row['RouteID'] . "&userID=" . $_SESSION['userID'];
-				  		echo "\">"; 
-				 	 	echo "RUN!"; 
-				  		echo "</a>";
-			  		echo "</td>"; 
-			  		
-			  		echo "<td>"; 
-			  		
-					echo "<a href = \"removeGoal.php?routeID="; 
-				  	echo $row['RouteID'];
-				  	echo "&UserID=";
-				  	echo $row['UserID'];
-				  	echo "&AntagonistID=";
-				  	echo $row['AntagonistID'];
-			  		echo "\"> Remove"; 
-			  		echo "</a>";	  		
-			  		
-			  		
-			  		echo "</td>";  */	
-			  		
-			  		//echo "</tr>"; 
+					echo "<div class='ui-grid-a'>";
+						echo "<div class=\"runbutton ui-block-a\"><a data-mini=\"true\" data-inline=\"\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
+						echo "\">"; 
+						echo "Run!"; 
+				  		echo "</a></div>";
+				  		
+				  		echo "<div class=\"removebutton ui-block-b\"><a data-mini=\"true\" data-inline=\"\" href = \"removeGoal.php?routeID=" .$routeID; 
+					  	echo "&UserID=";
+					  	echo $row['UserID'];
+					  	echo "&AntagonistID=";
+					  	echo $row['AntagonistID'];
+				  		echo "\"> Remove"; 
+				  		echo "</a></div><br><br>";	  	
+					echo "</div>"; 		
+					 
 		  		}
 		  		if(!$haveAGoal){
 		  			echo "<div id=\"nogoals\">You have no current goals. Let's solve that problem!</div>";
