@@ -122,7 +122,7 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 			}
 			if ($haveTimes) echo "<br><a class='challengebut' data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a> ";
 			else {
-				echo " <h3> Oops! You can't send a challenge until you've run a route yourself.</h3>"; 
+				echo " <p> Oops! You can't send a challenge until you've run a route yourself.</p>"; 
 			}
 
 		 ?>

@@ -52,7 +52,7 @@ session_start();
 		Goal added! 
 	</div><!-- /content -->
 	<script> 
-		window.location.href = "goals.php"; 
+		window.location.href = "goals.php?userID=<?=$_SESSION['userID']?>"; 
 	</script> 
 		
 	<script type="text/javascript">
