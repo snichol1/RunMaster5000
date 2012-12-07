@@ -27,6 +27,8 @@ session_start();
 
 		$lats = $_POST['lats'];
 		$lngs = $_POST['lngs'];
+		$_SESSION['lats'] = $lats;
+		$_SESSION['lngs'] = $lngs;
 		for($i = 0; $i < count($lats); $i++) {
 			echo "<br>Lat:" . $lats[$i] . " Lng:" . $lngs[$i];
 		}
@@ -46,6 +48,8 @@ session_start();
 		<option value="1">Easy</option>
 		<option value="2">Medium</option>
 		<option value="3">Hard</option>
+		<input type="hidden" name="time" value="<?=$timePretty?>">
+		<input type="hidden" name="distance" value="<?=$totalDistance?>">
 		<input type="submit" value="Keep route">
 	</form>
 
