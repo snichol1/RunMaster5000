@@ -16,10 +16,9 @@ session_start();
 		$result = mysql_query($query);
 		$count = mysql_num_rows($result);
 		if($count > 0) {
-			header("Location: endNewRoute.php?userID=".$userID."&bad=1");
-		}elseif($distance == 0) {
-			echo "time: " . $_SESSION['newTime'];
-			header("Location: endNewRoute.php?userID=".$userID."&bad=2");
+			header('Location: home.php?userID='.$userID);
+		}elseif(floatval($distance) == 0.00) {
+			header('Location: home.php?userID='.$userID);
 		}
 ?>
 <!DOCTYPE html>
@@ -37,16 +36,19 @@ session_start();
 <body>
 <?php
 		for($i = 0; $i < count($lats); $i++) {
-			echo "<br>Lat:" . $lats[$i] . " Lng:" . $lngs[$i];
+			//echo "<br>Lat:" . $lats[$i] . " Lng:" . $lngs[$i];
 		}
 
-		echo "<br>" . $name;
-		echo "<br>Diff" . $difficulty;
-		echo "<br>Dist" . $distance;
+		//echo "<br>" . $name;
+		//echo "<br>Diff" . $difficulty;
+		//echo "<br>Dist" . $distance;
+		//echo "<br>sess dist" . $_SESSION['newDistance'];
+		//echo "<br>sess time" . $_SESSION['newTime'];
+		//echo "<br>count: " . $count;
 		//first, create the new route entry
 		$insert = "INSERT INTO `c_cs147_thesam`.`Routes`(`Name`, `Distance`, `Difficulty`) VALUES('".$name."', ".$distance.", ".$difficulty.")";
-		//mysql_query($insert);
-		echo "<br>" . $insert;
+		mysql_query($insert);
+		//echo "<br>" . $insert;
 		//get the routeID for that / check that the insert worked
 		$query = "SELECT RouteID FROM Routes WHERE Name = '".$name."'";
 		$result = mysql_query($query);
@@ -55,7 +57,7 @@ session_start();
 		if($count > 0) {
 			$row = mysql_fetch_array($result);
 			$routeID = $row['RouteID'];
-			echo "<br>ID:" . $routeID;
+			//echo "<br>ID:" . $routeID;
 		}
 
 		//now stuff errythang else in BreadCrumbs...
@@ -67,15 +69,15 @@ session_start();
 				if($i == (count($lats) - 1)) $isFinish = 1;
 				$insert = "INSERT INTO BreadCrumbs(RouteID, lat, lng, isStart, isFinish) VALUES(".$routeID.", ".$lats[$i].", ".$lngs[$i].", ".$isStart.", ".$isFinish.")";
 				echo "<br>" . $insert;
-				//mysql_query($insert);
+				mysql_query($insert);
 			}
 			//finally, send 'em home
-
+			echo ("<script type=\"text/javascript\">
+			window.location.href=\"home.php?userID=".$userID."&routeCreated=1\";
+			</script>");
 		}
 ?>
 
-<script type="text/javascript">
-	window.location.href="home.php?userID=<?=$userID?>&routeCreated=1";
-</script>
+
 </body>
 </html>
