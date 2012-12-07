@@ -98,8 +98,8 @@ session_start();
 			document.getElementById("message").textContent = "Nice run! Try setting a goal next time.";
 		}
 
-		if(goalTimePretty != null) document.getElementById("time").textContent = "Your time was: " + timePretty;
-		if(timePretty != null) document.getElementById("goal").textContent = "Your goal was: " + goalTimePretty;
+		if(timePretty != null) document.getElementById("time").textContent = "Your time was: " + timePretty;
+		if(goalTimePretty != null) document.getElementById("goal").textContent = "Your goal was: " + goalTimePretty;
 	</script>
 </div>
 <body>
