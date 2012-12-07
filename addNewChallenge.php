@@ -57,7 +57,7 @@ session_start();
 		<h1>Challenge Sent! </h1>
 				
 <script> 
-window.location.href = "goals.php"; 
+window.location.href = "goals.php?userID=<?=$_SESSION['userID']?>"; 
 </script> 
 	</div><!-- /content -->
 

@@ -34,7 +34,8 @@ session_start();
 
 	<div data-role="content">	
 	
-<form action="addNewChallenge.php" method = "post">
+<?php echo "<form method=\"post\" action=\"addNewChallenge.php?userID=" . $_SESSION['userID'] . "\">"; ?> 
+
 Select a friend: 
 	<?php echo "<input type=\"hidden\" name=\"userID\" value = \"" . $_SESSION['userID'] . "\">"; ?> 
 	<select name="friendList">
