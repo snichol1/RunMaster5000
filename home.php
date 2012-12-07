@@ -37,6 +37,14 @@
 			.headtext{
 				font-family: PTSans;
 			}
+			.namehead{
+				margin-top: 5px;
+				margin-left: 30px;
+			}
+			.trophy{
+				position: absolute;
+				margin-top: 0px;
+			}
 		</style>
 		<?php
 			$userID = $_SESSION['userID'];
@@ -52,8 +60,8 @@
 			$champCheck = mysql_num_rows($champResult);
 				while($row = mysql_fetch_array($result))
 		  		{
-					echo "<h3>";
-					if($champCheck > 0) echo "<img src=\"trophy.png\" />";
+					if($champCheck > 0) echo "<div class='trophy'><img src=\"trophy.png\" /></div>";
+					echo "<h3 class='namehead'>";
 					echo $row['Name'] . "</h3>"; 
 		  		}
 

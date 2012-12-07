@@ -69,6 +69,11 @@
 			font-size: 18px;
 			}
 			
+			.trophy{
+				position: absolute;
+				margin-top: -2px;
+				margin-left: 5px;
+			}
 			</style>
 			<?php
 			include("config.php");
@@ -106,7 +111,9 @@
 							echo "<div class='yourResult firstplace'>";
 						else
 							echo "<div class='yourResult'>";
-						echo "<div class='headtitle'>You</div>";
+						echo "<span class='headtitle'>You</span>";
+						if($count == 1) echo "<span class='trophy'> <img src=\"trophy.png\" /></span>"; 
+						echo "";
 						echo "<div class=\"ui-grid-b\">";
 						echo "<div class='ui-block-a lheader'><b>RANK/NAME</b></div> <div class='ui-block-b lheader'><b>TIME</b></div> <div class='ui-block-c lheader'><b>DATE SET</b></div>";
 						
