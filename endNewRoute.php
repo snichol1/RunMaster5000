@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html> 
 <html> 
 <head> 
-	<title>Run Complete!</title> 
+	<title>New Route Complete!</title> 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="themes/blue.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css" /> 
@@ -27,22 +27,29 @@ session_start();
 
 		$lats = $_POST['lats'];
 		$lngs = $_POST['lngs'];
+		$totalDistance = $_POST['totalDistance'];
+		$timePretty = $_POST['timePretty'];
 		$_SESSION['lats'] = $lats;
 		$_SESSION['lngs'] = $lngs;
+		$_SESSION['newDistance'] = $totalDistance;
+		$_SESSION['newTime'] = $timePretty;
+
+		if($_GET['bad'] == 1) echo "<div style=\"color: red;\"> That name's already taken. </div>"; 
+		if($_GET['bad'] == 2) echo "<div style=\"color: red;\"> Your run's too short, sorry :\ </div>"; 
+
 		for($i = 0; $i < count($lats); $i++) {
-			echo "<br>Lat:" . $lats[$i] . " Lng:" . $lngs[$i];
+			//echo "<br>Lat:" . $lats[$i] . " Lng:" . $lngs[$i];
 		}
 
-		$totalDistance = $_POST['totalDistance'];
-		echo "<br>Total distance: " . $totalDistance . " mi";
+		//echo "<br>Total distance: " . $totalDistance . " mi";
 
-		$timePretty = $_POST['timePretty'];
-		echo "<br>Time: " . $timePretty;
+		//echo "<br>Time: " . $timePretty;
 	?>
-	<div id="time"></div>
-	<div id="goal"></div>
+	<h3>Time: <?=$_SESSION['newTime']?></h3>
+	<h3>Distance: <?=$_SESSION['newDistance']?>mi.</h3>
 
-	<form method="post" action="addNewRoute.php">
+	<br>
+	<form method="post" action="addNewRoute.php?userID=<?=$userID?>">
 		Name: <input type="text" name="routeName" required="required">
 		Difficulty: <select name="difficulty">
 		<option value="1">Easy</option>
@@ -57,11 +64,12 @@ session_start();
 	<?php
 		//insert the user's time, if they completed the run, into the DB
 		$date = date("Y:m:d", mktime(0,0,0,date("m"),date("d"),date("Y")));
-		echo "<br>" . $date;
+		//echo "<br>" . $date;
 		//$insert = "INSERT INTO RECORDS VALUES(".$routeID.", ".$userID.", \"".$timePretty."\", \"".$date."\")";
 
 	?>
-
+	<br>
+	<br>
 	<a href="home.php?routeID=<?=$routeID?>&userID=<?=$userID?>" data-role="button" data-icon="home" data-iconpos="right">Discard route</a>
 	
 
