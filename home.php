@@ -42,7 +42,7 @@
 			$userID = $_SESSION['userID'];
 			$name = $_GET['name'];
 			
-			if ($_GET['changed']) echo "<h3 style=\"color: green;\"> Password successfully changed! </h3>"; 
+
 			include("config.php");
 			$query = sprintf("select * from Users where UserID = '%s'", $_GET['userID']); 			
 			$result = mysql_query($query);
@@ -53,9 +53,12 @@
 				while($row = mysql_fetch_array($result))
 		  		{
 					echo "<h3>";
-					if($champCheck > 0) echo "<img src=\"trophy.jpg\" />";
+					if($champCheck > 0) echo "<img src=\"trophy.png\" />";
 					echo $row['Name'] . "</h3>"; 
 		  		}
+
+		  	if ($_GET['changed'] == 1) echo "<div style=\"color: green;\"> Password successfully changed! </div>"; 
+			if ($_GET['routeCreated'] == 1) echo "<div style=\"color: green;\"> New route created :D </div>"; 
 		?>
 		<ul data-role="listview" data-inset="true" data-filter="false">
 			<?php echo "<li><a class=\"\" href=\"searchresults.php?name=optional&mysubmit=Search!&userID=" . $_SESSION['userID'] . "\">Routes</a></li>" ?>

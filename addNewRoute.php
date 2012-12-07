@@ -16,7 +16,10 @@ session_start();
 		$result = mysql_query($query);
 		$count = mysql_num_rows($result);
 		if($count > 0) {
-			header('Location: endNewRoute.php');
+			header("Location: endNewRoute.php?userID=".$userID."&bad=1");
+		}elseif($distance == 0) {
+			echo "time: " . $_SESSION['newTime'];
+			header("Location: endNewRoute.php?userID=".$userID."&bad=2");
 		}
 ?>
 <!DOCTYPE html>
@@ -38,7 +41,7 @@ session_start();
 		}
 
 		echo "<br>" . $name;
-		echo "<br>Diff" . $dfficulty;
+		echo "<br>Diff" . $difficulty;
 		echo "<br>Dist" . $distance;
 		//first, create the new route entry
 		$insert = "INSERT INTO `c_cs147_thesam`.`Routes`(`Name`, `Distance`, `Difficulty`) VALUES('".$name."', ".$distance.", ".$difficulty.")";
@@ -66,7 +69,13 @@ session_start();
 				echo "<br>" . $insert;
 				//mysql_query($insert);
 			}
+			//finally, send 'em home
+
 		}
 ?>
+
+<script type="text/javascript">
+	window.location.href="home.php?userID=<?=$userID?>&routeCreated=1";
+</script>
 </body>
 </html>
