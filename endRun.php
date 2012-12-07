@@ -50,8 +50,7 @@ session_start();
 		$date = date("Y:m:d", mktime(0,0,0,date("m"),date("d"),date("Y")));
 		$insert = "INSERT INTO RECORDS VALUES(".$routeID.", ".$userID.", \"".$timePretty."\", \"".$date."\")";
 		if($complete == 1) {
-			//mysql_query($insert);
-			
+			mysql_query($insert);
 		}
 
 		$query = sprintf("select * from Favorites where RouteID='%s' and UserID = '%s'", $routeID, $_SESSION['userID']);
@@ -68,8 +67,6 @@ session_start();
 			echo "<a href=\"" .$action . "?routeID=" . $routeID . "\"&return=\"".$return."\" data-role=\"button\" data-icon=\"none\"  data-iconpos=\"right\">" . $message . "</a>";
 		}
 
-		//delete me!!
-		$complete = 1;
 	?>
 
 	<a href="home.php?routeID=<?=$routeID?>&userID=<?=$userID?>" data-role="button" data-icon="home" data-iconpos="right">Home</a>

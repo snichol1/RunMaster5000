@@ -1,3 +1,26 @@
+<?php
+session_start();
+
+	include("config.php");
+
+	$routeID = $_GET['routeID'];
+		$userID = $_GET['userID'];
+		$lats = $_SESSION['lats'];
+		$lngs = $_SESSION['lngs'];
+		$name = $_POST['routeName'];
+		$difficulty = $_POST['difficulty'];
+		$distance = $_POST['distance'];
+
+		//LET'S GROCK
+		$query = "SELECT * FROM Routes WHERE Name = '" .$name. "'";
+		$result = mysql_query($query);
+		$count = mysql_num_rows($result);
+		if($count > 0 || $distance == 0) {
+			header('Location: endNewRoute.php');
+		}else {
+
+		}
+?>
 <!DOCTYPE html>
 <html>
 <head> 
@@ -12,24 +35,10 @@
 </head> 
 <body>
 <?php
-	include("config.php");
-
-	echo "tits";
-
-	$routeID = $_GET['routeID'];
-		$userID = $_GET['userID'];
-
-		$lats = $_POST['lats'];
-		$lngs = $_POST['lngs'];
 		for($i = 0; $i < count($lats); $i++) {
 			echo "<br>Lat:" . $lats[$i] . " Lng:" . $lngs[$i];
 		}
 
-		$totalDistance = $_POST['totalDistance'];
-		echo "<br>Total distance: " . $totalDistance . " mi";
-
-		$timePretty = $_POST['timePretty'];
-		echo "<br>Time: " . $timePretty;
 		echo "<br>" . $_POST['routeName'];
 		echo "<br>Diff" . $_POST['difficulty'];
 ?>
