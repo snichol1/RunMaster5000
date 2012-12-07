@@ -73,6 +73,12 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 			margin-top: 5px;
 			margin-bottom: 5px;
 		}
+		.c2goal{
+			margin-bottom: 10px;
+		}
+		.cgoal{
+			margin-bottom: 2px;	
+		}
     </style>
 	<h3 class="newgoalshead head"> New Goals </h3> 
 			<table> 
@@ -122,7 +128,7 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 			}
 			if ($haveTimes) echo "<br><a class='challengebut' data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a> ";
 			else {
-				echo " <p> Oops! You can't send a challenge until you've run a route yourself.</p>"; 
+				echo " <h3> Oops! You can't send a challenge until you've run a route yourself.</h3>"; 
 			}
 
 		 ?>
@@ -174,21 +180,21 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 					$counter++; 
 					
 					echo "<div class=\"ui-grid-b\">";
-						echo "<div class='ui-block-a'>". $name . "</div>";
-						echo "<div class='ui-block-b'>". $time . "</div>";
+						echo "<div class='ui-block-a cgoal'>". $name . "</div>";
+						echo "<div class='ui-block-b cgoal'>". $time . "</div>";
 						if ($row['AntagonistID'] !=  $_SESSION['userID']) 
-							echo "<div class='ui-block-c'>". $challengerName . "</div>";
+							echo "<div class='ui-block-c cgoal'>". $challengerName . "</div>";
 						else 
-							echo "<div class='ui-block-c'>Yourself</div>";
+							echo "<div class='ui-block-c cgoal'>Yourself</div>";
 					echo "</div>";
 					
 					echo "<div class='ui-grid-a'>";
-						echo "<div class=\"runbutton ui-block-a\"><a data-mini=\"true\" data-inline=\"\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
+						echo "<div class=\"runbutton c2goal ui-block-a\"><a data-mini=\"true\" data-inline=\"\" href = \"route.php?routeID=" . $routeID . "&userID=" . $userID;
 						echo "\">"; 
 						echo "Run!"; 
 				  		echo "</a></div>";
 				  		
-				  		echo "<div class=\"removebutton ui-block-b\"><a data-mini=\"true\" data-inline=\"\" href = \"removeGoal.php?routeID=" .$routeID; 
+				  		echo "<div class=\"removebutton c2goal ui-block-b\"><a data-mini=\"true\" data-inline=\"\" href = \"removeGoal.php?routeID=" .$routeID; 
 					  	echo "&UserID=";
 					  	echo $row['UserID'];
 					  	echo "&AntagonistID=";
