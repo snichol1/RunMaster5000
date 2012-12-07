@@ -122,7 +122,7 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 			}
 			if ($haveTimes) echo "<br><a class='challengebut' data-role=\"button\" href=\"newChallenge.php?userID=" . $_SESSION['userID'] . "\">Challenge a Friend!</a> ";
 			else {
-				echo " </h3 class='challengebut'> Oops! You can't send a challenge until you've run a route yourself."; 
+				echo " <h3> Oops! You can't send a challenge until you've run a route yourself.</h3>"; 
 			}
 
 		 ?>
@@ -174,12 +174,12 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 					$counter++; 
 					
 					echo "<div class=\"ui-grid-b\">";
-					echo "<div class='ui-block-a'>". $name . "</div>";
-					echo "<div class='ui-block-b'>". $time . "</div>";
-					if ($row['AntagonistID'] !=  $_SESSION['userID']) 
-						echo "<div class='ui-block-c'>". $challengerName . "</div>";
-					else 
-						echo "<div class='ui-block-c'>Yourself</div>";
+						echo "<div class='ui-block-a'>". $name . "</div>";
+						echo "<div class='ui-block-b'>". $time . "</div>";
+						if ($row['AntagonistID'] !=  $_SESSION['userID']) 
+							echo "<div class='ui-block-c'>". $challengerName . "</div>";
+						else 
+							echo "<div class='ui-block-c'>Yourself</div>";
 					echo "</div>";
 					
 					echo "<div class='ui-grid-a'>";
@@ -268,7 +268,7 @@ if ($_SESSION['userID']) $_SESSION['userID']=$_GET['userID'];
 			  		echo "</table></div></div>";
 		  		}
 		  		if(!$haveMetAGoal)
-		  			echo "<div id=\"nometgoals\">You have not met any goals yet. :( </div>";
+		  			echo "<div id=\"nometgoals\">You have not met any goals yet.</div>";
 			?>
 				
 	</div><!-- /content -->
